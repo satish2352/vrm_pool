@@ -49,9 +49,18 @@ const loginUser = [
                     const userId = user.id;
                     const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
                     const expiration = new Date(Date.now() + 3600000); // 1 hour expiration                
-                    const createdToken = await Token.create({ userId, token, expiration });
-                    console.log("hooooooooo");
-                    console.log(createdToken);
+                   // const createdTokenx = await Token.create({ userId, token, expiration });
+                    // Find an existing token for the user or create a new one if it doesn't exist
+                    const [createdToken, created] = await Token.findOrCreate({
+                        where: { userId: userId },
+                        defaults: { token: token, expiration: expiration }
+                    });
+                    // If token already exists, update it
+                    if (!created) {
+                        createdToken.token = token;
+                        createdToken.expiration = expiration;
+                        await createdToken.save();
+                    }
                     return res.status(200).json({
                         result: true, message: 'User login successful', token: token, data: {
                             id: user.id,
