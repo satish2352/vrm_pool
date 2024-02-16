@@ -1,7 +1,9 @@
 const express = require("express");
 const apiRouter = require("./apiRouter");
 const app = express();
-
+var bodyParser = require('body-parser')
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded());
 app.use(express.json());
 const dbObj = require("./db");
 
