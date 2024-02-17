@@ -32,15 +32,18 @@ const User = dbObj.define('user', {
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
       notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notEmpty: true,
+      isEmail:true, // Additional validation for not empty
     }
   },
   mobile: {
     type:DataTypes.STRING,
-    allowNull: false, // This is the default if required is not explicitly set
+    allowNull: false, 
+    unique: true,// This is the default if required is not explicitly set
     validate: {
       notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notEmpty: true,
+      len: { min: 10, max: 10 }// Additional validation for not empty
     }
   },
   password: {
@@ -48,7 +51,8 @@ const User = dbObj.define('user', {
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
       notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notEmpty: true,
+      len: { min: 8 } // Additional validation for not empty
     }
   },
   user_type: {
@@ -57,7 +61,8 @@ const User = dbObj.define('user', {
     unique: true,
     validate: {
       notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notEmpty: true,
+      len: { min: 1, max: 3 } // Additional validation for not empty
     }
   }
   

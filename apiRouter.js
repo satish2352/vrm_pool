@@ -4,6 +4,7 @@ var app = express();
 const usersController = require("./controllers/usersController");
 const loginController = require("./controllers/loginController");
 const getUserController = require("./controllers/getUserController");
+const uploadBulkUsersController = require("./controllers/uploadBulkUsersController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -11,6 +12,7 @@ const { body, query, validationResult } = require("express-validator");
 router.post("/addusers",usersController.addusers);
 router.post("/login",loginController.loginUser);
 router.post("/getUser",getUserController.getUser);
+router.post("/uploadBulkUsers",uploadBulkUsersController.uploadUsers);
 
 module.exports = router;
 
