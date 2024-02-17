@@ -111,7 +111,8 @@ const uploadUsers = [
              Promise.all(insertionPromises)
                .then(usersToInsertFiltered => {
                  // Filter out null entries (users not to be inserted)
-                 const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null);                            
+                 const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
+                 .map(user => ({user, fileId: 'your-file-id' }));                            
                  UsersCopy.bulkCreate(usersToInsertFinal);
                  return User.bulkCreate(usersToInsertFinal);
                })
