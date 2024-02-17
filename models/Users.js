@@ -64,6 +64,10 @@ const User = dbObj.define('user', {
       notEmpty: true,
       len: { min: 1, max: 3 } // Additional validation for not empty
     }
+  },
+  fileId: {
+    type: DataTypes.STRING,
+    defaultValue: null,
   }
   
 });

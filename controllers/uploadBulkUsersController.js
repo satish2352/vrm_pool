@@ -1,6 +1,5 @@
 const User = require("../models/Users");
-const { body, query, validationResult } = require("express-validator");
-const apiResponse = require("../helpers/apiResponse");
+const UsersCopy = require("../models/UsersCopy");
 const multer = require('multer')
 const path = require('path');
 const xlsx = require('xlsx');
@@ -12,7 +11,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         // Generate a unique filename by adding a timestamp
-        cb(null, `${Date.now()}_${file.originalname}`);
+        cb(null, `${Date.now()}`);
     }
 });
 const excelFilter = function (req, file, cb) {
@@ -38,15 +37,13 @@ const uploadUsers = [
     verifyToken,
     upload.single('file'),
     async (req, res) => {
-        // req.body will hold the text fields, if there were any
         if (!req.file) {
-            return res.status(400).json({ result: false, message: 'No files were uploaded select valid .xlsx or .xls files are allowed.' });
+            return res.status(400).json({ result: false, message: 'file not uploaded select valid file. only .xlsx or .xls file is allowed.' });
         }
         const workbook = xlsx.readFile(req.file.path);
-        const sheets = workbook.SheetNames; // Get all sheet names
-        const combinedData = [];
+        const sheets = workbook.SheetNames; // Get all sheet names    
         let jsonData;
-        let usersNotInserted = [];
+        var usersNotInserted = [];
         try {
             for (const sheetName of sheets) {
                 const worksheet = workbook.Sheets[sheetName];
@@ -54,44 +51,81 @@ const uploadUsers = [
 
                 // Optional: Add sheet name as a property to each data object
                 jsonData.forEach(data => data.sheetName = sheetName);
-                console.log(jsonData);
 
                 // Alternatively, insert data sheet by sheet:
                 // await collection.insertMany(jsonData);
             }
 
              let usersToInsert=jsonData;            
-                const insertionPromises = usersToInsert.map(user => {
-                return User.findOne({
-                    where: { mobile: user.mobile }
-                }).then(existingUser => {
-                    if (existingUser) {
-                    usersNotInserted.push(user);
-                    return null; // Returning null so this user is not inserted
-                    } else {
-                    return user; // Returning the user object to be inserted
-                    }
-                });
-                });
 
-                Promise.all(insertionPromises)
-                .then(usersToInsertFiltered => {
-                    // Filter out null entries (users not to be inserted)
-                    const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null);
-                    return User.bulkCreate(usersToInsertFinal,{ validate: true ,ignoreDuplicates: true});
-                })
-                .then(users => {
-                    console.log(`${users.length} users inserted successfully.`);
-                })
-                .catch(error => {
-                    console.error('Error inserting users:', error.error);
-                })
-                .finally(() => {
-                    if (usersNotInserted.length > 0) {
-                    console.log(`Users not inserted (already existing):`);
-                    console.log(usersNotInserted);
-                    }
-                });
+             const insertionPromises = usersToInsert.map(user => {
+               return User.build(user).validate()
+                 .then(() => {
+                   // Validation passed for this user, check if mobile number already exists
+                   return User.findOne({
+                     where: { mobile: user.mobile }
+                   });
+                 })
+                 .then(existingUser => {
+                   if (existingUser) {
+                     // User with the same mobile number already exists, add it to the list to log
+                     usersNotInserted.push(user);            
+                     const userCopyModel=({
+                        fname:user.name,
+                        mname:user.mname,
+                        lname:user.lname,
+                        mobile:user.mobile,
+                        email:user.email,
+                        password:user.password,
+                        user_type:user.user_type,
+                        is_inserted:0,
+                        reason:'mobile number already exists'
+                     });                
+                     UsersCopy.create(userCopyModel);
+
+                     return null; // Returning null so this user is not inserted
+                   } else {
+                     return user; // Returning the user object to be inserted
+                   }
+                 })
+                 .catch(validationError => {
+                   // Handle validation error for this user
+                   console.error(`Validation error for user ${user.username}:`, validationError.message);
+                   const userCopyModel=({
+                    fname:user.name,
+                    mname:user.mname,
+                    lname:user.lname,
+                    mobile:user.mobile,
+                    email:user.email,
+                    password:user.password,
+                    user_type:user.user_type,
+                    is_inserted:0,
+                    reason:validationError.message
+                 });                
+                 UsersCopy.create(userCopyModel);
+                   usersNotInserted.push(user);
+                   return null; // Returning null so this user is not inserted
+                 });
+             });
+             
+             Promise.all(insertionPromises)
+               .then(usersToInsertFiltered => {
+                 // Filter out null entries (users not to be inserted)
+                 const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null);                            
+                 UsersCopy.bulkCreate(usersToInsertFinal);
+                 return User.bulkCreate(usersToInsertFinal);
+               })
+               .then(users => {
+                 console.log(`${users.length} users inserted successfully.`);
+               })
+               .catch(error => {
+                 console.error('Error inserting users:', error.message);
+               })
+               .finally(() => {
+                 if (usersNotInserted.length > 0) {
+                   console.log(`Users not inserted (validation failed or already existing):`);                               
+                 }
+               });               
 
         } catch (error) {
             console.error(error);
@@ -99,7 +133,7 @@ const uploadUsers = [
         } finally {
             //await client.close();
         }
-        res.status(200).send({ result: true, message: 'File uploaded successfully', 'combinedData': jsonData,'usersNotInserted':usersNotInserted });
+        res.status(200).send({ result: true, message: 'File uploaded successfully','usersNotInseted':usersNotInserted.length});
     },
 ];
 
