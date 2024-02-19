@@ -4,14 +4,16 @@ const multer = require('multer')
 const path = require('path');
 const xlsx = require('xlsx');
 const verifyToken = require("../middleware/verifyToken");
-
+let fileId;
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/'); // Save uploaded files to the 'uploads' directory
     },
     filename: function (req, file, cb) {
         // Generate a unique filename by adding a timestamp
-        cb(null, `${Date.now()}`);
+        fileId=Date.now()+"_"+file.originalname
+        //cb(null, `${Date.now()}_${file.originalname}}`);
+        cb(null, fileId);
     }
 });
 const excelFilter = function (req, file, cb) {
@@ -19,14 +21,6 @@ const excelFilter = function (req, file, cb) {
     if (extname === '.xlsx' || extname === '.xls') {
         return cb(null, true);
     }
-    // Create an error object in JSON format
-    // const error = new Error('Invalid file. Only .xlsx or .xls files are allowed.');
-    // error.status = 400;
-    // Create an error object in JSON format
-    const error = {
-        message: 'Invalid file. Only .xlsx or .xls files are allowed.',
-        status: 400
-    };
     cb(null, false);
 
 };
@@ -44,6 +38,8 @@ const uploadUsers = [
         const sheets = workbook.SheetNames; // Get all sheet names    
         let jsonData;
         var usersNotInserted = [];
+        var usersInserted = []; // New array to store inserted users
+
         try {
             for (const sheetName of sheets) {
                 const worksheet = workbook.Sheets[sheetName];
@@ -54,6 +50,10 @@ const uploadUsers = [
 
                 // Alternatively, insert data sheet by sheet:
                 // await collection.insertMany(jsonData);
+
+                if (jsonData.length <= 1) {
+                  return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
+              }
             }
 
              let usersToInsert=jsonData;            
@@ -69,7 +69,7 @@ const uploadUsers = [
                  .then(existingUser => {
                    if (existingUser) {
                      // User with the same mobile number already exists, add it to the list to log
-                     usersNotInserted.push(user);            
+                     //usersNotInserted.push(user);            
                      const userCopyModel=({
                         fname:user.name,
                         mname:user.mname,
@@ -79,8 +79,10 @@ const uploadUsers = [
                         password:user.password,
                         user_type:user.user_type,
                         is_inserted:0,
-                        reason:'mobile number already exists'
-                     });                
+                        reason:'mobile number already exists',
+                        fileId:fileId
+                     });
+                     usersNotInserted.push(userCopyModel)                
                      UsersCopy.create(userCopyModel);
 
                      return null; // Returning null so this user is not inserted
@@ -100,10 +102,12 @@ const uploadUsers = [
                     password:user.password,
                     user_type:user.user_type,
                     is_inserted:0,
-                    reason:validationError.message
-                 });                
+                    reason:validationError.message,
+                    fileId:fileId
+                 }); 
+                 usersNotInserted.push(userCopyModel);               
                  UsersCopy.create(userCopyModel);
-                   usersNotInserted.push(user);
+                  // usersNotInserted.push(user);
                    return null; // Returning null so this user is not inserted
                  });
              });
@@ -112,12 +116,23 @@ const uploadUsers = [
                .then(usersToInsertFiltered => {
                  // Filter out null entries (users not to be inserted)
                  const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
-                 .map(user => ({user, fileId: 'your-file-id' }));                            
+                 .map(user => ({fname:user.name,
+                  mname:user.mname,
+                  lname:user.lname,
+                  mobile:user.mobile,
+                  email:user.email,
+                  password:user.password,
+                  user_type:user.user_type,
+                  is_inserted:0,
+                  reason:null,
+                  fileId:fileId
+                }));                            
                  UsersCopy.bulkCreate(usersToInsertFinal);
                  return User.bulkCreate(usersToInsertFinal);
                })
                .then(users => {
                  console.log(`${users.length} users inserted successfully.`);
+                 usersInserted=users;
                })
                .catch(error => {
                  console.error('Error inserting users:', error.message);
@@ -126,6 +141,7 @@ const uploadUsers = [
                  if (usersNotInserted.length > 0) {
                    console.log(`Users not inserted (validation failed or already existing):`);                               
                  }
+                 res.status(200).send({ result: true, message: 'File uploaded successfully',usersInserted,usersNotInserted});
                });               
 
         } catch (error) {
@@ -134,7 +150,7 @@ const uploadUsers = [
         } finally {
             //await client.close();
         }
-        res.status(200).send({ result: true, message: 'File uploaded successfully','usersNotInseted':usersNotInserted.length});
+        
     },
 ];
 
