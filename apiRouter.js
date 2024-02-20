@@ -19,6 +19,10 @@ router.post("/uploadBulkUsers",uploadBulkUsersController.uploadUsers);
 router.post("/uploadCSVData",uploadCSVController.uploadData);
 router.post("/getReports",getReportsController.getReports);
 router.post("/changePassword",changePasswordController.changePassword);
+router.get("/",function(req,res){
+
+    return res.status(200).send({message:"Welcome............"});
+});
 
 module.exports = router;
 
