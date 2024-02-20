@@ -1,0 +1,3 @@
+_id,id,direction,exotel_number,from_number,from_name,to_number,to_name,status,start_time,end_time,duration,price,recording_url,price_details,group_name,from_circle,to_circle,leg1_status,leg2_status,conversation_duration,app_id,app_name,digits,disconnected_by
+1,1123456,Outgoing,dddasdasd,asdasd,John Doe,9876543210,Jane Doe,Completed,20-02-2024 08:00,20-02-2024 08:30,30,10.5,http://example.com/recording1,Details for price 1,Group 1,Circle 1,Circle 2,NEW,NEW,10 minutes,app1,App 1,12345,System
+2,1123654,Incoming,asdsadasdsad,asdsad,Jane Doe,1234567890,John Doe,Missed,21-02-2024 09:00,21-02-2024 09:10,10,5.25,http://example.com/recording2,Details for price 2,Group 2,Circle 2,Circle 1,NEW,NEW,5 minutes,app2,App 2,54321,User

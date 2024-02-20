@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const dbObj = require('../db');
+const Report = require("../models/Report");
 
 const User = dbObj.define('user', {
   fname: {
@@ -46,6 +47,16 @@ const User = dbObj.define('user', {
       len: { min: 10, max: 10 }// Additional validation for not empty
     }
   },
+  from_number: {
+    type:DataTypes.STRING,
+    allowNull: false, 
+    unique: true,// This is the default if required is not explicitly set
+    validate: {
+      notNull: true, // Additional validation for not null
+      notEmpty: true,
+      len: { min: 10, max: 10 }// Additional validation for not empty
+    }
+  },
   password: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
@@ -72,4 +83,6 @@ const User = dbObj.define('user', {
   
 });
 
+Report.belongsTo(User, { foreignKey: 'from_number' });
+User.hasMany(Report, { foreignKey: "from_number" });
 module.exports = User;

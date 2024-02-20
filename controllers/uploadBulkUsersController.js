@@ -191,11 +191,11 @@ const uploadUsers = [
                 // Write the workbook to a buffer
                 const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
 
+
                 // Set headers and send the buffer as response
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                res.setHeader('Content-Disposition', 'attachment;filename='+'userCopy_'+`${fileId}`);
-                res.end(excelBuffer, 'binary'); 
-               
+                res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}.xlsx`); // Filename with fileId
+                res.send(excelBuffer);
 
             })
             .catch(error => {
