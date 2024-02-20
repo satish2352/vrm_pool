@@ -40,20 +40,24 @@ const changePassword = [
                                 if (!user) {
                                     return res.status(404).json({result:false, message: "User not found" });
                                 }
-                                const salt = await bcrypt.genSalt(10);
-                                const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                                user.set('password', encryptedPassword); // Update the password attribute
-                                await user.save();                                                           
-                                return res.status(200).send({result:true,message:"Password Changed Successfully"});                             
+                                if(user.user_type=='2' || user.user_type=='3')
+                                {
+                                    const salt = await bcrypt.genSalt(10);
+                                    const encryptedPassword = await bcrypt.hash(req.body.password, salt)
+                                    user.set('password', encryptedPassword); // Update the password attribute
+                                    await user.save();                                                           
+                                    return res.status(200).send({result:true,message:"Users Password Changed Successfully"});    
+                                }else{
+                                    return res.status(400).send({result:false,message:"Bad request you are not authorized"});
+                                }
+                                                         
                             }else if(user_type=='2'|| user_type=='3' )
-                            {        
-                              
-                                
+                            {                                                                      
                                 const salt = await bcrypt.genSalt(10);
                                 const encryptedPassword = await bcrypt.hash(req.body.password, salt)
                                 req.user.set('password', encryptedPassword); // Update the password attribute
                                 await req.user.save();                                                           
-                                return res.status(200).send({result:true,message:"Password Changed Successfully"});  
+                                return res.status(200).send({result:true,message:"Your password Changed Successfully"});  
 
                             }else{
                                 return res.status(400).send({result:false,message:"Bad request you are not authorized"});
