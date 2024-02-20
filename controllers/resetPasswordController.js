@@ -2,7 +2,7 @@ const User = require("../models/Users");
 const verifyToken = require("../middleware/verifyToken");
 const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const changePassword = [
+const resetPassword = [
         body("password", "Enter valid password min 8 digits").isLength({
             min: 8,
             max: 100,
@@ -45,20 +45,9 @@ const changePassword = [
                                 user.set('password', encryptedPassword); // Update the password attribute
                                 await user.save();                                                           
                                 return res.status(200).send({result:true,message:"Password Changed Successfully"});                             
-                            }else if(user_type=='2'|| user_type=='3' )
-                            {        
-                              
-                                
-                                const salt = await bcrypt.genSalt(10);
-                                const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                                req.user.set('password', encryptedPassword); // Update the password attribute
-                                await req.user.save();                                                           
-                                return res.status(200).send({result:true,message:"Password Changed Successfully"});  
-
-                            }else{
+                            }else{        
                                 return res.status(400).send({result:false,message:"Bad request you are not authorized"});
                             }
-
                         }
                     }                                       
             } catch (err) {
@@ -69,5 +58,5 @@ const changePassword = [
 ];
 
 module.exports = {
-    changePassword,
+    resetPassword,
 };

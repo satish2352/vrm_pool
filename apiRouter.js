@@ -8,6 +8,7 @@ const uploadBulkUsersController = require("./controllers/uploadBulkUsersControll
 const uploadCSVController = require("./controllers/uploadCSVController");
 const getReportsController = require("./controllers/getReportsController");
 const changePasswordController = require("./controllers/changePasswordController");
+const resetPasswordController = require("./controllers/resetPasswordController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -19,8 +20,9 @@ router.post("/uploadBulkUsers",uploadBulkUsersController.uploadUsers);
 router.post("/uploadCSVData",uploadCSVController.uploadData);
 router.post("/getReports",getReportsController.getReports);
 router.post("/changePassword",changePasswordController.changePassword);
-router.get("/",function(req,res){
+router.post("/resetPassword",resetPasswordController.resetPassword);
 
+router.get("/",function(req,res){
     return res.status(200).send({message:"Welcome............"});
 });
 
