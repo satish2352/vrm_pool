@@ -167,35 +167,16 @@ const uploadUsers = [
                     // Add other properties as needed
                 }));
     
-              // Convert data to Excel format
-              const ws = xlsx.utils.json_to_sheet(dataForExcel);
-              const wb = xlsx.utils.book_new();
-              xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
-
-              // // Write the workbook to a buffer
-              // const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
-              // const exportsDir = 'D:/nodejs/vrm_pool/exports';
-
-              // // Check if the directory exists, create it if it doesn't
-              // if (!fs.existsSync(exportsDir)) {
-              //     fs.mkdirSync(exportsDir, { recursive: true });
-              // }
-
-              // // Generate Excel file in the exports directory
-              // const excelFilePath = `${exportsDir}/userCopy_${fileId}`;
-
-              //xlsx.writeFile(wb, excelFilePath); //
-
-              // Set headers and send the buffer as response
-                // Write the workbook to a buffer
+           
+               const ws = xlsx.utils.json_to_sheet(dataForExcel);
+               const wb = xlsx.utils.book_new();
+                xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
                 const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
 
                 // Set headers and send the buffer as response
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}.xlsx`); // Filename with fileId
-                res.send(excelBuffer);
+                res.end(excelBuffer);
 
             })
             .catch(error => {
