@@ -45,6 +45,7 @@ const uploadData = [
         readStream.pipe(csv())
           .on('data', (row) => {
             if (isValidRow(row)) {
+              row.fileId = fileId;
               csvData.push(row);
             }else{
               return res.status(400).send({result:false,message:'Valid data structure is not found'});

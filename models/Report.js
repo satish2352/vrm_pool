@@ -122,6 +122,11 @@ const Report = dbObj.define('reports', {
         type: DataTypes.STRING,
         allowNull: true,
         field: 'disconnected_by'
+    },
+    fileId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'fileId'
     }
 }, {
     modelName: 'Report',

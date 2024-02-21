@@ -3,24 +3,10 @@ const verifyToken = require("../middleware/verifyToken");
 const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const resetPassword = [
-        body("password", "Enter valid password min 8 digits").isLength({
-            min: 8,
-            max: 100,
-          }),
-          body("confirm_password", "Enter valid password min 8 digits").isLength({
-            min: 8,
-            max: 100,
-          }).custom((value, { req }) => {
-            // Check if confirm_password matches password field
-            if (value !== req.body.password) {
-                throw new Error("Passwords do not match");
-            }
-            return true;
-        }),
-        body("id", "Enter valid id").isLength({
-            min: 1,            
-          }),
-        verifyToken,
+        body("mobile", "Enter valid mobile number").isLength({
+            min: 10,
+            max: 10,
+          }).trim(),
         async (req, res) => {
             try {
                 const checkErrorInValidations = validationResult(req);
@@ -32,23 +18,22 @@ const resetPassword = [
                             });
                     }else
                     {
-                        let user_type = req.user.user_type;
-                        let idTobeUpdated=req.body.id;                    
-                        if(user_type){
-                            if(user_type=='1'){
-                                let user = await User.findByPk(idTobeUpdated);
-                                if (!user) {
-                                    return res.status(404).json({result:false, message: "User not found" });
-                                }
-                                const salt = await bcrypt.genSalt(10);
-                                const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                                user.set('password', encryptedPassword); // Update the password attribute
-                                await user.save();                                                           
-                                return res.status(200).send({result:true,message:"Password Changed Successfully"});                             
-                            }else{        
-                                return res.status(400).send({result:false,message:"Bad request you are not authorized"});
-                            }
+                        const { mobile } = req.body;
+                        // Find the user in the database based on the provided mobile number
+                        const user = await User.findOne({ where: { mobile } });
+                        if (!user) {
+                          return res.status(404).json({ result: true,message: "Enter valid credentials" });
                         }
+                        // Generate a new random password
+                        const newPassword = generateRandomPassword();                    
+                        // Encrypt  the new password
+                        const salt = await bcrypt.genSalt(10);
+                        const encryptedPassword = await bcrypt.hash(newPassword, salt);                    
+                        // Update the user's password in the database
+                        user.set('password', encryptedPassword);
+                        await user.save();
+                        console.log(newPassword)
+                        return res.status(200).send({ result: true, message: "Your password Reset Successfully Check your email" });
                     }                                       
             } catch (err) {
                 console.log(err);
@@ -56,7 +41,16 @@ const resetPassword = [
             }       
     },
 ];
-
+function generateRandomPassword() {
+    const length = 10;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      password += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    return password;
+  }
+  
 module.exports = {
     resetPassword,
 };
