@@ -50,7 +50,7 @@ const changePassword = [
                         if (user.user_type == '2' || user.user_type == '3') {
                             const salt = await bcrypt.genSalt(10);
                             const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                            user.set('password', encryptedPassword); // Admin other users password change
+                            user.set('password', encryptedPassword); // Admin changes other users password change
                             await user.save();
                             return res.status(200).send({ result: true, message: "Users Password Changed Successfully" });
                         } else {
@@ -58,6 +58,7 @@ const changePassword = [
                         }
 
                     } else if (user_type == '2' || user_type == '3') {
+                        
                         const salt = await bcrypt.genSalt(10);
                         const encryptedPassword = await bcrypt.hash(req.body.password, salt)
                         req.user.set('password', encryptedPassword); // Users Self Password Change
