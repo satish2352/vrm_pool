@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-const ENVIRONMENT = process.env.MY_DATA;
+const ENVIRONMENT = process.env.ENVIRONMENT;
 let dbObj;
 if(ENVIRONMENT == 'prod') {
   dbObj = new Sequelize('vrmpool', 'admin', 'Password123', {
