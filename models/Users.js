@@ -83,6 +83,4 @@ const User = dbObj.define('user', {
   
 });
 
-
-User.hasMany(Report, { foreignKey: "from_number" });
 module.exports = User;
