@@ -6,10 +6,10 @@ const loginController = require("./controllers/loginController");
 const getUserController = require("./controllers/getUserController");
 const uploadBulkUsersController = require("./controllers/uploadBulkUsersController");
 const uploadCSVController = require("./controllers/uploadCSVController");
- const getReportsController = require("./controllers/getReportsController");
- const changePasswordController = require("./controllers/changePasswordController");
-const resetPasswordController = require("./controllers/resetPasswordController");
- const logoutController = require("./controllers/logoutController");
+// const getReportsController = require("./controllers/getReportsController");
+// const changePasswordController = require("./controllers/changePasswordController");
+// const resetPasswordController = require("./controllers/resetPasswordController");
+// const logoutController = require("./controllers/logoutController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -19,9 +19,9 @@ router.post("/login",loginController.loginUser);
 router.post("/getUser",getUserController.getUser);
 router.post("/uploadBulkUsers",uploadBulkUsersController.uploadUsers);
 router.post("/uploadCSVData",uploadCSVController.uploadData);
-router.post("/getReports",getReportsController.getReports);
-router.post("/changePassword",changePasswordController.changePassword);
-router.post("/resetPassword",resetPasswordController.resetPassword);
+// router.post("/getReports",getReportsController.getReports);
+// router.post("/changePassword",changePasswordController.changePassword);
+// router.post("/resetPassword",resetPasswordController.resetPassword);
 // router.post("/logout",logoutController.logOut);
 
 router.get("/",function(req,res){
