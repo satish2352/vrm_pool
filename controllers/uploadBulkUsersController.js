@@ -167,7 +167,8 @@ const uploadUsers = [
                     // Add other properties as needed
                 }));
     
-           
+                const filePath = path.join(__dirname, 'userexports', `userCopy_${fileId}.xlsx`);
+
                const ws = xlsx.utils.json_to_sheet(dataForExcel);
                const wb = xlsx.utils.book_new();
                 xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
@@ -177,6 +178,8 @@ const uploadUsers = [
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}.xlsx`); // Filename with fileId
                 res.end(excelBuffer);
+
+                
 
             })
             .catch(error => {

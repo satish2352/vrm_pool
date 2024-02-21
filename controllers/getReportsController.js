@@ -4,6 +4,8 @@ const User = require("../models/Users");
 const { body, query, validationResult } = require("express-validator");
 const sequelize = require('../db');
 const { Op } = require('sequelize');
+const apiResponse = require("../helpers/apiResponse");
+
 
 const getReports = [
   body(),
@@ -49,8 +51,9 @@ const getReports = [
         where: reportFilter
       });
 
-      res.json(reports);
+      apiResponse.successResponseWithData(res, 'All details get successfully', reports);
     } catch (error) {
+      apiResponse.ErrorResponse(res, "Error occured during api call");
       console.error('Error fetching users with filters:', error);
       throw error;
     }
@@ -66,21 +69,3 @@ const getReports = [
 module.exports = {
   getReports,
 };
-// const userMobiles = await User.findAll({
-//   attributes: ['mobile'], // Selecting only the mobile column
-//   where: {
-//     user_type: 2
-//   }
-// });
-
-// // Extracting mobile numbers from the result
-// const mobileNumbers = userMobiles.map(user => user.mobile);
-
-// // Step 2: Fetch reports where from_number matches any of the mobile numbers obtained from step 1
-// const reports = await Report.findAll({
-//   where: {
-//     from_number: mobileNumbers
-//   }
-// });
-
-// res.json(reports);
