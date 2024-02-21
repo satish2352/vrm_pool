@@ -9,7 +9,6 @@ const dbObj = require("./db");
 var cors = require('cors')
 require('dotenv').config();
 
-app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
