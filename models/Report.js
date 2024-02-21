@@ -135,4 +135,4 @@ const Report = dbObj.define('reports', {
 });
 
 // Export the Report model
-module.exports = Report;
+module.exports = {Report,dbObj};
