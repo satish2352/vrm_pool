@@ -6,7 +6,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded());
 app.use(express.json());
 const dbObj = require("./db");
+var cors = require('cors')
 
+
+app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
