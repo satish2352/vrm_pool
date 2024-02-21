@@ -2,7 +2,8 @@ const { Sequelize } = require("sequelize");
 
 const dbObj = new Sequelize('vrmpool', 'admin', 'Password123', {
   dialect: 'mysql',
-  host: 'vrmpool.cng2o0ce4jtm.ap-south-1.rds.amazonaws.com'
+  host: 'vrmpool.cng2o0ce4jtm.ap-south-1.rds.amazonaws.com',
+  port:'3306'
 });
 
 // const dbObj = new Sequelize('vrm_pool', 'root', '', {
