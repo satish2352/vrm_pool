@@ -57,6 +57,8 @@ const uploadAgents = [
     }else{
         let superviserId=req.body.superviserId
     
+        console.log("-------------------")
+        console.log(superviserId)
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames; // Get all sheet names    
     let jsonData;
@@ -143,7 +145,7 @@ const uploadAgents = [
               is_inserted: 1,
               reason: '',
               fileId: fileId,
-              added_by:superviserId
+              added_by:req.body.superviserId
             }));
           UsersCopy.bulkCreate(usersToInsertFinal);
           return User.bulkCreate(usersToInsertFinal);
