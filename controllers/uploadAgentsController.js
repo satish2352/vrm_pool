@@ -10,8 +10,11 @@ const { promisify } = require('util');
 const mkdir = promisify(fs.mkdir);
 const chmod = promisify(fs.chmod);
 const folderPath = '../exports';
+const { body, query, validationResult } = require("express-validator");
+
 
 let fileId;
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); // Save uploaded files to the 'uploads' directory
@@ -34,13 +37,26 @@ const excelFilter = function (req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
 
-const uploadUsers = [
+const uploadAgents = [
   verifyToken,
   upload.single('file'),
+  body("superviserId", "Enter valid superviserId").isLength({ min: 1 }), // Validation for superviserId
   async (req, res) => {
+    
     if (!req.file) {
       return res.status(400).json({ result: false, message: 'To upload file select valid file. only .xlsx or .xls file is allowed.' });
     }
+
+    const checkErrorInValidations = validationResult(req);
+    if (!checkErrorInValidations.isEmpty()) {
+      return res.status(400).json({
+        result: false,
+        message: "Validation error",
+        errors: checkErrorInValidations.array(),
+      });
+    }else{
+        let superviserId=req.body.superviserId
+    
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames; // Get all sheet names    
     let jsonData;
@@ -52,7 +68,6 @@ const uploadUsers = [
         const worksheet = workbook.Sheets[sheetName];
         jsonData = xlsx.utils.sheet_to_json(worksheet);
         jsonData.forEach(data => data.sheetName = sheetName);
-
         if (jsonData.length < 1) {
           return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
         }
@@ -76,10 +91,11 @@ const uploadUsers = [
                 mobile: user.mobile,
                 email: user.email,
                 password: user.password,
-                user_type: user.user_type,
+                user_type: 3,
                 is_inserted: 0,
                 reason: 'Mobile number already exists',
-                fileId: fileId
+                fileId: fileId,
+                added_by:superviserId
               });
               usersNotInserted.push(userCopyModel)
               UsersCopy.create(userCopyModel);
@@ -99,10 +115,11 @@ const uploadUsers = [
               mobile: user.mobile,
               email: user.email,
               password: user.password,
-              user_type: user.user_type,
+              user_type: 3,
               is_inserted: 0,
               reason: validationError.message,
-              fileId: fileId
+              fileId: fileId,
+              added_by:superviserId
             });
             usersNotInserted.push(userCopyModel);
             UsersCopy.create(userCopyModel);
@@ -112,9 +129,7 @@ const uploadUsers = [
       });
 
       Promise.all(insertionPromises)
-        .then(usersToInsertFiltered => {
-
-          
+        .then(usersToInsertFiltered => {          
           // Filter out null entries (users not to be inserted)
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
@@ -124,10 +139,11 @@ const uploadUsers = [
               mobile: user.mobile,
               email: user.email,
               password: user.password,
-              user_type: user.user_type,
+              user_type: 3,
               is_inserted: 1,
-              reason: null,
-              fileId: fileId
+              reason: '',
+              fileId: fileId,
+              added_by:superviserId
             }));
           UsersCopy.bulkCreate(usersToInsertFinal);
           return User.bulkCreate(usersToInsertFinal);
@@ -144,13 +160,12 @@ const uploadUsers = [
             console.log(`Users not inserted (validation failed or already existing):`);
           }
 
-          //res.status(200).send({ result: true, message: 'File uploaded successfully', usersInserted, usersNotInserted });
-            // If the file has valid data, proceed with exporting UserCopy rows with matching fileId to Excel
             UsersCopy.findAll({ where: { fileId: fileId } })
             .then(userCopies => {
                 if (userCopies.length === 0) {
                     return res.status(400).json({ result: false, message: 'No data found in UserCopy with matching fileId.' });
                 }    
+                console.log('added_by : '+superviserId);
                 // Prepare data for exporting to Excel
                 const dataForExcel = userCopies.map(userCopy => ({
                     fname: userCopy.fname,
@@ -159,9 +174,10 @@ const uploadUsers = [
                     mobile: userCopy.mobile,
                     email: userCopy.email,
                     password: userCopy.password,
-                    user_type: userCopy.user_type,
+                    user_type: 3,
                     is_inserted: userCopy.is_inserted==1?"Yes":"No",
-                    reason: userCopy.reason
+                    reason: userCopy.reason,
+                    added_by:superviserId
                     // Add other properties as needed
                 }));
     
@@ -212,7 +228,7 @@ const uploadUsers = [
                           res.status(err.status).end();
                       } else {
                           console.log('File sent successfully');
-                          //apiResponse.successResponseWithData(res,"File data upload complete ",result);
+                          
                       }
                   });
                   
@@ -232,7 +248,7 @@ const uploadUsers = [
     } finally {
       //await client.close();
     }
-
+}
   },
 ];
 function ensureDirectoryExistence(filePath) {
@@ -243,5 +259,5 @@ function ensureDirectoryExistence(filePath) {
 }
 
 module.exports = {
-  uploadUsers,
+    uploadAgents,
 };

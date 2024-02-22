@@ -34,7 +34,7 @@ const excelFilter = function (req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
 
-const uploadUsers = [
+const uploadSupervisers = [
   verifyToken,
   upload.single('file'),
   async (req, res) => {
@@ -52,7 +52,6 @@ const uploadUsers = [
         const worksheet = workbook.Sheets[sheetName];
         jsonData = xlsx.utils.sheet_to_json(worksheet);
         jsonData.forEach(data => data.sheetName = sheetName);
-
         if (jsonData.length < 1) {
           return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
         }
@@ -76,7 +75,7 @@ const uploadUsers = [
                 mobile: user.mobile,
                 email: user.email,
                 password: user.password,
-                user_type: user.user_type,
+                user_type: 2,
                 is_inserted: 0,
                 reason: 'Mobile number already exists',
                 fileId: fileId
@@ -99,7 +98,7 @@ const uploadUsers = [
               mobile: user.mobile,
               email: user.email,
               password: user.password,
-              user_type: user.user_type,
+              user_type: 2,
               is_inserted: 0,
               reason: validationError.message,
               fileId: fileId
@@ -112,9 +111,7 @@ const uploadUsers = [
       });
 
       Promise.all(insertionPromises)
-        .then(usersToInsertFiltered => {
-
-          
+        .then(usersToInsertFiltered => {          
           // Filter out null entries (users not to be inserted)
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
@@ -124,9 +121,9 @@ const uploadUsers = [
               mobile: user.mobile,
               email: user.email,
               password: user.password,
-              user_type: user.user_type,
+              user_type: 2,
               is_inserted: 1,
-              reason: null,
+              reason: '',
               fileId: fileId
             }));
           UsersCopy.bulkCreate(usersToInsertFinal);
@@ -159,7 +156,7 @@ const uploadUsers = [
                     mobile: userCopy.mobile,
                     email: userCopy.email,
                     password: userCopy.password,
-                    user_type: userCopy.user_type,
+                    user_type: 2,
                     is_inserted: userCopy.is_inserted==1?"Yes":"No",
                     reason: userCopy.reason
                     // Add other properties as needed
@@ -212,7 +209,7 @@ const uploadUsers = [
                           res.status(err.status).end();
                       } else {
                           console.log('File sent successfully');
-                          //apiResponse.successResponseWithData(res,"File data upload complete ",result);
+                          
                       }
                   });
                   
@@ -243,5 +240,5 @@ function ensureDirectoryExistence(filePath) {
 }
 
 module.exports = {
-  uploadUsers,
+    uploadSupervisers,
 };
