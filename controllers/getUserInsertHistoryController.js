@@ -33,7 +33,8 @@ const getUserHistory = [
       const userMobiles = await UsersCopy.findAll({
         attributes: ['fileId'], // Selecting only the mobile column
         where: userFilter,
-        group: ['fileId'] // Apply the filter
+        group: ['fileId'],
+        order: [['id', 'DESC']]       // Apply the filter
       });
 
    

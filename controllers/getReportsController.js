@@ -58,7 +58,8 @@ const getReports = [
       }
 
       const reports = await Report.findAll({
-        where: reportFilter
+        where: reportFilter,
+        order: [['_id', 'DESC']]
       });
 
       apiResponse.successResponseWithData(res, 'All details get successfully', reports);

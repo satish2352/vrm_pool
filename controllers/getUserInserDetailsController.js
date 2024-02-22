@@ -31,7 +31,8 @@ const getUserInsertDetails = [
         };
       }      
       const userMobiles = await UsersCopy.findAll({
-        where: userFilter,      
+        where: userFilter,
+        order: [['id', 'DESC']]      
       });
 
       apiResponse.successResponseWithData(res, 'All details get successfully', userMobiles);

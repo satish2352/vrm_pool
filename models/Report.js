@@ -6,7 +6,7 @@ const dbObj = require('../db');
 const Report = dbObj.define('reports', {
     xid: {
         type: DataTypes.INTEGER,
-        field: 'id'
+        field: '_id'
     },
     direction: {
         type: DataTypes.STRING,
