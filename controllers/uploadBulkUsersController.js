@@ -5,6 +5,11 @@ const path = require('path');
 const xlsx = require('xlsx');
 const verifyToken = require("../middleware/verifyToken");
 const fs = require('fs'); // Require the 'fs' module for file operations
+const apiResponse = require("../helpers/apiResponse");
+const { promisify } = require('util');
+const mkdir = promisify(fs.mkdir);
+const chmod = promisify(fs.chmod);
+const folderPath = '../exports';
 
 let fileId;
 const storage = multer.diskStorage({
@@ -167,19 +172,58 @@ const uploadUsers = [
                     // Add other properties as needed
                 }));
     
-                const filePath = path.join(__dirname, 'userexports', `userCopy_${fileId}.xlsx`);
 
-               const ws = xlsx.utils.json_to_sheet(dataForExcel);
-               const wb = xlsx.utils.book_new();
+                fs.access(folderPath, fs.constants.F_OK, (err) => {
+                  if (err) {
+                      // Folder does not exist, create it and set permissions
+                      mkdir(folderPath)
+                          .then(() => {
+                              console.log('${folderPath}');
+                              // Setting permissions to 777 (read, write, execute for everyone)
+                              return chmod(folderPath, 0o777);
+                          })
+                          .then(() => {
+                              console.log("Permissions set for '${folderPath}'.");
+                          })
+                          .catch((error) => {
+                              console.error("Error creating folder or setting permissions: ${error}");
+                          });
+                  } else {
+                      console.log("Folder '${folderPath}' already exists.");
+                  }
+              });
+                ensureDirectoryExistence('../expo');
+                const filePath = path.join(__dirname, folderPath, `userCopy_${fileId}`);
+                const ws = xlsx.utils.json_to_sheet(dataForExcel);
+                const wb = xlsx.utils.book_new();
                 xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
                 const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
-
                 // Set headers and send the buffer as response
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
                 res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}.xlsx`); // Filename with fileId
-                res.end(excelBuffer);
-
-                
+                //res.end(excelBuffer);
+                fs.writeFile(filePath, excelBuffer, (err) => {
+                  if (err) {
+                    console.error('Error writing Excel file:', err);
+                    res.status(500).json({ error: 'Error writing Excel file' });
+                    return;
+                  }                
+                  // Set headers and send the path to the file in JSON response
+                  const relativeFilePath = path.relative(folderPath, filePath);
+                  //res.json({ filePath: relativeFilePath });
+                  var result=({filepath:relativeFilePath});
+              
+                  // Sending the file along with its path in the response
+                  res.sendFile(path.resolve(relativeFilePath), (err) => {
+                      if (err) {
+                          console.error('Error sending file: ', err);
+                          res.status(err.status).end();
+                      } else {
+                          console.log('File sent successfully');
+                      }
+                  });
+                  apiResponse.successResponseWithData(res,"File data upload complete ",result);
+                });
 
             })
             .catch(error => {
@@ -197,6 +241,12 @@ const uploadUsers = [
 
   },
 ];
+function ensureDirectoryExistence(filePath) {
+  const directory = path.dirname(filePath);
+  if (!fs.existsSync(directory)) {
+    fs.mkdirSync(directory, { recursive: true });
+  }
+}
 
 module.exports = {
   uploadUsers,
