@@ -13,6 +13,7 @@ const fileDownloadController = require("./controllers/fileDownloadController");
 const getUserListController = require("./controllers/getUserListController");
 const uploadSuperviserController = require("./controllers/uploadSuperviserController");
 const uploadAgentsController = require("./controllers/uploadAgentsController");
+const getAgentsBySuperviserController = require("./controllers/getAgentsBySuperviserController");
 // const changePasswordController = require("./controllers/changePasswordController");
 // const resetPasswordController = require("./controllers/resetPasswordController");
 const { body, query, validationResult } = require("express-validator");
@@ -31,6 +32,7 @@ router.get("/downloadFile",fileDownloadController.downloadFile);
 router.post("/getUserList",getUserListController.getUserList);
 router.post("/uploadSupervisers",uploadSuperviserController.uploadSupervisers);
 router.post("/uploadAgents",uploadAgentsController.uploadAgents);
+router.post("/getAgentsBySuperviser",getAgentsBySuperviserController.getAgents);
 
 // router.post("/changePassword",changePasswordController.changePassword);
 // router.post("/resetPassword",resetPasswordController.resetPassword);

@@ -79,10 +79,6 @@ const User = dbObj.define('user', {
   fileId: {
     type: DataTypes.STRING,
     defaultValue: null,
-  },
-  added_by: {
-    type: DataTypes.STRING,
-    defaultValue: null,
   }
   
 });
