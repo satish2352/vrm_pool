@@ -33,8 +33,11 @@ const UsersCopy = dbObj.define('users_copy', {
   fileId: {
     type: DataTypes.STRING,
     defaultValue: null,
+  },
+  added_by: {
+    type: DataTypes.STRING,
+    defaultValue: null,
   }
-
   
 });
 
