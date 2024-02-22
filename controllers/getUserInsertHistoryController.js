@@ -13,6 +13,7 @@ const getUserHistory = [
   verifyToken,
   async (req, res) => {
     const fileId = req.fileId; // Filter by role
+    const user_type = req.user_type; // Filter by role
     try {
       const { fileId} = req.body;
 
@@ -23,6 +24,11 @@ const getUserHistory = [
             fileId: fileId
         };
       }
+      if (user_type) {
+        userFilter = {
+          user_type: user_type
+        };
+      }  
 
       const userMobiles = await UsersCopy.findAll({
         attributes: ['fileId'], // Selecting only the mobile column
