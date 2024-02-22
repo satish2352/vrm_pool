@@ -156,8 +156,7 @@ const uploadUsers = [
             .then(userCopies => {
                 if (userCopies.length === 0) {
                     return res.status(400).json({ result: false, message: 'No data found in UserCopy with matching fileId.' });
-                }
-    
+                }    
                 // Prepare data for exporting to Excel
                 const dataForExcel = userCopies.map(userCopy => ({
                     fname: userCopy.fname,
@@ -200,30 +199,31 @@ const uploadUsers = [
                 const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
                 // Set headers and send the buffer as response
                 res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}.xlsx`); // Filename with fileId
-                //res.end(excelBuffer);
+                res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}`); // Filename with fileId
+
                 fs.writeFile(filePath, excelBuffer, (err) => {
                   if (err) {
                     console.error('Error writing Excel file:', err);
-                    res.status(500).json({ error: 'Error writing Excel file' });
+                    res.status(500).json({result:false, error: 'Error writing Excel file' });
                     return;
                   }                
-                  // Set headers and send the path to the file in JSON response
-                  const relativeFilePath = path.relative(folderPath, filePath);
-                  //res.json({ filePath: relativeFilePath });
-                  var result=({filepath:relativeFilePath});
-              
+                 
+                  const relativeFilePath = path.relative(folderPath, filePath);                              
+                  const myfilePath = './exports/userCopy_'+fileId;
+                  console.log(myfilePath)
                   // Sending the file along with its path in the response
-                  res.sendFile(path.resolve(relativeFilePath), (err) => {
+                  res.sendFile(path.resolve(myfilePath), (err) => {
                       if (err) {
                           console.error('Error sending file: ', err);
                           res.status(err.status).end();
                       } else {
                           console.log('File sent successfully');
+                          //apiResponse.successResponseWithData(res,"File data upload complete ",result);
                       }
                   });
-                  apiResponse.successResponseWithData(res,"File data upload complete ",result);
+                  
                 });
+                
 
             })
             .catch(error => {
