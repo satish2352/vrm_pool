@@ -83,14 +83,14 @@ module.exports = {
 
 function isValidRow(row) {
   // Define required columns
-  const requiredColumns = ['id', 'direction', 'exotel_number', 'from_number', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by'];
+  // const requiredColumns = ['id', 'direction', 'exotel_number', 'mobile', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by'];
 
-  // Check if all required columns are present in the row and have non-empty values
-  for (const column of requiredColumns) {
-    if (!(column in row) || !row[column]) {
-      return false; // Return false if any required column is missing or empty
-    }
-  }
+  // // Check if all required columns are present in the row and have non-empty values
+  // for (const column of requiredColumns) {
+  //   if (!(column in row) || !row[column]) {
+  //     return false; // Return false if any required column is missing or empty
+  //   }
+  // }
 
   return true; // Return true if all required columns are valid
 }

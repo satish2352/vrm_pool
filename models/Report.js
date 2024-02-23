@@ -4,9 +4,10 @@ const dbObj = require('../db');
 
 // Define the Report schema
 const Report = dbObj.define('reports', {
-    xid: {
-        type: DataTypes.INTEGER,
-        field: '_id'
+    user_id: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
+        field: 'user_id'
     },
     direction: {
         type: DataTypes.STRING,
@@ -18,10 +19,10 @@ const Report = dbObj.define('reports', {
         allowNull: false,
         field: 'exotel_number'
     },
-    from_number: {
+    mobile: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'from_number'
+        field: 'mobile'
     },
     from_name: {
         type: DataTypes.STRING,

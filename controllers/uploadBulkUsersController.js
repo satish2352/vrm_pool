@@ -79,7 +79,8 @@ const uploadUsers = [
                 user_type: user.user_type,
                 is_inserted: 0,
                 reason: 'Mobile number already exists',
-                fileId: fileId
+                fileId: fileId,
+                added_by:0,
               });
               usersNotInserted.push(userCopyModel)
               UsersCopy.create(userCopyModel);
@@ -102,7 +103,8 @@ const uploadUsers = [
               user_type: user.user_type,
               is_inserted: 0,
               reason: validationError.message,
-              fileId: fileId
+              fileId: fileId,
+              added_by:0,
             });
             usersNotInserted.push(userCopyModel);
             UsersCopy.create(userCopyModel);
@@ -127,7 +129,8 @@ const uploadUsers = [
               user_type: user.user_type,
               is_inserted: 1,
               reason: null,
-              fileId: fileId
+              fileId: fileId,
+              added_by:0,
             }));
           UsersCopy.bulkCreate(usersToInsertFinal);
           return User.bulkCreate(usersToInsertFinal);
@@ -161,7 +164,8 @@ const uploadUsers = [
                     password: userCopy.password,
                     user_type: userCopy.user_type,
                     is_inserted: userCopy.is_inserted==1?"Yes":"No",
-                    reason: userCopy.reason
+                    reason: userCopy.reason,
+                    added_by:0,
                     // Add other properties as needed
                 }));
     

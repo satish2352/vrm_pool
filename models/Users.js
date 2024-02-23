@@ -47,16 +47,6 @@ const User = dbObj.define('user', {
       len: { min: 10, max: 10 }// Additional validation for not empty
     }
   },
-  from_number: {
-    type:DataTypes.STRING,
-    allowNull: false, 
-    unique: true,// This is the default if required is not explicitly set
-    validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true,
-      len: { min: 10, max: 10 }// Additional validation for not empty
-    }
-  },
   password: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
@@ -81,8 +71,8 @@ const User = dbObj.define('user', {
     defaultValue: null,
   },
   added_by: {
+    allowNull: true,
     type: DataTypes.STRING,
-    defaultValue: null,
   }
   
 });

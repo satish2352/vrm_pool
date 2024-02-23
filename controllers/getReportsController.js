@@ -14,7 +14,7 @@ const getReports = [
     const user_type = req.user_type; // Filter by role
 
     try {
-      const { user_type, fromdate, todate, status,id } = req.body;
+      const { user_type, fromdate, todate, status, id } = req.body;
 
       // Step 1: Filter users based on user_type if provided
       let userFilter = {}; // Initialize an empty filter object
@@ -29,22 +29,17 @@ const getReports = [
         };
       }
 
-
-
-
       const userMobiles = await User.findAll({
         attributes: ['mobile'], // Selecting only the mobile column
         where: userFilter // Apply the filter
       });
-
-
 
       // Extracting mobile numbers from the result
       const mobileNumbers = userMobiles.map(user => user.mobile);
 
       // Step 2: Construct the filter object for reports
       const reportFilter = {
-        from_number: mobileNumbers
+        mobile: mobileNumbers
       };
 
       // Add optional filters if provided by the user
@@ -71,6 +66,8 @@ const getReports = [
   },
 ];
 // Filter by status
+
+
 
 
 
