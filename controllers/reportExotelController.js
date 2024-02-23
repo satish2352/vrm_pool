@@ -40,7 +40,7 @@ const getReportsSingleRow = [
                 user_id: userIds,
             };
             if (fromdate && todate) {
-                reportFilter.createdAt = {
+                reportFilter.updatedAt = {
                     [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
                 };
             }
