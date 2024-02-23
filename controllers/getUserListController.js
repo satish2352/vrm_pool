@@ -13,6 +13,7 @@ const getUserList = [
   verifyToken,
   async (req, res) => {
     const user_type = req.body.user_type; // Filter by role
+    const superviserId = req.body.superviserId; // Filter by role
   
     try {
 
@@ -22,7 +23,12 @@ const getUserList = [
         userFilter = {
           user_type: user_type
         };
-      }      
+      }
+      if (superviserId) {
+        userFilter = {
+          added_by: superviserId
+        };
+      }        
       const userMobiles = await Users.findAll({
         where: userFilter, 
         order: [['id', 'DESC']]           

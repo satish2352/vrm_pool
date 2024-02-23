@@ -55,10 +55,7 @@ const uploadAgents = [
         errors: checkErrorInValidations.array(),
       });
     }else{
-        let superviserId=req.body.superviserId
-    
-        console.log("-------------------")
-        console.log(superviserId)
+        let superviserId=req.body.superviserId;
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames; // Get all sheet names    
     let jsonData;
@@ -165,7 +162,7 @@ const uploadAgents = [
             UsersCopy.findAll({ where: { fileId: fileId } })
             .then(userCopies => {
                 if (userCopies.length === 0) {
-                    return res.status(400).json({ result: false, message: 'No data found in UserCopy with matching fileId.' });
+                    return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
                 }    
                 console.log('added_by : '+superviserId);
                 // Prepare data for exporting to Excel

@@ -142,14 +142,11 @@ const uploadSupervisers = [
         .finally(() => {
           if (usersNotInserted.length > 0) {
             console.log(`Users not inserted (validation failed or already existing):`);
-          }
-
-          //res.status(200).send({ result: true, message: 'File uploaded successfully', usersInserted, usersNotInserted });
-            // If the file has valid data, proceed with exporting UserCopy rows with matching fileId to Excel
+          }         
             UsersCopy.findAll({ where: { fileId: fileId } })
             .then(userCopies => {
                 if (userCopies.length === 0) {
-                    return res.status(400).json({ result: false, message: 'No data found in UserCopy with matching fileId.' });
+                    return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
                 }    
                 // Prepare data for exporting to Excel
                 const dataForExcel = userCopies.map(userCopy => ({
@@ -219,7 +216,6 @@ const uploadSupervisers = [
                   
                 });
                 
-
             })
             .catch(error => {
                 console.error('Error exporting data:', error.message);
