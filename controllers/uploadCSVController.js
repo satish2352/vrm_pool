@@ -45,15 +45,16 @@ const uploadData = [
         readStream.pipe(csv())
           .on('data', async (row) => {
 
-            await Users.findOne({ mobile: row.mobile })
+            await Users.findOne({
+              where: { mobile: row.mobile },
+            })
             .then(user => {
               console.log('user:', user);
               if (user) {
                 row.user_id = user.id.toString();
-                console.log('user id:', user.id);
               }
               row.fileId = fileId;
-              csvData.push(row);
+            
               Report.create(row); // Perform bulk insertion
             })
             .catch(error => {
@@ -70,7 +71,7 @@ const uploadData = [
               }
               console.log('csvData')                
               console.log(csvData)                
-              await Report.bulkCreate(csvData); // Perform bulk insertion
+              //await Report.bulkCreate(csvData); // Perform bulk insertion
               res.status(200).send({result:true,message:'CSV data stored successfully!'});
             } catch (error) {
               console.error('Error inserting reports:', error);

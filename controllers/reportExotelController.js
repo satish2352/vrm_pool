@@ -2,7 +2,7 @@ const verifyToken = require("../middleware/verifyToken");
 const Report = require("../models/Report");
 const User = require("../models/Users");
 const { validationResult } = require("express-validator");
-const { Op, fn, col } = require('sequelize'); // Importing Op, fn, and col from sequelize
+const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
 
 User.hasMany(Report, { foreignKey: 'user_id' });
@@ -56,15 +56,39 @@ const getReportsSingleRow = [
             // Fetch reports based on filters
             const reports = await Report.findAll({
                 attributes: [
-                    [fn('COUNT', col('Reports.id')), 'count'], // Using fn and col to count id and duration
-                    [fn('SUM', col('duration')), 'duration']
+                 // Grouping by user_id
+                    [
+                        fn('SUM', literal('CASE WHEN status = "Completed" THEN 1 ELSE 0 END')),
+                        'completed_count'
+                    ],
+                    [
+                        fn('SUM', literal('CASE WHEN status = "Missed" THEN 1 ELSE 0 END')),
+                        'missed_count'
+                    ],
+                    [
+                        fn('SUM', literal('CASE WHEN direction = "Incoming" THEN 1 ELSE 0 END')),
+                        'incoming_count'
+                    ],
+                    [
+                        fn('SUM', literal('CASE WHEN direction = "Outgoing" THEN 1 ELSE 0 END')),
+                        'outgoing_count'
+                    ],
+                    [
+                        fn('SUM', col('duration')),
+                        'total_duration'
+                    ],
+                    [
+                        fn('AVG', col('duration')),
+                        'average_duration'
+                    ],
+                    [fn('COUNT', col('Reports.id')), 'total_calls'],                    
                 ],
-
                 where: reportFilter,
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
                 }],
+                group: ['Reports.user_id'], 
                 order: [['createdAt', 'DESC']]
             });
 
