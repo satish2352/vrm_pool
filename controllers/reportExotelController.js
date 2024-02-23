@@ -88,7 +88,7 @@ const getReportsSingleRow = [
                     model: User,
                     attributes: ['mobile', 'id', 'fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
                 }],
-                // group: ['Reports.user_id'], 
+                group: ['Reports.mobile'], 
                 order: [['createdAt', 'DESC']]
             });
 
