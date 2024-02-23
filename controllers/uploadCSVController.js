@@ -1,5 +1,5 @@
 const Report = require("../models/Report");
-const UsersCopy = require("../models/UsersCopy");
+const Users = require("../models/Users");
 const multer = require('multer')
 const path = require('path');
 const xlsx = require('xlsx');
@@ -43,20 +43,33 @@ const uploadData = [
         const filePath = req.file.path;    
         const readStream = fs.createReadStream(filePath);
         readStream.pipe(csv())
-          .on('data', (row) => {
-            if (isValidRow(row)) {
+          .on('data', async (row) => {
+
+            await Users.findOne({ mobile: row.mobile })
+            .then(user => {
+              console.log('user:', user);
+              if (user) {
+                row.user_id = user.id.toString();
+                console.log('user id:', user.id);
+              }
               row.fileId = fileId;
               csvData.push(row);
-            }else{
-              return res.status(400).send({result:false,message:'Valid data structure is not found'});
-            }  
+              Report.create(row); // Perform bulk insertion
+            })
+            .catch(error => {
+              console.error('Error finding user:', error);
+              res.status(500).send({ result: false, message: 'Error finding user: ', error });
+            });
+              
           })
           .on('end', async () => {
             // Process and store parsed CSV data in the database
             try {
               if(csvData.length<1){
                return res.status(400).send({result:false,message:'No data found'});
-              }                
+              }
+              console.log('csvData')                
+              console.log(csvData)                
               await Report.bulkCreate(csvData); // Perform bulk insertion
               res.status(200).send({result:true,message:'CSV data stored successfully!'});
             } catch (error) {
@@ -83,7 +96,7 @@ module.exports = {
 
 function isValidRow(row) {
   // Define required columns
-  // const requiredColumns = ['id', 'direction', 'exotel_number', 'mobile', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by'];
+  // const requiredColumns = ['id', 'direction', 'exotel_number', 'from_number', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by'];
 
   // // Check if all required columns are present in the row and have non-empty values
   // for (const column of requiredColumns) {
