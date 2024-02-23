@@ -81,7 +81,7 @@ const getReportsSingleRow = [
                         fn('AVG', col('duration')),
                         'average_duration'
                     ],
-                    [fn('COUNT', col('Reports.id')), 'total_calls'],                    
+                    //[fn('COUNT', col('Reports.id')), 'total_calls'],                    
                 ],
                 where: reportFilter,
                 include: [{
