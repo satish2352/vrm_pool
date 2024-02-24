@@ -14,6 +14,7 @@ const getUserListController = require("./controllers/getUserListController");
 const uploadSuperviserController = require("./controllers/uploadSuperviserController");
 const uploadAgentsController = require("./controllers/uploadAgentsController");
 const getAgentsBySuperviserController = require("./controllers/getAgentsBySuperviserController");
+const getDashboardStatsController = require("./controllers/getDashboardStatsController");
 const reportExotelController = require("./controllers/reportExotelController");
 // const changePasswordController = require("./controllers/changePasswordController");
 // const resetPasswordController = require("./controllers/resetPasswordController");
@@ -34,6 +35,7 @@ router.post("/getUserList",getUserListController.getUserList);
 router.post("/uploadSupervisers",uploadSuperviserController.uploadSupervisers);
 router.post("/uploadAgents",uploadAgentsController.uploadAgents);
 router.post("/getAgentsBySuperviser",getAgentsBySuperviserController.getAgents);
+router.post("/getDashboardStats",getDashboardStatsController.getStats);
 
 //Exotel API
 router.post("/getReportsSingleRow",reportExotelController.getReportsSingleRow);

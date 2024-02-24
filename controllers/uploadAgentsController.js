@@ -128,7 +128,9 @@ const uploadAgents = [
       });
 
       Promise.all(insertionPromises)
-        .then(usersToInsertFiltered => {          
+        .then(usersToInsertFiltered => {   
+          
+          TextTrackList
           // Filter out null entries (users not to be inserted)
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
@@ -200,7 +202,6 @@ const uploadAgents = [
                       console.log("Folder '${folderPath}' already exists.");
                   }
               });
-                ensureDirectoryExistence('../expo');
                 const filePath = path.join(__dirname, folderPath, `userCopy_${fileId}`);
                 const ws = xlsx.utils.json_to_sheet(dataForExcel);
                 const wb = xlsx.utils.book_new();
@@ -250,12 +251,7 @@ const uploadAgents = [
 }
   },
 ];
-function ensureDirectoryExistence(filePath) {
-  const directory = path.dirname(filePath);
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
-  }
-}
+
 
 module.exports = {
     uploadAgents,
