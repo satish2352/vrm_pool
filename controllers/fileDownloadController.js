@@ -13,29 +13,29 @@ const workbook = new excelJS.Workbook();
 
 const downloadFile = [
   //body("fileId", "INvalid FileId").isLength({ min: 1, max: 100 }),
-  verifyToken,
   async (req, res) => {
     try {
      
       console.log(req)
-      const { fileId,type} = req.query;
+      //const { fileId,type} = req.query;
       const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
       var reports;
       var selectedColumns;
-      if(type=='userlist'){
-        selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile','is_inserted', 'reason','updatedAt'];
-        reports = await UsersCopy.findAll({
-          where:{
-            fileId:fileId
-          }
-        });
-        const columns = selectedColumns.map(columnName => ({
-          header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
-          key: columnName          
-      }));
-        worksheet.columns = columns;
-      }else if(type=='report'){
+      // if(type=='userlist'){
+      //   selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile','is_inserted', 'reason','updatedAt'];
+      //   reports = await UsersCopy.findAll({
+      //     where:{
+      //       fileId:fileId
+      //     }
+      //   });
+      //   const columns = selectedColumns.map(columnName => ({
+      //     header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
+      //     key: columnName          
+      // }));
+      //   worksheet.columns = columns;
+      // }else 
+      if(true){
          selectedColumns = ['exotel_number', 'mobile', 'from_name', 'to_number', 'to_name','status', 'start_time', 'end_time', 'duration', 'price','recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle','leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name','digits', 'disconnected_by', 'fileId', 'updatedAt'];         
          reports = await Report.findAll({
           where:{

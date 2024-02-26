@@ -7,24 +7,27 @@ const User = dbObj.define('user', {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notNull: { msg: "First Name is required." }, // Additional validation for not null
+      notEmpty: { msg: "First Name cannot be empty." }
+      
     }
   },
   mname: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notNull: { msg: "Middle Name is required." }, // Additional validation for not null
+      notEmpty: { msg: "Middle Name cannot be empty." }
+      
     }
   },
   lname: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true // Additional validation for not empty
+      notNull: { msg: "Last Name is required." }, // Additional validation for not null
+      notEmpty: { msg: "Last Name cannot be empty." }
+      
     }
   },
   email: {
@@ -32,8 +35,8 @@ const User = dbObj.define('user', {
     unique: true,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true,
+      notNull: { msg: "Email is required." }, // Additional validation for not null
+      notEmpty: { msg: "Email cannot be empty." },
       isEmail:true, // Additional validation for not empty
     }
   },
@@ -42,18 +45,24 @@ const User = dbObj.define('user', {
     allowNull: false, 
     unique: true,// This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true,
-      len: { min: 10, max: 10 }// Additional validation for not empty
+      notNull: { msg: "Mobile number is required." }, // Additional validation for not null
+      notEmpty: { msg: "Mobile number cannot be empty." },
+      len: { 
+        args: [10, 10], 
+        msg: "Mobile number must be exactly 10 digits long." 
+      } // Additional validation for not empty
     }
   },
   password: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: true, // Additional validation for not null
-      notEmpty: true,
-      len: { min: 8 } // Additional validation for not empty
+      notNull: { msg: "password  is required." }, // Additional validation for not null
+      notEmpty: { msg: "password  cannot be empty." },
+      len: { 
+        args: [8, 50], 
+        msg: "Password must be between 8 and 50 characters long." 
+      } // Additional validation for not empty
     }
   },
   user_type: {
