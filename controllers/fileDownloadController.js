@@ -13,47 +13,52 @@ const workbook = new excelJS.Workbook();
 
 const downloadFile = [
   //body("fileId", "INvalid FileId").isLength({ min: 1, max: 100 }),
-  //verifyToken,
+  verifyToken,
   async (req, res) => {
     try {
      
-      //const { fileId} = req.fileId;
-      console.log("fileId")
-      //console.log(fileId)
+      console.log(req)
+      const { fileId,type} = req.query;
       const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
-      const reports = await Report.findAll({
-        where:{
-          fileId:'1708680397229_bulkcsvdata.csv'
-        }
-      });
+      var reports;
+      var selectedColumns;
+      if(type=='userlist'){
+        selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile','is_inserted', 'reason','updatedAt'];
+        reports = await UsersCopy.findAll({
+          where:{
+            fileId:fileId
+          }
+        });
+        const columns = selectedColumns.map(columnName => ({
+          header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
+          key: columnName          
+      }));
+        worksheet.columns = columns;
+      }else if(type=='report'){
+         selectedColumns = ['exotel_number', 'mobile', 'from_name', 'to_number', 'to_name','status', 'start_time', 'end_time', 'duration', 'price','recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle','leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name','digits', 'disconnected_by', 'fileId', 'updatedAt'];         
+         reports = await Report.findAll({
+          where:{
+            fileId:fileId
+          }
+        });
+        const columns = selectedColumns.map(columnName => ({
+          header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
+          key: columnName          
+      }));
+        worksheet.columns = columns;
+      }
+      else{
+        return res.status(400).send({result:false,message:"Enter valid report type"})
+      }
+      
 
       // If no reports found, send a response with an appropriate message
       if (!reports.length) {
           console.log("No reports found");
           return apiResponse.successResponse(res, "No reports found", []);
       }
-
-      // 'exotel_number', 'mobile', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by', 'fileId', 'createdAt', 'updatedAt'
-
-     const selectedColumns = ['exotel_number', 'mobile', 'from_name', 'to_number', 'to_name','status', 'start_time', 'end_time', 'duration', 'price','recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle','leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name','digits', 'disconnected_by', 'fileId', 'updatedAt'];
-      // Get the column names dynamically from the first report object
-      //const columnNames = Object.keys(reports[0].dataValues);
-
-       // Create columns dynamically based on the column names
-       const columns = selectedColumns.map(columnName => ({
-        header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
-        key: columnName,
-        width: 20 // Set your preferred width here
-    }));
-  
-
-
-
-      // Add columns to the worksheet
-      worksheet.columns = columns;
-
-      // Add data to the worksheet
+       
       reports.forEach(report => {
           const rowData = selectedColumns.map(columnName => report[columnName]);
           worksheet.addRow(rowData);
@@ -61,7 +66,7 @@ const downloadFile = [
 
       // Write the workbook to the response object 
       res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"); 
-      res.setHeader("Content-Disposition", "attachment; filename=users.xlsx");
+      res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
       await workbook.xlsx.write(res);
       res.end();
   } catch (error) {
