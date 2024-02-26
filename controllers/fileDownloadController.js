@@ -7,7 +7,7 @@ const apiResponse = require("../helpers/apiResponse");
 const UsersCopy = require("../models/UsersCopy");
 const path = require('path');
 const excelJS = require("exceljs")
-const workbook = new excelJS.Workbook();
+
 
 const downloadFile = [
   async (req, res) => {
@@ -21,7 +21,7 @@ const downloadFile = [
   
       if (fileId) {
         selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
-  
+        const workbook = new excelJS.Workbook();
         const reports = await UsersCopy.findAll({
           where: {
             fileId: fileId
@@ -35,12 +35,12 @@ const downloadFile = [
         }));
   
         let worksheet;
-        if (workbook.worksheets.length === 0) {
+      
           worksheet = workbook.addWorksheet();
           worksheet.columns = columns;
-        } else {
+        
           worksheet = workbook.getWorksheet(1); // Get the first worksheet
-        }
+        
   
         if (!reports.length) {
           console.log("No reports found");
