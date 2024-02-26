@@ -16,7 +16,6 @@ const downloadFile = [
 
       const { fileId } = req.query;
       console.log(fileId)
-      const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
       let reports;
       var selectedColumns;
@@ -32,6 +31,7 @@ const downloadFile = [
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
           key: columnName
         }));
+        const worksheet = workbook.addWorksheet();
         worksheet.columns = columns;
         if (!reports.length) {
           console.log("No reports found");
