@@ -10,7 +10,8 @@ const { promisify } = require('util');
 const mkdir = promisify(fs.mkdir);
 const chmod = promisify(fs.chmod);
 const folderPath = '../exports';
-
+const excelJS=require("exceljs")
+const workbookOfDownloadFile = new excelJS.Workbook(); 
 let fileId;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -69,7 +70,7 @@ const uploadSupervisers = [
           .then(existingUser => {
             if (existingUser) {
               const userCopyModel = ({
-                fname: user.name,
+                fname: user.fname,
                 mname: user.mname,
                 lname: user.lname,
                 mobile: user.mobile,
@@ -93,7 +94,7 @@ const uploadSupervisers = [
             // Handle validation error for this user
             console.error(`Validation error for user ${user.username}:`, validationError.message);
             const userCopyModel = ({
-              fname: user.name,
+              fname: user.fname,
               mname: user.mname,
               lname: user.lname,
               mobile: user.mobile,
@@ -117,7 +118,7 @@ const uploadSupervisers = [
           // Filter out null entries (users not to be inserted)
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
-              fname: user.name,
+              fname: user.fname,
               mname: user.mname,
               lname: user.lname,
               mobile: user.mobile,
@@ -139,12 +140,12 @@ const uploadSupervisers = [
         .catch(error => {
           console.error('Error inserting users:', error.message);
         })
-        .finally(() => {
+        .finally( () => {
           if (usersNotInserted.length > 0) {
             console.log(`Users not inserted (validation failed or already existing):`);
           }         
             UsersCopy.findAll({ where: { fileId: fileId } })
-            .then(userCopies => {
+            .then(async userCopies => {
                 if (userCopies.length === 0) {
                     return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
                 }    
@@ -183,38 +184,49 @@ const uploadSupervisers = [
                       console.log("Folder '${folderPath}' already exists.");
                   }
               });
-                ensureDirectoryExistence('../expo');
-                const filePath = path.join(__dirname, folderPath, `userCopy_${fileId}`);
-                const ws = xlsx.utils.json_to_sheet(dataForExcel);
-                const wb = xlsx.utils.book_new();
-                xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
-                const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
-                // Set headers and send the buffer as response
-                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}`); // Filename with fileId
-
-                fs.writeFile(filePath, excelBuffer, (err) => {
-                  if (err) {
-                    console.error('Error writing Excel file:', err);
-                    res.status(500).json({result:false, error: 'Error writing Excel file' });
-                    return;
-                  }                
-                 
-                  const relativeFilePath = path.relative(folderPath, filePath);                              
-                  const myfilePath = './exports/userCopy_'+fileId;
-                  console.log(myfilePath)
-                  // Sending the file along with its path in the response
-                  res.sendFile(path.resolve(myfilePath), (err) => {
-                      if (err) {
-                          console.error('Error sending file: ', err);
-                          res.status(err.status).end();
-                      } else {
-                          console.log('File sent successfully');
-                          
-                      }
-                  });
-                  
+               
+              try {
+                const worksheet = workbookOfDownloadFile.addWorksheet();
+                // Fetch reports from the database
+                //const reports = await Report.findAll({});
+          
+                // If no reports found, send a response with an appropriate message
+                if (!dataForExcel.length) {
+                    console.log("No reports found");
+                    return apiResponse.successResponse(res, "No reports found", []);
+                }
+          
+                // 'exotel_number', 'mobile', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by', 'fileId', 'createdAt', 'updatedAt'
+          
+               const selectedColumns = ['fname', 'mname', 'lname', 'mobile', 'email','password', 'user_type', 'is_inserted', 'reason'];
+                // Get the column names dynamically from the first report object
+                //const columnNames = Object.keys(dataForExcel[0].dataValues);
+          
+                 // Create columns dynamically based on the column names
+                 const columns = selectedColumns.map(columnName => ({
+                  header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
+                  key: columnName,
+                  width: 20 // Set your preferred width here
+              }));                    
+                // Add columns to the worksheet
+                worksheet.columns = columns;
+          
+                // Add data to the worksheet
+                dataForExcel.forEach(report => {
+                    const rowData = selectedColumns.map(columnName => report[columnName]);
+                    worksheet.addRow(rowData);
                 });
+          
+                // Write the workbook to the response object 
+                res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"); 
+                res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
+                await workbookOfDownloadFile.xlsx.write(res);
+                res.send({result:true,message:"Report Exported Successfully"})
+                res.end();
+            } catch (error) {
+                console.error("Error downloading file:", error);
+                return apiResponse.ErrorResponse(res, "Error downloading file");
+            }
                 
             })
             .catch(error => {

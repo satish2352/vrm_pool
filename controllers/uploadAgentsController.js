@@ -11,6 +11,7 @@ const mkdir = promisify(fs.mkdir);
 const chmod = promisify(fs.chmod);
 const folderPath = '../exports';
 const { body, query, validationResult } = require("express-validator");
+const nodemailer = require('nodemailer');
 
 
 let fileId;
@@ -36,6 +37,17 @@ const excelFilter = function (req, file, cb) {
 };
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
+
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: " vishgorework@gmail.com",
+    pass: "gzejpmnbpzlsrdcm",
+  },
+});
 
 const uploadAgents = [
   verifyToken,
@@ -84,7 +96,7 @@ const uploadAgents = [
           .then(existingUser => {
             if (existingUser) {
               const userCopyModel = ({
-                fname: user.name,
+                fname: user.fname,
                 mname: user.mname,
                 lname: user.lname,
                 mobile: user.mobile,
@@ -108,7 +120,7 @@ const uploadAgents = [
             // Handle validation error for this user
             console.error(`Validation error for user ${user.username}:`, validationError.message);
             const userCopyModel = ({
-              fname: user.name,
+              fname: user.fname,
               mname: user.mname,
               lname: user.lname,
               mobile: user.mobile,
@@ -130,11 +142,12 @@ const uploadAgents = [
       Promise.all(insertionPromises)
         .then(usersToInsertFiltered => {   
           
-          TextTrackList
-          // Filter out null entries (users not to be inserted)
+          //TextTrackList
+          // Filter out null entries (users not to be inserted)             
+
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
-              fname: user.name,
+              fname: user.fname,
               mname: user.mname,
               lname: user.lname,
               mobile: user.mobile,
@@ -145,14 +158,28 @@ const uploadAgents = [
               reason: '',
               fileId: fileId,
               added_by:req.body.superviserId
-            }));
+            }));           
           UsersCopy.bulkCreate(usersToInsertFinal);
           return User.bulkCreate(usersToInsertFinal);
         })
-        .then(users => {
+        .then(async function(users) {
           console.log(`${users.length} users inserted successfully.`);
-          usersInserted = users;
-        })
+          usersInserted = users;          
+          // Sending emails inside the async function
+          for (const user of users) {
+              try {
+                  await transporter.sendMail({
+                      from: 'vishgorework@gmail.com',
+                      to: user.email,
+                      subject: 'Welcome to Our Platform',
+                      text: `Dear ${user.fname} ${user.mname} ${user.lname},\nWelcome to our platform! Your account has been successfully created. your password is ${user.password}`,
+                  });
+                  console.log(`Email sent to ${user.email}`);
+              } catch (error) {
+                  console.error(`Error sending email to ${user.email}:`, error);
+              }
+          }
+      })
         .catch(error => {
           console.error('Error inserting users:', error.message);
         })
@@ -252,6 +279,17 @@ const uploadAgents = [
   },
 ];
 
+function generatePassword(length) {
+  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=';
+
+  let password = '';
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+  }
+
+  return password;
+}
 
 module.exports = {
     uploadAgents,

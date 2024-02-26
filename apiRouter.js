@@ -31,7 +31,7 @@ router.post("/uploadCSVData",uploadCSVController.uploadData);
 router.post("/getReports",getReportsController.getReports);
 router.post("/getUserInsertHistory",getUserInsertHistoryController.getUserHistory);
 router.post("/getUserInsertDetails",getUserInserDetailsController.getUserInsertDetails);
-router.get("/downloadFile",fileDownloadController.downloadFile);
+router.post("/downloadFile",fileDownloadController.downloadFile);
 router.post("/getUserList",getUserListController.getUserList);
 router.post("/uploadSupervisers",uploadSuperviserController.uploadSupervisers);
 router.post("/uploadAgents",uploadAgentsController.uploadAgents);

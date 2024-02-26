@@ -3,9 +3,9 @@ const Report = require("../models/Report");
 const User = require("../models/Users");
 const { body, query, validationResult } = require("express-validator");
 const sequelize = require('../db');
-const { Op } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 const UsersCopy = require("../models/UsersCopy");
+const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 
 
 const getUserInsertDetails = [
@@ -29,13 +29,58 @@ const getUserInsertDetails = [
         userFilter = {
           user_type: user_type
         };
-      }      
-      const userMobiles = await UsersCopy.findAll({
-        where: userFilter,
-        order: [['id', 'DESC']]      
-      });
+      } 
+      var results; 
+      if(fileId)
+      {
+        results = await UsersCopy.findAll({
+          where: userFilter,
+          order: [['id', 'DESC']],
+          group:['mobile'],          
+          attributes:[
+            'fileId',
+            'createdAt',
+            'updatedAt',
+            'fname',
+            'mname',
+            'lname',
+            'email',
+            'mobile',
+            'reason',
+            'added_by',
+            'is_inserted',
+            
+        ]
+  
+        });
 
-      apiResponse.successResponseWithData(res, 'All details get successfully', userMobiles);
+      }else{
+        console.log('else')
+         results = await UsersCopy.findAll({
+          where: userFilter,
+          order: [['id', 'DESC']],
+          group:['fileId'],
+          attributes:[
+            'fileId',
+            'createdAt',
+            'updatedAt',
+            [
+              fn('SUM', literal('CASE WHEN is_inserted = "1" THEN 1 ELSE 0 END')),
+              'insertedCount'
+          ],
+          [
+              fn('SUM', literal('CASE WHEN is_inserted = "0" THEN 1 ELSE 0 END')),
+              'failedCount'
+          ],        
+        ]
+  
+        });
+      }    
+       
+
+      
+
+      apiResponse.successResponseWithData(res, 'All details get successfully', results);
     } catch (error) {
       apiResponse.ErrorResponse(res, "Error occured during api call");
       console.error('Error fetching users with filters:', error);
