@@ -17,7 +17,7 @@ const downloadFile = [
     try {
      
       console.log(req)
-      //const { fileId,type} = req.query;
+      const { fileId} = req.query;
       const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
       var reports;
