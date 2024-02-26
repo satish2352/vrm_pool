@@ -33,5 +33,5 @@ const logOut = [
 ];
 
 module.exports = {
-    logOut,
+    logOut
 };
