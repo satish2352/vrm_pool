@@ -12,19 +12,19 @@ const workbook = new excelJS.Workbook();
 
 
 const downloadFile = [
-  body("fileId", "INvalid FileId").isLength({ min: 1, max: 100 }),
-  verifyToken,
+  //body("fileId", "INvalid FileId").isLength({ min: 1, max: 100 }),
+  //verifyToken,
   async (req, res) => {
     try {
      
-      const { fileId} = req.body;
+      //const { fileId} = req.fileId;
       console.log("fileId")
-      console.log(fileId)
+      //console.log(fileId)
       const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
       const reports = await Report.findAll({
         where:{
-          fileId:fileId
+          fileId:'1708680397229_bulkcsvdata.csv'
         }
       });
 
