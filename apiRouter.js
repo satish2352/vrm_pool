@@ -17,7 +17,7 @@ const getAgentsBySuperviserController = require("./controllers/getAgentsBySuperv
 const getDashboardStatsController = require("./controllers/getDashboardStatsController");
 const reportExotelController = require("./controllers/reportExotelController");
  const changePasswordController = require("./controllers/changePasswordController");
- const logOutController = require("./controllers/logOutController");
+ const logoutController = require("./controllers/logoutController");
 //const resetPasswordController = require("./controllers/resetPasswordController");
 const { body, query, validationResult } = require("express-validator");
 
@@ -38,7 +38,7 @@ router.post("/uploadAgents",uploadAgentsController.uploadAgents);
 router.post("/getAgentsBySuperviser",getAgentsBySuperviserController.getAgents);
 router.post("/getDashboardStats",getDashboardStatsController.getStats);
 router.post("/changePassword",changePasswordController.changePassword);
-router.post("/logout",logOutController.logOut);
+router.post("/logout",logoutController.logOut);
 
 //Exotel API
 router.post("/getReportsSingleRow",reportExotelController.getReportsSingleRow);
