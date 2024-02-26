@@ -11,6 +11,7 @@ const logOut = [
     verifyToken,    
     async (req, res) => {       
                        
+        
                 try {
                     const userId = req.user.id; // Assuming verifyToken middleware sets userId in req.user        
                     // Delete the token associated with the user from the database
