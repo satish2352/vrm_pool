@@ -13,49 +13,54 @@ const downloadFile = [
   async (req, res) => {
     try {
       const { fileId } = req.query;
-      console.log(fileId)
-      
+      console.log(fileId);
+  
       // Fetch reports from the database
       let reports;
       var selectedColumns;
-      
+  
       if (fileId) {
         selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
-        
+  
         const reports = await UsersCopy.findAll({
           where: {
             fileId: fileId
           }
-        });      
-        
+        });
+        console.log("Reports:", reports); // Log the reports array
+  
         const columns = selectedColumns.map(columnName => ({
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
           key: columnName
         }));
-        
-        const worksheet = workbook.addWorksheet(fileId);
-        worksheet.columns = columns;
-        
+  
+        let worksheet;
+        if (workbook.worksheets.length === 0) {
+          worksheet = workbook.addWorksheet();
+          worksheet.columns = columns;
+        } else {
+          worksheet = workbook.getWorksheet(1); // Get the first worksheet
+        }
+  
         if (!reports.length) {
           console.log("No reports found");
           return apiResponse.successResponse(res, "No reports found", []);
         }
-
+  
         reports.forEach(report => {
           const rowData = selectedColumns.map(columnName => report[columnName]);
           worksheet.addRow(rowData);
         });
-
-        // Write the workbook to the response object 
+  
+        // Write the workbook to the response object
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
         await workbook.xlsx.write(res);
         res.end(); // Send response after writing is completed
+      } else {
+        return res.status(400).send({ result: false, message: "Enter valid report type" });
       }
-      else {
-        return res.status(400).send({ result: false, message: "Enter valid report type" })
-      }
-
+  
     } catch (error) {
       console.error("Error downloading file:", error);
       return apiResponse.ErrorResponse(res, "Error downloading file");
