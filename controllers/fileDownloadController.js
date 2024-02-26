@@ -33,7 +33,7 @@ const downloadFile = [
           key: columnName
         }));
         
-        const worksheet = workbook.addWorksheet();
+        const worksheet = workbook.addWorksheet(fileId);
         worksheet.columns = columns;
         
         if (!reports.length) {
