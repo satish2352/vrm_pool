@@ -27,6 +27,9 @@ const downloadFile = [
             fileId:fileId
           }
         });
+
+        console.log('---------------------------------------------')
+        console.log(reports)
         const columns = selectedColumns.map(columnName => ({
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
           key: columnName          
