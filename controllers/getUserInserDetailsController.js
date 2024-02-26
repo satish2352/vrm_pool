@@ -25,11 +25,11 @@ const getUserInsertDetails = [
             fileId: fileId
         };
       }
-      // if (user_type) {
-      //   userFilter = {
-      //     user_type: user_type
-      //   };
-      // } 
+      if (user_type) {
+        userFilter = {
+          user_type: user_type
+        };
+      } 
       var results; 
       if(fileId)
       {
