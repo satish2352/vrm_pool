@@ -23,7 +23,7 @@ const downloadFile = [
       if (fileId) {
         selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
         
-        let reports = await UsersCopy.findAll({
+        const reports = await UsersCopy.findAll({
           where: {
             fileId: fileId
           }
