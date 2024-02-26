@@ -12,13 +12,13 @@ const workbook = new excelJS.Workbook();
 const downloadFile = [
   async (req, res) => {
     try {
-
-
       const { fileId } = req.query;
       console.log(fileId)
+      
       // Fetch reports from the database
       let reports;
       var selectedColumns;
+      
       if (fileId) {
         selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
         
@@ -27,12 +27,15 @@ const downloadFile = [
             fileId: fileId
           }
         });      
+        
         const columns = selectedColumns.map(columnName => ({
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
           key: columnName
         }));
+        
         const worksheet = workbook.addWorksheet();
         worksheet.columns = columns;
+        
         if (!reports.length) {
           console.log("No reports found");
           return apiResponse.successResponse(res, "No reports found", []);
@@ -47,14 +50,11 @@ const downloadFile = [
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
         await workbook.xlsx.write(res);
-        res.end();
+        res.end(); // Send response after writing is completed
       }
       else {
         return res.status(400).send({ result: false, message: "Enter valid report type" })
       }
-
-
-      // If no reports found, send a response with an appropriate message
 
     } catch (error) {
       console.error("Error downloading file:", error);
