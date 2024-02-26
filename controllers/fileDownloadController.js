@@ -18,11 +18,12 @@ const downloadFile = [
       console.log(fileId)
       const worksheet = workbook.addWorksheet();
       // Fetch reports from the database
-      var reports;
+      let reports;
       var selectedColumns;
       if (fileId) {
         selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
-        reports = await UsersCopy.findAll({
+        
+        let reports = await UsersCopy.findAll({
           where: {
             fileId: fileId
           }
