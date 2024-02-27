@@ -27,7 +27,7 @@ const downloadFile = [
             fileId: fileId
           }
         });
-        console.log("Reports:", reports); // Log the reports array
+       // console.log("Reports:", reports); // Log the reports array
   
         const columns = selectedColumns.map(columnName => ({
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
@@ -37,8 +37,7 @@ const downloadFile = [
         let worksheet;
       
           worksheet = workbook.addWorksheet();
-          worksheet.columns = columns;
-        
+          worksheet.columns = columns;        
           worksheet = workbook.getWorksheet(1); // Get the first worksheet
         
   
