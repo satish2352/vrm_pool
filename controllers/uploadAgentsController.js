@@ -52,13 +52,11 @@ const transporter = nodemailer.createTransport({
 const uploadAgents = [
   verifyToken,
   upload.single('file'),
-  body("superviserId", "Enter valid superviserId").isLength({ min: 1 }), // Validation for superviserId
+  body("superviserId", "Enter valid superviserId").isLength({ min: 1 }),
   async (req, res) => {
-    
     if (!req.file) {
       return res.status(400).json({ result: false, message: 'To upload file select valid file. only .xlsx or .xls file is allowed.' });
     }
-
     const checkErrorInValidations = validationResult(req);
     if (!checkErrorInValidations.isEmpty()) {
       return res.status(400).json({
@@ -67,7 +65,8 @@ const uploadAgents = [
         errors: checkErrorInValidations.array(),
       });
     }else{
-        let superviserId=req.body.superviserId;
+      let superviserId=req.body.superviserId;
+
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames; // Get all sheet names    
     let jsonData;
@@ -96,12 +95,10 @@ const uploadAgents = [
           .then(existingUser => {
             if (existingUser) {
               const userCopyModel = ({
-                fname: user.fname,
-                mname: user.mname,
-                lname: user.lname,
+                name: user.name,              
                 mobile: user.mobile,
                 email: user.email,
-                password: user.password,
+                password:'12345678',              
                 user_type: 3,
                 is_inserted: 0,
                 reason: 'Mobile number already exists',
@@ -110,7 +107,6 @@ const uploadAgents = [
               });
               usersNotInserted.push(userCopyModel)
               UsersCopy.create(userCopyModel);
-
               return null; // Returning null so this user is not inserted
             } else {
               return user; // Returning the user object to be inserted
@@ -120,12 +116,10 @@ const uploadAgents = [
             // Handle validation error for this user
             console.error(`Validation error for user ${user.username}:`, validationError.message);
             const userCopyModel = ({
-              fname: user.fname,
-              mname: user.mname,
-              lname: user.lname,
+              name: user.name,              
               mobile: user.mobile,
               email: user.email,
-              password: user.password,
+              password:'12345678',   
               user_type: 3,
               is_inserted: 0,
               reason: validationError.message,
@@ -140,132 +134,52 @@ const uploadAgents = [
       });
 
       Promise.all(insertionPromises)
-        .then(usersToInsertFiltered => {   
-          
-          //TextTrackList
-          // Filter out null entries (users not to be inserted)             
-
+        .then(usersToInsertFiltered => {          
+          // Filter out null entries (users not to be inserted)
           const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
             .map(user => ({
-              fname: user.fname,
-              mname: user.mname,
-              lname: user.lname,
+              name: user.name,              
               mobile: user.mobile,
-              email: user.email,
-              password: user.password,
+              email: user.email,   
+              password: '12345678',
               user_type: 3,
               is_inserted: 1,
               reason: '',
               fileId: fileId,
-              added_by:req.body.superviserId
-            }));           
+              added_by:superviserId
+            }));
           UsersCopy.bulkCreate(usersToInsertFinal);
           return User.bulkCreate(usersToInsertFinal);
         })
-        .then(async function(users) {
+        .then(users => {
           console.log(`${users.length} users inserted successfully.`);
-          usersInserted = users;          
-          // Sending emails inside the async function
-          for (const user of users) {
-              try {
-                  await transporter.sendMail({
-                      from: 'vishgorework@gmail.com',
-                      to: user.email,
-                      subject: 'Welcome to Our Platform',
-                      text: `Dear ${user.fname} ${user.mname} ${user.lname},\nWelcome to our platform! Your account has been successfully created. your password is ${user.password}`,
-                  });
-                  console.log(`Email sent to ${user.email}`);
-              } catch (error) {
-                  console.error(`Error sending email to ${user.email}:`, error);
-              }
-          }
-      })
+          usersInserted = users;
+        })
         .catch(error => {
           console.error('Error inserting users:', error.message);
         })
-        .finally(() => {
+        .finally( () => {
           if (usersNotInserted.length > 0) {
             console.log(`Users not inserted (validation failed or already existing):`);
-          }
-
+          }         
             UsersCopy.findAll({ where: { fileId: fileId } })
-            .then(userCopies => {
+            .then(async userCopies => {
                 if (userCopies.length === 0) {
                     return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
-                }    
-                console.log('added_by : '+superviserId);
-                // Prepare data for exporting to Excel
-                const dataForExcel = userCopies.map(userCopy => ({
-                    fname: userCopy.fname,
-                    mname: userCopy.mname,
-                    lname: userCopy.lname,
-                    mobile: userCopy.mobile,
-                    email: userCopy.email,
-                    password: userCopy.password,
-                    user_type: 3,
-                    is_inserted: userCopy.is_inserted==1?"Yes":"No",
-                    reason: userCopy.reason,
-                    added_by:superviserId
-                    // Add other properties as needed
-                }));
-    
-
-                fs.access(folderPath, fs.constants.F_OK, (err) => {
-                  if (err) {
-                      // Folder does not exist, create it and set permissions
-                      mkdir(folderPath)
-                          .then(() => {
-                              console.log('${folderPath}');
-                              // Setting permissions to 777 (read, write, execute for everyone)
-                              return chmod(folderPath, 0o777);
-                          })
-                          .then(() => {
-                              console.log("Permissions set for '${folderPath}'.");
-                          })
-                          .catch((error) => {
-                              console.error("Error creating folder or setting permissions: ${error}");
-                          });
-                  } else {
-                      console.log("Folder '${folderPath}' already exists.");
+                }else{
+                    
+                  if(usersInserted.length>0 && usersNotInserted.length>0)
+                  {
+                    return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
                   }
-              });
-                const filePath = path.join(__dirname, folderPath, `userCopy_${fileId}`);
-                const ws = xlsx.utils.json_to_sheet(dataForExcel);
-                const wb = xlsx.utils.book_new();
-                xlsx.utils.book_append_sheet(wb, ws, "UserCopy Data");
-                const excelBuffer = xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
-                // Set headers and send the buffer as response
-                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-                res.setHeader('Content-Disposition', `attachment; filename=userCopy_${fileId}`); // Filename with fileId
-
-                fs.writeFile(filePath, excelBuffer, (err) => {
-                  if (err) {
-                    console.error('Error writing Excel file:', err);
-                    res.status(500).json({result:false, error: 'Error writing Excel file' });
-                    return;
-                  }                
-                 
-                  const relativeFilePath = path.relative(folderPath, filePath);                              
-                  const myfilePath = './exports/userCopy_'+fileId;
-                  console.log(myfilePath)
-                  // Sending the file along with its path in the response
-                  res.sendFile(path.resolve(myfilePath), (err) => {
-                      if (err) {
-                          console.error('Error sending file: ', err);
-                          res.status(err.status).end();
-                      } else {
-                          console.log('File sent successfully');
-                          
-                      }
-                  });
-                  
-                });
-                
-
+                  if(usersNotInserted.length==0 && usersInserted.length>0){
+                    return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
+                  }
+                  return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
+                }                   
             })
-            .catch(error => {
-                console.error('Error exporting data:', error.message);
-                res.status(500).json({ result: false, message: 'Error exporting data.' });
+            .catch(error => {              
+                res.status(500).json({ result: false, message: 'Error occured during operation',error});
             });
         });
 
@@ -273,23 +187,12 @@ const uploadAgents = [
       console.error(error);
       res.status(500).json({ message: 'Error saving data' });
     } finally {
-      //await client.close();
+      
     }
-}
+  }
   },
 ];
 
-function generatePassword(length) {
-  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=';
-
-  let password = '';
-  for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      password += charset[randomIndex];
-  }
-
-  return password;
-}
 
 module.exports = {
     uploadAgents,

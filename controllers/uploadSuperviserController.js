@@ -12,6 +12,8 @@ const chmod = promisify(fs.chmod);
 const folderPath = '../exports';
 const excelJS=require("exceljs")
 const workbookOfDownloadFile = new excelJS.Workbook(); 
+const nodemailer = require('nodemailer');
+const bcrypt = require("bcryptjs");
 let fileId;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,6 +36,16 @@ const excelFilter = function (req, file, cb) {
 };
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: " vishgorework@gmail.com",
+    pass: "gzejpmnbpzlsrdcm",
+  },
+});
 
 const uploadSupervisers = [
   verifyToken,
@@ -60,9 +72,11 @@ const uploadSupervisers = [
 
       let usersToInsert = jsonData;
 
-      const insertionPromises = usersToInsert.map(user => {
+      const insertionPromises = usersToInsert.map(user => {        
         return User.build(user).validate()
           .then(() => {
+            const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
+            user.mobile=match[1]
             return User.findOne({
               where: { mobile: user.mobile }
             });
@@ -70,12 +84,10 @@ const uploadSupervisers = [
           .then(existingUser => {
             if (existingUser) {
               const userCopyModel = ({
-                fname: user.fname,
-                mname: user.mname,
-                lname: user.lname,
+                name: user.name,              
                 mobile: user.mobile,
                 email: user.email,
-                password: user.password,
+                password:'12345678',              
                 user_type: 2,
                 is_inserted: 0,
                 reason: 'Mobile number already exists',
@@ -84,7 +96,6 @@ const uploadSupervisers = [
               });
               usersNotInserted.push(userCopyModel)
               UsersCopy.create(userCopyModel);
-
               return null; // Returning null so this user is not inserted
             } else {
               return user; // Returning the user object to be inserted
@@ -94,12 +105,10 @@ const uploadSupervisers = [
             // Handle validation error for this user
             console.error(`Validation error for user ${user.username}:`, validationError.message);
             const userCopyModel = ({
-              fname: user.fname,
-              mname: user.mname,
-              lname: user.lname,
+              name: user.name,              
               mobile: user.mobile,
               email: user.email,
-              password: user.password,
+              password:'12345678',   
               user_type: 2,
               is_inserted: 0,
               reason: validationError.message,
@@ -112,27 +121,52 @@ const uploadSupervisers = [
             return null; // Returning null so this user is not inserted
           });
       });
-
       Promise.all(insertionPromises)
-        .then(usersToInsertFiltered => {          
-          // Filter out null entries (users not to be inserted)
-          const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
-            .map(user => ({
-              fname: user.fname,
-              mname: user.mname,
-              lname: user.lname,
+        .then( async (usersToInsertFiltered) => {          
+          const usersToInsertFinal = await Promise.all(usersToInsertFiltered.filter(user => user !== null)
+          .map(async user => {
+            const randomPassword = generateRandomPassword();
+            const textpassword = randomPassword;
+            const encryptedPassword = await hashPassword(randomPassword);
+            console.log(encryptedPassword);
+            console.log(textpassword);            
+            return {
+              name: user.name,
               mobile: user.mobile,
               email: user.email,
-              password: user.password,
+              password: encryptedPassword,
               user_type: 2,
               is_inserted: 1,
               reason: '',
               fileId: fileId,
-              added_by:0
-            }));
-          UsersCopy.bulkCreate(usersToInsertFinal);
-          return User.bulkCreate(usersToInsertFinal);
-        })
+              added_by: 0,
+              textpassword:textpassword,
+            };
+          }));
+        
+        // Now that usersToInsertFinal is fully populated, we can proceed with bulkCreate
+        await UsersCopy.bulkCreate(usersToInsertFinal);
+       return await User.bulkCreate(usersToInsertFinal);          
+          
+        }).then(async function(users) {
+          console.log(`${users.length} users inserted successfully.`);
+          usersInserted = users;          
+          // Sending emails inside the async function
+          for (const user of users) {
+              try {
+                  await transporter.sendMail({
+                      from: 'vishgorework@gmail.com',
+                      to: user.email,
+                      subject: 'Welcome to Our Platform',
+                      text: `Dear ${user.name},\nWelcome to our platform! Your account has been successfully created. your password is ${user.textpassword}`,
+                  });
+                  console.log(`Email sent to ${user.email}`);
+                  console.log(`Password  ${user.textpassword}`);
+              } catch (error) {
+                  console.error(`Error sending email to ${user.email}:`, error);
+              }
+          }
+      })
         .then(users => {
           console.log(`${users.length} users inserted successfully.`);
           usersInserted = users;
@@ -147,91 +181,21 @@ const uploadSupervisers = [
             UsersCopy.findAll({ where: { fileId: fileId } })
             .then(async userCopies => {
                 if (userCopies.length === 0) {
-                    return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
-                }    
-                // Prepare data for exporting to Excel
-                const dataForExcel = userCopies.map(userCopy => ({
-                    fname: userCopy.fname,
-                    mname: userCopy.mname,
-                    lname: userCopy.lname,
-                    mobile: userCopy.mobile,
-                    email: userCopy.email,
-                    password: userCopy.password,
-                    user_type: 2,
-                    is_inserted: userCopy.is_inserted==1?"Yes":"No",
-                    reason: userCopy.reason,
-                    added_by:0
-                    // Add other properties as needed
-                }));
-    
-
-                fs.access(folderPath, fs.constants.F_OK, (err) => {
-                  if (err) {
-                      // Folder does not exist, create it and set permissions
-                      mkdir(folderPath)
-                          .then(() => {
-                              console.log('${folderPath}');
-                              // Setting permissions to 777 (read, write, execute for everyone)
-                              return chmod(folderPath, 0o777);
-                          })
-                          .then(() => {
-                              console.log("Permissions set for '${folderPath}'.");
-                          })
-                          .catch((error) => {
-                              console.error("Error creating folder or setting permissions: ${error}");
-                          });
-                  } else {
-                      console.log("Folder '${folderPath}' already exists.");
+                    return res.status(400).json({ result: false, message: 'No  record inserted' });
+                }else{
+                    
+                  if(usersInserted.length>0 && usersNotInserted.length>0)
+                  {
+                    return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
                   }
-              });
-               
-              try {
-                const worksheet = workbookOfDownloadFile.addWorksheet();
-                // Fetch reports from the database
-                //const reports = await Report.findAll({});
-          
-                // If no reports found, send a response with an appropriate message
-                if (!dataForExcel.length) {
-                    console.log("No reports found");
-                    return apiResponse.successResponse(res, "No reports found", []);
-                }
-          
-                // 'exotel_number', 'mobile', 'from_name', 'to_number', 'to_name', 'status', 'start_time', 'end_time', 'duration', 'price', 'recording_url', 'price_details', 'group_name', 'from_circle', 'to_circle', 'leg1_status', 'leg2_status', 'conversation_duration', 'app_id', 'app_name', 'digits', 'disconnected_by', 'fileId', 'createdAt', 'updatedAt'
-          
-               const selectedColumns = ['fname', 'mname', 'lname', 'mobile', 'email','password', 'user_type', 'is_inserted', 'reason'];
-                // Get the column names dynamically from the first report object
-                //const columnNames = Object.keys(dataForExcel[0].dataValues);
-          
-                 // Create columns dynamically based on the column names
-                 const columns = selectedColumns.map(columnName => ({
-                  header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
-                  key: columnName,
-                  width: 20 // Set your preferred width here
-              }));                    
-                // Add columns to the worksheet
-                worksheet.columns = columns;
-          
-                // Add data to the worksheet
-                dataForExcel.forEach(report => {
-                    const rowData = selectedColumns.map(columnName => report[columnName]);
-                    worksheet.addRow(rowData);
-                });
-          
-                // Write the workbook to the response object 
-                res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"); 
-                res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
-                await workbookOfDownloadFile.xlsx.write(res);
-                res.send({result:true,message:"Report Exported Successfully"})
-                res.end();
-            } catch (error) {
-                console.error("Error downloading file:", error);
-                return apiResponse.ErrorResponse(res, "Error downloading file");
-            }
-                
+                  if(usersNotInserted.length==0 && usersInserted.length>0){
+                    return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
+                  }
+                  return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
+                }                   
             })
-            .catch(error => {
-                console.error('Error exporting data:', error.message);
-                res.status(500).json({ result: false, message: 'Error exporting data.' });
+            .catch(error => {              
+                res.status(500).json({ result: false, message: 'Error occured during operation',error});
             });
         });
 
@@ -239,17 +203,31 @@ const uploadSupervisers = [
       console.error(error);
       res.status(500).json({ message: 'Error saving data' });
     } finally {
-      //await client.close();
+      
     }
 
   },
 ];
-function ensureDirectoryExistence(filePath) {
-  const directory = path.dirname(filePath);
-  if (!fs.existsSync(directory)) {
-    fs.mkdirSync(directory, { recursive: true });
+
+function generateRandomPassword() {
+  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let password = '';
+  for (let i = 0; i < 10; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
   }
+  return password;
 }
+
+const hashPassword = async (password) => {
+  try {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      return hashedPassword;
+  } catch (error) {
+      throw error;
+  }
+};
 
 module.exports = {
     uploadSupervisers,

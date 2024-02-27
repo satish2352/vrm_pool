@@ -48,7 +48,7 @@ const loginUser = [
                 } else {
                     const userId = user.id;
                     const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
-                    const expiration = new Date(Date.now() + 7200000); // 2 hour expiration                
+                    const expiration = new Date(Date.now() + 10800000); // 3 hour expiration                
                    // const createdTokenx = await Token.create({ userId, token, expiration });
                     // Find an existing token for the user or create a new one if it doesn't exist
                     const [createdToken, created] = await Token.findOrCreate({

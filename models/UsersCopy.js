@@ -2,15 +2,8 @@ const { DataTypes } = require("sequelize");
 const dbObj = require('../db');
 
 const UsersCopy = dbObj.define('users_copy', {
-  fname: {
+  name: {
     type:DataTypes.STRING,
-  },
-  mname: {
-    type:DataTypes.STRING,
-  },
-  lname: {
-    type:DataTypes.STRING,
-     // This is the default if required is not explicitly set
   },
   email: {
     type:DataTypes.STRING,
@@ -19,6 +12,9 @@ const UsersCopy = dbObj.define('users_copy', {
     type:DataTypes.STRING,
   },
   password: {
+    type:DataTypes.STRING,
+  },
+  textpassword: {
     type:DataTypes.STRING,
   },
   user_type: {

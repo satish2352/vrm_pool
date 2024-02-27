@@ -3,31 +3,12 @@ const dbObj = require('../db');
 const Report = require("../models/Report");
 
 const User = dbObj.define('user', {
-  fname: {
+  name: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: { msg: "First Name is required." }, // Additional validation for not null
-      notEmpty: { msg: "First Name cannot be empty." }
-      
-    }
-  },
-  mname: {
-    type:DataTypes.STRING,
-    allowNull: false, // This is the default if required is not explicitly set
-    validate: {
-      notNull: { msg: "Middle Name is required." }, // Additional validation for not null
-      notEmpty: { msg: "Middle Name cannot be empty." }
-      
-    }
-  },
-  lname: {
-    type:DataTypes.STRING,
-    allowNull: false, // This is the default if required is not explicitly set
-    validate: {
-      notNull: { msg: "Last Name is required." }, // Additional validation for not null
-      notEmpty: { msg: "Last Name cannot be empty." }
-      
+      notNull: { msg: "Full Name is required." }, // Additional validation for not null
+      notEmpty: { msg: "Full Name cannot be empty." }
     }
   },
   email: {
@@ -45,32 +26,43 @@ const User = dbObj.define('user', {
     allowNull: false, 
     unique: true,// This is the default if required is not explicitly set
     validate: {
-      notNull: { msg: "Mobile number is required." }, // Additional validation for not null
-      notEmpty: { msg: "Mobile number cannot be empty." },
-      len: { 
-        args: [10, 10], 
-        msg: "Mobile number must be exactly 10 digits long." 
-      } // Additional validation for not empty
+      isValidMobile(value) {
+          if (!/^(?:\+91|0|91)?[6-9]\d{9}$/.test(value)) {
+              throw new Error('Please enter a valid Indian mobile number!');
+          }
+      }
     }
   },
   password: {
     type:DataTypes.STRING,
-    allowNull: false, // This is the default if required is not explicitly set
+    allowNull: true, // This is the default if required is not explicitly set
     validate: {
-      notNull: { msg: "password  is required." }, // Additional validation for not null
+    // Additional validation for not null
       notEmpty: { msg: "password  cannot be empty." },
       len: { 
-        args: [8, 50], 
+        args: [8, 500], 
+        msg: "Password must be between 8 and 50  characters long." 
+      } // Additional validation for not empty
+    }
+  },
+  textpassword: {
+    type:DataTypes.STRING,
+    allowNull: true, // This is the default if required is not explicitly set
+    validate: {
+    // Additional validation for not null
+      notEmpty: { msg: "password  cannot be empty." },
+      len: { 
+        args: [8, 500], 
         msg: "Password must be between 8 and 50 characters long." 
       } // Additional validation for not empty
     }
   },
   user_type: {
     type:DataTypes.STRING,
-    allowNull: false, // This is the default if required is not explicitly set
+    allowNull: true, // This is the default if required is not explicitly set
     unique: true,
     validate: {
-      notNull: true, // Additional validation for not null
+       // Additional validation for not null
       notEmpty: true,
       len: { min: 1, max: 3 } // Additional validation for not empty
     }
@@ -82,7 +74,8 @@ const User = dbObj.define('user', {
   added_by: {
     allowNull: true,
     type: DataTypes.STRING,
-  }
+  },
+
   
 });
 
