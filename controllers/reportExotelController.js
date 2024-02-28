@@ -12,10 +12,10 @@ const getReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction,fromtime,totime } = req.body;
+            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime} = req.body;
 
             // Construct filter for Users
-            let userFilter = {};        
+            let userFilter = {};
             if (user_type) {
                 userFilter.user_type = user_type;
             }
@@ -41,10 +41,9 @@ const getReportsSingleRow = [
             };
             // if (fromdate && todate) {
             //     reportFilter.updatedAt = {
-            //         [Op.between]: [fromdate, todate]
+            //         [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
             //     };
             // }
-            console.log(fromdate+" "+fromtime+":00")
             if ((fromdate && todate) &&  (! fromtime && ! totime)) {
                 reportFilter.updatedAt = {
                     [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
@@ -56,7 +55,6 @@ const getReportsSingleRow = [
                     [Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
                 };
             }
-
             if (status) {
                 reportFilter.status = status;
             }
@@ -66,10 +64,6 @@ const getReportsSingleRow = [
             }
 
 
-            // if (!Array.isArray(agent_id)) {
-            //     agent_id_new = [agent_id];
-            // }
-            
             // Fetch reports based on filters
             const reports = await Report.findAll({
                 attributes: [
@@ -100,15 +94,10 @@ const getReportsSingleRow = [
                     ],
                     [fn('COUNT', col('duration')), 'total_calls'],                    
                 ],
-                where: {
-                    ...reportFilter,
-                    user_id: {                
-                        [Op.in]: agent_id // Filter reports for multiple agent IDs
-                    }
-                },
+                where: reportFilter,
                 include: [{
                     model: User,
-                    attributes: ['mobile', 'id', 'name','fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
+                    attributes: ['mobile', 'id', 'fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
                 }],
                 group: ['user_id'], 
                 order: [['createdAt', 'DESC']]
