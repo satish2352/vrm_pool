@@ -37,6 +37,7 @@ const getUser = [
             return res.status(200).json({
                 result: true, message: 'User fetch successful', data: {
                     id: user.id,
+                    name:user.name,
                     fname: user.fname,
                     lname: user.lname,
                     email: user.email,

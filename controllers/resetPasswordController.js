@@ -47,13 +47,12 @@ const resetPassword = [
                               from: 'vishvambhargore@sumagoinfotech.in',
                               to: user.email,
                               subject: 'Password Reset For Your Account with VRMPool ',
-                              text: `Dear ${user.name},\nWelcome to our platform! Your password has been successfully reset. your password is ${user.newPassword}`,
+                              text: `Dear ${user.name},\nWelcome to our platform! Your password has been successfully reset. your password is ${newPassword}`,
                           });
                           console.log(`Email sent to ${user.email}`);                          
                       } catch (error) {
                           console.error(`Error sending email to ${user.email}:`, error);
-                      }
-                        console.log(newPassword)
+                      }                        
                         return res.status(200).send({ result: true, message: "Your password Reset Successfully Check your email" });
                     }                                       
             } catch (err) {

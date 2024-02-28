@@ -7,8 +7,11 @@ const User = dbObj.define('user', {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      notNull: { msg: "Full Name is required." }, // Additional validation for not null
-      notEmpty: { msg: "Full Name cannot be empty." }
+      hasAtLeastSpaceAndCharacters(value) {
+        if (!/\s/.test(value) || value.length < 5) {
+          throw new Error('Please Full Name');
+        }
+      }
     }
   },
   email: {
