@@ -78,6 +78,14 @@ const User = dbObj.define('user', {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  is_active: {
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
+  is_deleted: {
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
 
   
 });

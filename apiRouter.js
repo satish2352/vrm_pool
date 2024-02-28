@@ -21,6 +21,8 @@ const reportExotelController = require("./controllers/reportExotelController");
  const downloadReportsController = require("./controllers/downloadReportsController");
 const resetPasswordController = require("./controllers/resetPasswordController");
 const sendOTPController = require("./controllers/sendOTPController");
+const changeUserStatusController = require("./controllers/changeUserStatusController");
+const deleteUserController = require("./controllers/deleteUserController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -43,13 +45,11 @@ router.post("/changePassword",changePasswordController.changePassword);
 router.post("/logout",logoutController.logOut);
 router.post("/resetPassword",resetPasswordController.resetPassword);
 router.post("/sendOTP",sendOTPController.sendOTP);
+router.post("/changeUserStatus",changeUserStatusController.changeUserStatus);
+router.post("/deleteUser",deleteUserController.deleteUser);
 router.get("/downloadReports",downloadReportsController.downloadReports);
-
-//Exotel API
 router.post("/getReportsSingleRow",reportExotelController.getReportsSingleRow);
 
-
-// router.post("/resetPassword",resetPasswordController.resetPassword);
 
 
 router.get("/",function(req,res){

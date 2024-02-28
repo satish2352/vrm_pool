@@ -4,14 +4,8 @@ const multer = require('multer')
 const path = require('path');
 const xlsx = require('xlsx');
 const verifyToken = require("../middleware/verifyToken");
-const fs = require('fs'); // Require the 'fs' module for file operations
 const apiResponse = require("../helpers/apiResponse");
-const { promisify } = require('util');
-const mkdir = promisify(fs.mkdir);
-const chmod = promisify(fs.chmod);
-const folderPath = '../exports';
 const { body, query, validationResult } = require("express-validator");
-const nodemailer = require('nodemailer');
 
 
 let fileId;
@@ -38,16 +32,7 @@ const excelFilter = function (req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
 
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: " vishgorework@gmail.com",
-    pass: "gzejpmnbpzlsrdcm",
-  },
-});
+
 
 const uploadAgents = [
   verifyToken,
