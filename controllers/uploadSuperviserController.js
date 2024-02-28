@@ -37,13 +37,12 @@ const excelFilter = function (req, file, cb) {
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  host: "smtp.gmail.com",
+  host: "mail.sumagoinfotech.in",
   port: 465,
   secure: true,
   auth: {
-    user: " vishgorework@gmail.com",
-    pass: "gzejpmnbpzlsrdcm",
+    user: "vishvambhargore@sumagoinfotech.in",
+    pass: "jfu6daky@#",
   },
 });
 
@@ -104,6 +103,8 @@ const uploadSupervisers = [
           .catch(validationError => {
             // Handle validation error for this user
             console.error(`Validation error for user ${user.username}:`, validationError.message);
+            const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+
             const userCopyModel = ({
               name: user.name,              
               mobile: user.mobile,
@@ -111,13 +112,12 @@ const uploadSupervisers = [
               password:'12345678',   
               user_type: 2,
               is_inserted: 0,
-              reason: validationError.message,
+              reason: errorMessage,
               fileId: fileId,
               added_by:0
             });
             usersNotInserted.push(userCopyModel);
-            UsersCopy.create(userCopyModel);
-            // usersNotInserted.push(user);
+            UsersCopy.create(userCopyModel);          
             return null; // Returning null so this user is not inserted
           });
       });
@@ -155,9 +155,9 @@ const uploadSupervisers = [
           for (const user of users) {
               try {
                   await transporter.sendMail({
-                      from: 'vishgorework@gmail.com',
+                      from: 'vishvambhargore@sumagoinfotech.in',
                       to: user.email,
-                      subject: 'Welcome to Our Platform',
+                      subject: 'Welcome to Our VRM POOL',
                       text: `Dear ${user.name},\nWelcome to our platform! Your account has been successfully created. your password is ${user.textpassword}`,
                   });
                   console.log(`Email sent to ${user.email}`);
@@ -183,13 +183,14 @@ const uploadSupervisers = [
                 if (userCopies.length === 0) {
                     return res.status(400).json({ result: false, message: 'No  record inserted' });
                 }else{
-                    
+                    console.log(usersInserted.length)
+                    console.log(usersNotInserted.length)
                   if(usersInserted.length>0 && usersNotInserted.length>0)
                   {
                     return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
                   }
-                  if(usersNotInserted.length==0 && usersInserted.length>0){
-                    return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
+                  if(usersNotInserted.length>0 && usersInserted.length==0){
+                    return res.status(200).json({ result: false, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
                   }
                   return res.status(200).json({ result: true, message: 'File Processed Successfully ',inserted:usersInserted.length,notInserted:usersNotInserted.length});
                 }                   

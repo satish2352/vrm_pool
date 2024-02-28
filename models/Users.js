@@ -18,7 +18,7 @@ const User = dbObj.define('user', {
     validate: {
       notNull: { msg: "Email is required." }, // Additional validation for not null
       notEmpty: { msg: "Email cannot be empty." },
-      isEmail:true, // Additional validation for not empty
+      isEmail:{ msg: "Please Enter Valid Emaild Address" }, // Additional validation for not empty
     }
   },
   mobile: {
@@ -28,7 +28,7 @@ const User = dbObj.define('user', {
     validate: {
       isValidMobile(value) {
           if (!/^(?:\+91|0|91)?[6-9]\d{9}$/.test(value)) {
-              throw new Error('Please enter a valid Indian mobile number!');
+              throw new Error('Please enter a valid Indian mobile number');
           }
       }
     }

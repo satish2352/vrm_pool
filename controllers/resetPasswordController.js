@@ -2,6 +2,16 @@ const User = require("../models/Users");
 const verifyToken = require("../middleware/verifyToken");
 const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  host: "mail.sumagoinfotech.in",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "vishvambhargore@sumagoinfotech.in",
+    pass: "jfu6daky@#",
+  },
+});
 const resetPassword = [
         body("mobile", "Enter valid mobile number").isLength({
             min: 10,
@@ -32,6 +42,17 @@ const resetPassword = [
                         // Update the user's password in the database
                         user.set('password', encryptedPassword);
                         await user.save();
+                        try {
+                          await transporter.sendMail({
+                              from: 'vishvambhargore@sumagoinfotech.in',
+                              to: user.email,
+                              subject: 'Password Reset For Your Account with VRMPool ',
+                              text: `Dear ${user.name},\nWelcome to our platform! Your password has been successfully reset. your password is ${user.newPassword}`,
+                          });
+                          console.log(`Email sent to ${user.email}`);                          
+                      } catch (error) {
+                          console.error(`Error sending email to ${user.email}:`, error);
+                      }
                         console.log(newPassword)
                         return res.status(200).send({ result: true, message: "Your password Reset Successfully Check your email" });
                     }                                       
@@ -51,4 +72,4 @@ function generateRandomPassword() {
     return password;
   }
   
-module.exports = resetPassword
+module.exports = {resetPassword}
