@@ -1,24 +1,34 @@
 const User = require("../models/Users");
+const OTP = require("../models/OTP");
 const verifyToken = require("../middleware/verifyToken");
 const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({
-  host: "mail.sumagoinfotech.in",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "vishvambhargore@sumagoinfotech.in",
-    pass: "jfu6daky@#",
-  },
-});
+const { Op, fn, col ,literal,Sequelize} = require('sequelize');
 const resetPassword = [
         body("mobile", "Enter valid mobile number").isLength({
             min: 10,
             max: 10,
           }).trim(),
+          body("otp", "Enter valid otp").isLength({
+            min: 6,            
+          }).trim(),
+          body("password", "Enter valid password min 8 digits maximum 30 digits").isLength({
+            min: 8,
+            max: 30,
+        }),
+        body("confirm_password", "Enter valid password min 8 digits maximum 30 digits").isLength({
+            min: 8,
+            max: 30,
+        }).custom((value, { req }) => {
+            // Check if confirm_password matches password field
+            if (value !== req.body.password) {
+                throw new Error("Passwords do not match");
+            }
+            return true;
+        }),          
         async (req, res) => {
             try {
+                const { mobile,password,otp } = req.body;
                 const checkErrorInValidations = validationResult(req);
                 if (!checkErrorInValidations.isEmpty()) {
                     return res.status(400).json({
@@ -27,48 +37,52 @@ const resetPassword = [
                                 errors: checkErrorInValidations.array(),
                             });
                     }else
-                    {
-                        const { mobile } = req.body;
+                    {                                        
                         // Find the user in the database based on the provided mobile number
                         const user = await User.findOne({ where: { mobile } });
                         if (!user) {
                           return res.status(404).json({ result: true,message: "Enter valid credentials" });
-                        }
-                        // Generate a new random password
-                        const newPassword = generateRandomPassword();                    
-                        // Encrypt  the new password
-                        const salt = await bcrypt.genSalt(10);
-                        const encryptedPassword = await bcrypt.hash(newPassword, salt);                    
-                        // Update the user's password in the database
-                        user.set('password', encryptedPassword);
-                        await user.save();
-                        try {
-                          await transporter.sendMail({
-                              from: 'vishvambhargore@sumagoinfotech.in',
-                              to: user.email,
-                              subject: 'Password Reset For Your Account with VRMPool ',
-                              text: `Dear ${user.name},\nWelcome to our platform! Your password has been successfully reset. your password is ${newPassword}`,
-                          });
-                          console.log(`Email sent to ${user.email}`);                          
-                      } catch (error) {
-                          console.error(`Error sending email to ${user.email}:`, error);
-                      }                        
-                        return res.status(200).send({ result: true, message: "Your password Reset Successfully Check your email" });
-                    }                                       
+                        }else{
+                        
+                          var otpRecord=await verifyOTP(user.id,otp);
+                            if(otpRecord){
+                              const salt = await bcrypt.genSalt(10);
+                              const encryptedPassword = await bcrypt.hash(password, salt);                    
+                              // Update the user's password in the database
+                              user.set('password', encryptedPassword);
+                              await user.save(); 
+                              await OTP.destroy({
+                                where: {
+                                 user_id:user.id
+                                }
+                              });                                 
+                              return res.status(200).send({ result: true, message: "Your password Reset Successfully" });
+                            }else{
+                              return res.status(200).send({ result: false, message: "Please enter valid otp" });
+                            }
+                           
+                          }
+                          
+                        }                                                                
+                                                           
             } catch (err) {
                 console.log(err);
                 res.status(500).send({result:false,err});        
             }       
     },
 ];
-function generateRandomPassword() {
-    const length = 10;
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
-    let password = "";
-    for (let i = 0; i < length; i++) {
-      password += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
-    return password;
+  async function verifyOTP(userId, otp) {
+    const otpRecord = await OTP.findOne({
+      where: {
+        user_id: userId,
+        otp,
+        expiry_time: {
+          [Sequelize.Op.gt]: new Date(), // Check if expiry_time > current time
+        },
+      },
+    });
+  
+    return otpRecord !== null; // If otpRecord is null, OTP is either invalid or expired
   }
   
 module.exports = {resetPassword}
