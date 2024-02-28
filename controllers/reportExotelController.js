@@ -86,7 +86,7 @@ const getReportsSingleRow = [
                 where: reportFilter,
                 include: [{
                     model: User,
-                    attributes: ['mobile', 'id', 'fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
+                    attributes: ['mobile', 'id', 'name','fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
                 }],
                 group: ['user_id'], 
                 order: [['createdAt', 'DESC']]
