@@ -30,7 +30,7 @@ const getUserList = [
         };
       }        
       const userMobiles = await Users.findAll({
-        attributes:['name','email','mobile','user_type'],
+        attributes:['id','name','email','mobile','user_type'],
         where: userFilter, 
         order: [['id', 'DESC']]           
       });
