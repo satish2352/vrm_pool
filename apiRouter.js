@@ -23,6 +23,8 @@ const resetPasswordController = require("./controllers/resetPasswordController")
 const sendOTPController = require("./controllers/sendOTPController");
 const changeUserStatusController = require("./controllers/changeUserStatusController");
 const deleteUserController = require("./controllers/deleteUserController");
+const adminUserPasswordResetController = require("./controllers/adminUserPasswordResetController");
+const updateUserController = require("./controllers/updateUserController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -48,6 +50,8 @@ router.post("/sendOTP",sendOTPController.sendOTP);
 router.post("/changeUserStatus",changeUserStatusController.changeUserStatus);
 router.post("/deleteUser",deleteUserController.deleteUser);
 router.get("/downloadReports",downloadReportsController.downloadReports);
+router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
+router.post("/updateUser",updateUserController.updateUser);
 router.post("/getReportsSingleRow",reportExotelController.getReportsSingleRow);
 
 

@@ -57,11 +57,10 @@ const changePassword = [
                             return res.status(400).send({ result: false, message: "Bad request you are not authorized" });
                         }
 
-                    } else if (user_type == '2' || user_type == '3') {
-                        
+                    } else if (user_type == '2') {                        
                         const salt = await bcrypt.genSalt(10);
                         const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                        req.user.set('password', encryptedPassword); // Users Self Password Change
+                        req.user.set('password', encryptedPassword); // Superviser  Self Password Change
                         await req.user.save();
                         return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
                     } else {

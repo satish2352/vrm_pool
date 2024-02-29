@@ -39,7 +39,7 @@ const sendOTP = [
                 }
                 // Generate a new random password
                 const otp = generateOTP();
-                const expiryTime = new Date(Date.now() + 1 * 60 * 1000); // Expiry time: 5 minutes from now
+                const expiryTime = new Date(Date.now() + 5 * 60 * 1000); // Expiry time: 5 minutes from now
                 // Save OTP to the database
                 const [otpRecord, created] = await OTP.findOrCreate({
                     where: { user_id: user.id },

@@ -9,7 +9,7 @@ const User = dbObj.define('user', {
     validate: {
       hasAtLeastSpaceAndCharacters(value) {
         if (!/\s/.test(value) || value.length < 5) {
-          throw new Error('Please Full Name');
+          throw new Error('Please Enter Full Name');
         }
       }
     }
