@@ -11,7 +11,11 @@ Report.belongsTo(User, { foreignKey: 'user_id' });
 const getStats = [
     verifyToken,
     async (req, res) => {
-        try {           
+        try {        
+            let userFilter = {
+                is_active: 1,
+                is_deleted: 0
+              };   
             const users = await User.findAll({
                 attributes: [                
                     [
@@ -27,6 +31,7 @@ const getStats = [
                         'agents'
                     ],
                 ],
+                where:userFilter
                 
             });                   
             const reports = await Report.findAll({

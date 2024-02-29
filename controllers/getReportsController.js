@@ -17,7 +17,10 @@ const getReports = [
       const { user_type, fromdate, todate, status, id } = req.body;
 
       // Step 1: Filter users based on user_type if provided
-      let userFilter = {}; // Initialize an empty filter object
+      let userFilter = {
+        is_active: 1,
+        is_deleted: 0
+      }; // Initialize an empty filter object
       if (user_type) {
         userFilter = {
           user_type: user_type

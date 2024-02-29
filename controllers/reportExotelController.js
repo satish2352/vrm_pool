@@ -15,7 +15,10 @@ const getReportsSingleRow = [
             const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime} = req.body;
 
             // Construct filter for Users
-            let userFilter = {};
+            let userFilter = {
+                is_active: 1,
+                is_deleted: 0
+              }; 
             if (user_type) {
                 userFilter.user_type = user_type;
             }
@@ -99,7 +102,7 @@ const getReportsSingleRow = [
                 where: reportFilter,
                 include: [{
                     model: User,
-                    attributes: ['mobile', 'id', 'fname', 'mname', 'lname', 'email', 'user_type', 'is_active'],
+                    attributes: ['mobile', 'id', 'name','email', 'user_type', 'is_active'],
                 }],
                 group: ['user_id'], 
                 order: [['createdAt', 'DESC']]

@@ -32,8 +32,14 @@ const sendOTP = [
                 });
             } else {
                 const { mobile } = req.body;
+                let userFilter = {
+                    is_active: 1,
+                    is_deleted: 0,
+                    mobile:mobile
+                  };
+               
                 // Find the user in the database based on the provided mobile number
-                const user = await User.findOne({ where: { mobile } });
+                const user = await User.findOne({ where: { userFilter } });
                 if (!user) {
                     return res.status(404).json({ result: true, message: "Enter valid credentials" });
                 }

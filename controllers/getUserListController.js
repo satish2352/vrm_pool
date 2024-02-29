@@ -16,7 +16,10 @@ const getUserList = [
     try {
 
       // Step 1: Filter users based on user_type if provided
-      let userFilter = {}; // Initialize an empty filter object      
+      let userFilter = {
+        is_active: 1,
+        is_deleted: 0
+      };// Initialize an empty filter object      
       if (user_type) {
         userFilter = {
           user_type: user_type
@@ -29,9 +32,11 @@ const getUserList = [
           added_by: superviserId
         };
       }
+
+     
              
       const userMobiles = await Users.findAll({
-        attributes:['id','name','email','mobile','user_type'],
+        attributes:['id','name','email','mobile','user_type','is_active'],
         where: userFilter, 
         order: [['id', 'DESC']]           
       });

@@ -31,8 +31,14 @@ const getUser = [
     } else {
       try {
         const { mobile } = req.body;
+        let userFilter = {
+          is_active: 1,
+          is_deleted: 0,
+          mobile: mobile
+        };
+        
         let user = await User.findOne({
-            where: { mobile: mobile },
+            where: { userFilter },
           });    
             return res.status(200).json({
                 result: true, message: 'User fetch successful', data: {
@@ -42,7 +48,8 @@ const getUser = [
                     lname: user.lname,
                     email: user.email,
                     mobile: user.mobile,
-                    user_type: user.user_type
+                    user_type: user.user_type,
+                    is_active:user.is_active
                 }
             });
       } catch (err) {
