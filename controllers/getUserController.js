@@ -32,8 +32,7 @@ const getUser = [
       try {
         const { mobile } = req.body;
         let userFilter = {
-          is_active: 1,
-          is_deleted: 0,
+          
           mobile: mobile
         };
         

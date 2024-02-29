@@ -13,8 +13,7 @@ const getStats = [
     async (req, res) => {
         try {        
             let userFilter = {
-                is_active: 1,
-                is_deleted: 0
+              
               };   
             const users = await User.findAll({
                 attributes: [                
