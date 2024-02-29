@@ -68,10 +68,7 @@ const getReportsSingleRow = [
 
             // Fetch reports based on filters
             const reports = await Report.findAll({
-                attributes: [
-                    'createdAt',
-                    'updatedAt',
-                 // Grouping by user_id
+                attributes: [                   
                     [
                         fn('SUM', literal('CASE WHEN status = "Completed" THEN 1 ELSE 0 END')),
                         'completed_count'
