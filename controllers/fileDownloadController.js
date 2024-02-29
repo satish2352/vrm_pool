@@ -20,7 +20,7 @@ const downloadFile = [
       var selectedColumns;
   
       if (fileId) {
-        selectedColumns = ['fname', 'mname', 'lname', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
+        selectedColumns = ['name','email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
         const workbook = new excelJS.Workbook();
         const reports = await UsersCopy.findAll({
           where: {
