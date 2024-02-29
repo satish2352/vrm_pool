@@ -42,7 +42,6 @@ const updateUser = [
               }else{
                 return true;
               }
-
         })
        ,
     async (req, res) => {

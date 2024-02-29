@@ -74,7 +74,12 @@ const uploadAgents = [
         return User.build(user).validate()
           .then(() => {
             return User.findOne({
-              where: { mobile: user.mobile }
+              where: {
+                [Op.or]: [
+                  { mobile: user.mobile },
+                  { email: user.email }
+                ]
+              }
             });
           })
           .then(existingUser => {

@@ -16,8 +16,9 @@ const getReportsSingleRow = [
 
             // Construct filter for Users
             let userFilter = {
-                
-              }; 
+                is_active:1,
+                is_deleted:0
+               }; 
             if (user_type) {
                 userFilter.user_type = user_type;
             }
