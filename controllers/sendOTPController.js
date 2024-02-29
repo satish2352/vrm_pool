@@ -6,16 +6,8 @@ const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const { Op, fn, col ,literal} = require('sequelize');
-
-const transporter = nodemailer.createTransport({
-    host: "mail.sumagoinfotech.in",
-    port: 465,
-    secure: true,
-    auth: {
-        user: "vishvambhargore@sumagoinfotech.in",
-        pass: "jfu6daky@#",
-    },
-});
+const createTransporter=require('../config/nodemailerConfig');
+const transporter=createTransporter();
 const sendOTP = [
     body("mobile", "Enter valid mobile number").isLength({
         min: 10,
@@ -33,13 +25,13 @@ const sendOTP = [
             } else {
                 const { mobile } = req.body;
                 let userFilter = {
-                    is_active: 1,
-                    is_deleted: 0,
+                    is_active: '1',
+                    is_deleted: '0',
                     mobile:mobile
                   };
                
                 // Find the user in the database based on the provided mobile number
-                const user = await User.findOne({ where: { userFilter } });
+                const user = await User.findOne({ where: { mobile } });
                 if (!user) {
                     return res.status(404).json({ result: true, message: "Enter valid credentials" });
                 }

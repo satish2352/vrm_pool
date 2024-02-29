@@ -14,6 +14,8 @@ const excelJS=require("exceljs")
 const workbookOfDownloadFile = new excelJS.Workbook(); 
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcryptjs");
+const createTransporter=require('../config/nodemailerConfig');
+const transporter=createTransporter();
 let fileId;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -36,15 +38,6 @@ const excelFilter = function (req, file, cb) {
 };
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
-const transporter = nodemailer.createTransport({
-  host: "mail.sumagoinfotech.in",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "vishvambhargore@sumagoinfotech.in",
-    pass: "jfu6daky@#",
-  },
-});
 
 const uploadSupervisers = [
   verifyToken,

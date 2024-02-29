@@ -3,16 +3,9 @@ const verifyToken = require("../middleware/verifyToken");
 const { body, query, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
+const createTransporter=require('../config/nodemailerConfig');
+const transporter=createTransporter();
 
-const transporter = nodemailer.createTransport({
-    host: "mail.sumagoinfotech.in",
-    port: 465,
-    secure: true,
-    auth: {
-        user: "vishvambhargore@sumagoinfotech.in",
-        pass: "jfu6daky@#",
-    },
-});
 
 const resetUserPassword = [
     body("mobile", "Enter valid id").isLength({
