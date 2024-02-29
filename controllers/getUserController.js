@@ -3,23 +3,9 @@ const User = require("../models/Users");
 const { body, query, validationResult } = require("express-validator");
 
 const getUser = [
-
-  body("mobile")
-    .isLength({ min: 10, max: 10 })
-    .trim()
-    .withMessage("Enter valid mobile number!")
-    .custom((value) => {
-      return User.findOne({
-        where: { mobile: value },
-      }).then((user) => {
-        if (user == null) {
-            return Promise.reject("Please Enter Valid credentials");
-        } else {
-          
-        }
-      });
-    }),
-    verifyToken,
+  verifyToken,
+  body('id').isLength({ min: 1 }).withMessage('Id parameter must have a minimum length of 1')
+  ,
   async (req, res) => {
     const checkErrorInValidations = validationResult(req);
     if (!checkErrorInValidations.isEmpty()) {
@@ -30,21 +16,17 @@ const getUser = [
       });
     } else {
       try {
-        const { mobile } = req.body;
-        let userFilter = {
           
-          mobile: mobile
-        };
-        
-        let user = await User.findOne({
-            where: { userFilter },
-          });    
+           const { id } = req.body; 
+           console.log(id)               
+           const user = await User.findOne({ where: { id: id } });
+           if (!user) {
+            return res.status(404).json({ result: false, message: "User not found" });
+        }   
             return res.status(200).json({
                 result: true, message: 'User fetch successful', data: {
                     id: user.id,
-                    name:user.name,
-                    fname: user.fname,
-                    lname: user.lname,
+                    name:user.name,                    
                     email: user.email,
                     mobile: user.mobile,
                     user_type: user.user_type,

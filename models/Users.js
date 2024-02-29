@@ -3,6 +3,10 @@ const dbObj = require('../db');
 const Report = require("../models/Report");
 
 const User = dbObj.define('user', {
+  id:{
+  type:DataTypes.INTEGER,
+  primaryKey:true
+  },
   name: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
