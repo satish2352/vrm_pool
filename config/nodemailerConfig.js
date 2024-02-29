@@ -19,8 +19,5 @@ function createTransporter() {
   });
 }
 
-console.log(EMAIL_HOST)
-console.log(EMAIL_PORT)
-console.log(EMAIL_USER)
-console.log(EMAIL_PASSWORD)
+
 module.exports = createTransporter;

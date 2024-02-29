@@ -11,9 +11,9 @@ const verifyToken=async (req,res,next)=>{
     try{
 
         try {
-            //console.log(token);
+            
             const decoded = jwt.verify(token, JWT_SECRET);
-            //console.log(decoded);
+            
             // Check if token ID exists in the database and if it's not expired
             const tokenInfo = await Token.findOne({ where: { token } });
             if (!tokenInfo || tokenInfo.expiration < new Date()) {
@@ -32,6 +32,7 @@ const verifyToken=async (req,res,next)=>{
            next()
           } catch (error) {
             throw new Error('Failed to validate token');
+            
           }
         // const data=jwt.verify(token,JWT_SECRET);
         // req.user=data.user;

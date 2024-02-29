@@ -15,10 +15,8 @@ const getUser = [
         errors: checkErrorInValidations.array(),
       });
     } else {
-      try {
-          
-           const { id } = req.body; 
-           console.log(id)               
+      try {          
+           const { id } = req.body;                         
            const user = await User.findOne({ where: { id: id } });
            if (!user) {
             return res.status(404).json({ result: false, message: "User not found" });
