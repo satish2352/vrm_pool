@@ -64,8 +64,7 @@ const loginUser = [
                     return res.status(200).json({
                         result: true, message: 'User login successful', token: token, data: {
                             id: user.id,
-                            fname: user.fname,
-                            lname: user.lname,
+                            name: user.name,                            
                             email: user.email,
                             mobile: user.mobile,
                             user_type: user.user_type
