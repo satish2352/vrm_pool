@@ -76,10 +76,8 @@ const uploadAgents = [
           .then(() => {
             return User.findOne({
               where: {
-                [Op.or]: [
-                  { mobile: user.mobile },
-                  { email: user.email }
-                ]
+               
+                mobile: user.mobile
               }
             });
           })

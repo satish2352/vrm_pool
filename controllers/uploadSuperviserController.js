@@ -14,8 +14,8 @@ const excelJS=require("exceljs")
 const workbookOfDownloadFile = new excelJS.Workbook(); 
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcryptjs");
-//const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
-import { Op } from "sequelize";
+const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
+
 const createTransporter=require('../config/nodemailerConfig');
 const transporter=createTransporter();
 let fileId;
@@ -73,10 +73,11 @@ const uploadSupervisers = [
             user.mobile=match[1]
             return User.findOne({
               where: {
-                [Op.or]: [
-                  { mobile: user.mobile },
-                  { email: user.email }
-                ]
+                // [Op.or]: [
+                //   { mobile: user.mobile },
+                //   { email: user.email }
+                // ]
+                mobile: user.mobile
               }
             });
           })
