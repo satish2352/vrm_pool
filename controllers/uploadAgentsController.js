@@ -105,7 +105,7 @@ const uploadAgents = [
           })
           .catch(validationError => {
             // Handle validation error for this user
-            console.error(`Validation error for user ${user.username}:`, validationError.message);
+            console.error(`Validation error for user ${user.name}:`, validationError.message);
             const userCopyModel = ({
               name: user.name,              
               mobile: user.mobile,

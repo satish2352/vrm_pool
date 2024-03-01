@@ -13,7 +13,7 @@ const downloadFile = [
   async (req, res) => {
     try {
       const { fileId } = req.query;
-      console.log(fileId);
+      
   
       // Fetch reports from the database
       let reports;
@@ -27,7 +27,7 @@ const downloadFile = [
             fileId: fileId
           }
         });
-       // console.log("Reports:", reports); // Log the reports array
+       
   
         const columns = selectedColumns.map(columnName => ({
           header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
