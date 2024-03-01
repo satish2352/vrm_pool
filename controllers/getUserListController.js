@@ -37,7 +37,9 @@ const getUserList = [
           is_active:'1'
         };
       }else{
-        userFilter.user_type = [2, 3];
+        userFilter.user_type = [2, 3],
+        userFilter.is_deleted= '0',
+        userFilter.is_active='1'
       }
       if (superviserId) {
         userFilter = {
