@@ -5,6 +5,7 @@ const path = require('path');
 const xlsx = require('xlsx');
 const verifyToken = require("../middleware/verifyToken");
 const apiResponse = require("../helpers/apiResponse");
+const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const { body, query, validationResult } = require("express-validator");
 
 
