@@ -14,6 +14,8 @@ const excelJS=require("exceljs")
 const workbookOfDownloadFile = new excelJS.Workbook(); 
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcryptjs");
+//const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
+import { Op } from "sequelize";
 const createTransporter=require('../config/nodemailerConfig');
 const transporter=createTransporter();
 let fileId;
@@ -100,7 +102,7 @@ const uploadSupervisers = [
           })
           .catch(validationError => {
             // Handle validation error for this user
-            console.error(`Validation error for user ${user.username}:`, validationError.message);
+            console.error(`Validation error for user ${user.name}:`, validationError.message);
             const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
 
             const userCopyModel = ({

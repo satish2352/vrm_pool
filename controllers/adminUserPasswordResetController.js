@@ -8,7 +8,7 @@ const transporter=createTransporter();
 
 
 const resetUserPassword = [
-    body("mobile", "Enter valid id").isLength({
+    body("mobile", "Enter valid mobile").isLength({
         min: 1,
     }),
     verifyToken,
@@ -24,8 +24,7 @@ const resetUserPassword = [
             } else {
                 let user_type = req.user.user_type;
                 let mobile = req.body.mobile;
-                console.log(user_type)
-                console.log(mobile)
+                
                 if (user_type) {
                     if (user_type == '1') {
 
