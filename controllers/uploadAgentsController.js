@@ -90,7 +90,7 @@ const uploadAgents = [
                 email: user.email,
                 password:'12345678',              
                 user_type: 3,
-                is_inserted: "No",
+                is_inserted: 0,
                 reason: 'Mobile number already exists',
                 fileId: fileId,
                 added_by:superviserId
@@ -111,7 +111,7 @@ const uploadAgents = [
               email: user.email,
               password:'12345678',   
               user_type: 3,
-              is_inserted: "No",
+              is_inserted: 0,
               reason: validationError.message,
               fileId: fileId,
               added_by:superviserId
@@ -133,7 +133,7 @@ const uploadAgents = [
               email: user.email,   
               password: '12345678',
               user_type: 3,
-              is_inserted: "Yes",
+              is_inserted: 1,
               reason: '',
               fileId: fileId,
               added_by:superviserId

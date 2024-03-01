@@ -86,7 +86,7 @@ const uploadSupervisers = [
                 email: user.email,
                 password:'12345678',              
                 user_type: 2,
-                is_inserted: "No",
+                is_inserted: 0,
                 reason: 'Mobile number or email already exists',
                 fileId: fileId,
                 added_by:0
@@ -109,7 +109,7 @@ const uploadSupervisers = [
               email: user.email,
               password:'12345678',   
               user_type: 2,
-              is_inserted: "No",
+              is_inserted: 0,
               reason: errorMessage,
               fileId: fileId,
               added_by:0
@@ -134,7 +134,7 @@ const uploadSupervisers = [
               email: user.email,
               password: encryptedPassword,
               user_type: 2,
-              is_inserted: "Yes",
+              is_inserted: 1,
               reason: '',
               fileId: fileId,
               added_by: 0,
