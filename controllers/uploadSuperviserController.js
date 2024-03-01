@@ -72,11 +72,7 @@ const uploadSupervisers = [
             const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
             user.mobile=match[1]
             return User.findOne({
-              where: {
-                // [Op.or]: [
-                //   { mobile: user.mobile },
-                //   { email: user.email }
-                // ]
+              where: {            
                 mobile: user.mobile
               }
             });
@@ -90,7 +86,7 @@ const uploadSupervisers = [
                 password:'12345678',              
                 user_type: 2,
                 is_inserted: 0,
-                reason: 'Mobile number or email already exists',
+                reason: 'Mobile number  already exists',
                 fileId: fileId,
                 added_by:0
               });
