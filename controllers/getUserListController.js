@@ -37,13 +37,14 @@ const getUserList = [
           is_active:'1'
         };
       }else{
-        userFilter.user_type = [2, 3],
-        userFilter.is_deleted= '0',
-        userFilter.is_active='1'
+        userFilter.user_type = [2, 3];
+       
       }
       if (superviserId) {
         userFilter = {
-          added_by: superviserId
+          added_by: superviserId,
+          is_deleted: '0',
+          is_active:'1'
         };
       }
 
