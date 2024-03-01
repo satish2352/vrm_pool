@@ -15,11 +15,21 @@ const getUserList = [
   
     try {
 
+      let userFilter ={};
+      if(req.user.user_type=='1'){
+        userFilter = 
+        {          
+          is_deleted: '0',
+        };
+      }else{
+        userFilter = 
+        {          
+          is_deleted: '0',
+          is_active:'1'
+        };
+      }
       // Step 1: Filter users based on user_type if provided
-      let userFilter = {
-        is_active: '1',
-        is_deleted: '0',
-      };// Initialize an empty filter object      
+      // Initialize an empty filter object      
       if (user_type) {
         userFilter = {
           user_type: user_type

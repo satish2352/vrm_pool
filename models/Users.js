@@ -86,7 +86,7 @@ const User = dbObj.define('user', {
     allowNull: true,
     type: DataTypes.STRING,
   },
-  is_deleted: {
+  is_deletedis_deleted: {
     allowNull: true,
     type: DataTypes.STRING,
   },
