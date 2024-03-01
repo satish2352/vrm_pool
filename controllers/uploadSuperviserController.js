@@ -65,6 +65,7 @@ const uploadSupervisers = [
       }
 
       let usersToInsert = jsonData;
+      const adminId=req.user.id;
 
       const insertionPromises = usersToInsert.map(user => {        
         return User.build(user).validate()
@@ -88,7 +89,7 @@ const uploadSupervisers = [
                 is_inserted: 0,
                 reason: 'Mobile number  already exists',
                 fileId: fileId,
-                added_by:0
+                added_by:adminId
               });
               usersNotInserted.push(userCopyModel)
               UsersCopy.create(userCopyModel);
@@ -111,7 +112,7 @@ const uploadSupervisers = [
               is_inserted: 0,
               reason: errorMessage,
               fileId: fileId,
-              added_by:0
+              added_by:adminId
             });
             usersNotInserted.push(userCopyModel);
             UsersCopy.create(userCopyModel);          
@@ -136,7 +137,7 @@ const uploadSupervisers = [
               is_inserted: 1,
               reason: '',
               fileId: fileId,
-              added_by: 0,
+              added_by: adminId,
               textpassword:textpassword,
             };
           }));
@@ -164,10 +165,6 @@ const uploadSupervisers = [
               }
           }
       })
-        .then(users => {
-          console.log(`${users.length} users inserted successfully.`);
-          usersInserted = users;
-        })
         .catch(error => {
           console.error('Error inserting users:', error.message);
         })

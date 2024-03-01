@@ -40,8 +40,12 @@ const loginUser = [
             try {
                 const { mobile, password } = req.body;
                 let user = await User.findOne({
-                    where: { mobile: mobile },
+                    where: { mobile: mobile,is_active:1},
                 });
+                if(!user){
+
+                    return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
+                }
                 const passwordCompare = await bcrypt.compare(password, user.password);
                 if (!passwordCompare) {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });

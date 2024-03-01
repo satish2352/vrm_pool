@@ -18,6 +18,10 @@ const OTP = dbObj.define('otp', {
         type: DataTypes.STRING,                                                                          
         allowNull: false,
       },
+      send_count: {
+        type: DataTypes.INTEGER,                                                                          
+        allowNull: false,
+      },
 });
 OTP.sync();
 module.exports = OTP;

@@ -78,8 +78,12 @@ const resetPassword = [
         otp,
         expiry_time: {
           [Sequelize.Op.gt]: new Date(), // Check if expiry_time > current time
-        },
+        },        
       },
+      order: [
+        ['createdAt', 'DESC'], // Order by 'createdAt' in descending order
+      ],
+      limit: 1,
     });
   
     return otpRecord !== null; // If otpRecord is null, OTP is either invalid or expired
