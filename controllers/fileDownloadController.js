@@ -10,6 +10,7 @@ const excelJS = require("exceljs")
 
 
 const downloadFile = [
+  verifyToken,
   async (req, res) => {
     try {
       const { fileId } = req.query;
@@ -44,8 +45,7 @@ const downloadFile = [
         if (!reports.length) {
           console.log("No reports found");
           return apiResponse.successResponse(res, "No reports found", []);
-        }
-  
+        }  
         reports.forEach(report => {
           const rowData = selectedColumns.map(columnName => {
             // Conditionally pass "yes" or "no" based on the value of `is_inserted`
