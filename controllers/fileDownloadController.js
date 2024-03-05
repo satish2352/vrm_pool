@@ -10,7 +10,7 @@ const excelJS = require("exceljs")
 
 
 const downloadFile = [
-  verifyToken,
+
   async (req, res) => {
     try {
       const { fileId } = req.query;
