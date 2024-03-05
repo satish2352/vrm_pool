@@ -14,7 +14,7 @@ const getUserInsertDetails = [
   async (req, res) => {
     const fileId = req.body.fileId; // Filter by role
     const user_type = req.body.user_type; // Filter by role
-    console.log(fileId);
+    
     try {
      // const { fileId} = req.body;
 
@@ -36,7 +36,7 @@ const getUserInsertDetails = [
         results = await UsersCopy.findAll({
           where: userFilter,
           order: [['id', 'DESC']],
-          group:['mobile'],          
+          group:['fileId'],          
           attributes:[
             'fileId',
             'createdAt',
