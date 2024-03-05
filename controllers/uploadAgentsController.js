@@ -58,7 +58,6 @@ const uploadAgents = [
       let jsonData;
       var usersNotInserted = [];
       var usersInserted = []; // New array to store inserted users
-      const processedMobileNumbers = new Set(); // Set to keep track of processed mobile numbers
 
       try {
         for (const sheetName of sheets) {
@@ -73,130 +72,108 @@ const uploadAgents = [
         let usersToInsert = jsonData;
 
         const insertionPromises = usersToInsert.map(user => {
+
           return User.build(user).validate()
-            .then(() => {
-              const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
-              user.mobile=match[1]                      
-              if (processedMobileNumbers.has(user.mobile)) {
-                // If mobile number is already processed, skip insertion
-                const userCopyModel = {
-                  name: user.name,
-                  mobile: user.mobile,
-                  email: user.email,
-                  password: '12345678',
-                  user_type: 2,
-                  is_inserted: 0,
-                  reason: 'Mobile number already exists',
-                  fileId: fileId,
-                  added_by: superviserId
-                };
-                usersNotInserted.push(userCopyModel);
-                UsersCopy.create(userCopyModel);
-                return null; // Returning null so this user is not inserted
-              } else {
-                processedMobileNumbers.add(user.mobile); // Add mobile number to processed set
-                return user; // Returning the user object to be inserted
-              }
-            })
-            // .then(existingUser => {
-            //   if (existingUser) {
-            //     const userCopyModel = ({
-            //       name: user.name,
-            //       mobile: user.mobile,
-            //       email: user.email,
-            //       password: '12345678',
-            //       user_type: 3,
-            //       is_inserted: 0,
-            //       reason: 'Mobile number already exists',
-            //       fileId: fileId,
-            //       added_by: superviserId
-            //     });
-            //     usersNotInserted.push(userCopyModel)
-            //     UsersCopy.create(userCopyModel);
-            //     return null; // Returning null so this user is not inserted
-            //   } else {
-            //     return user; // Returning the user object to be inserted
-            //   }
-            // })
-            .catch(validationError => {
-              // Handle validation error for this user
-              console.error(`Validation error for user ${user.name}:`, validationError.message);
-              const userCopyModel = ({
+          .then(() => {
+            const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
+            user.mobile = match[1]
+          user.mobile = match[1]
+          return User.findOne({
+            where: {
+              mobile: user.mobile
+            }
+          })})
+          .then(existingUser => {
+            if (existingUser) {
+              const userCopyModel = {
                 name: user.name,
                 mobile: user.mobile,
                 email: user.email,
                 password: '12345678',
                 user_type: 3,
                 is_inserted: 0,
-                reason: validationError.message,
+                reason: 'Mobile number already exists',
                 fileId: fileId,
                 added_by: superviserId
-              });
+              };
               usersNotInserted.push(userCopyModel);
-              UsersCopy.create(userCopyModel);
-              // usersNotInserted.push(user);
-              return null; // Returning null so this user is not inserted
-            });
-        });
-
-        Promise.all(insertionPromises)
-          .then(usersToInsertFiltered => {
-            // Filter out null entries (users not to be inserted)
-            const usersToInsertFinal = usersToInsertFiltered.filter(user => user !== null)
-              .map(user => ({
-                name: user.name,
-                mobile: user.mobile,
-                email: user.email,
-                password: '12345678',
-                user_type: 3,
-                is_inserted: 1,
-                reason: '',
-                fileId: fileId,
-                added_by: superviserId
-              }));
-            UsersCopy.bulkCreate(usersToInsertFinal);
-            return User.bulkCreate(usersToInsertFinal);
+              return UsersCopy.create(userCopyModel);
+            } else {
+             
+              return User.create({
+                  name: user.name,
+                  mobile: user.mobile,
+                  email: user.email,
+                  password: 'encryptedPassword',
+                  user_type: 3,
+                  is_inserted: 1,
+                  reason: '',
+                  fileId: fileId,
+                  added_by: superviserId,                  
+                }).then(async creatuseredUser => {
+                  const userCopyModel = {
+                    name: creatuseredUser.name,
+                    mobile: creatuseredUser.mobile,
+                    email: creatuseredUser.email,
+                    password: '12345678',
+                    user_type: 3,
+                    is_inserted: 1,
+                    reason: '',
+                    fileId: fileId,
+                    added_by: superviserId,                  
+                  };                                                
+                  usersInserted.push(userCopyModel);
+                  return UsersCopy.create(userCopyModel);
+                });
+          
+            }
           })
-          .then(users => {
-            console.log(`${users.length} users inserted successfully.`);
-            usersInserted = users;
+          .catch(validationError => {
+            console.error(`Validation error for user ${user.name}:`, validationError.message);
+            const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+            const userCopyModel = {
+              name: user.name,
+              mobile: user.mobile,
+              email: user.email,
+              password: '12345678',
+              user_type: 2,
+              is_inserted: 0,
+              reason: errorMessage,
+              fileId: fileId,
+              added_by: superviserId
+            };
+            usersNotInserted.push(userCopyModel);
+            return UsersCopy.create(userCopyModel);
+          });
+        });
+        Promise.all(insertionPromises)
+          .then(() => {
+            res.status(200).json({
+              result: true,
+              message: 'File Processed Successfully ',
+              inserted: usersInserted.length,
+              notInserted: usersNotInserted.length
+            });
           })
           .catch(error => {
             console.error('Error inserting users:', error.message);
-          })
-          .finally(() => {
-            if (usersNotInserted.length > 0) {
-              console.log(`Users not inserted (validation failed or already existing):`);
-            }
-            UsersCopy.findAll({ where: { fileId: fileId } })
-              .then(async userCopies => {
-                if (userCopies.length === 0) {
-                  return res.status(400).json({ result: false, message: 'All users exits already with matching data no record inserted' });
-                } else {
-
-                  if (usersInserted.length > 0 && usersNotInserted.length > 0) {
-                    return res.status(200).json({ result: true, message: 'File Processed Successfully ', inserted: usersInserted.length, notInserted: usersNotInserted.length });
-                  }
-                  if (usersNotInserted.length == 0 && usersInserted.length > 0) {
-                    return res.status(200).json({ result: true, message: 'File Processed Successfully ', inserted: usersInserted.length, notInserted: usersNotInserted.length });
-                  }
-                  return res.status(200).json({ result: true, message: 'File Processed Successfully ', inserted: usersInserted.length, notInserted: usersNotInserted.length });
-                }
-              })
-              .catch(error => {
-                res.status(500).json({ result: false, message: 'Error occured during operation', error });
-              });
+            res.status(500).json({
+              result: false,
+              message: 'Error occurred during operation',
+              error: error.message
+            });
           });
-
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error saving data' });
-      } finally {
-
+      }catch(error){
+        console.error('Error inserting users:', error.message);
+        res.status(500).json({
+          result: false,
+          message: 'Error occurred during operation',
+          error
+        });
       }
     }
-  },
-];
+  }
+  ];
 
 
 module.exports = {

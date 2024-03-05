@@ -47,9 +47,17 @@ const downloadFile = [
         }
   
         reports.forEach(report => {
-          const rowData = selectedColumns.map(columnName => report[columnName]);
+          const rowData = selectedColumns.map(columnName => {
+            // Conditionally pass "yes" or "no" based on the value of `is_inserted`
+            if (columnName === 'is_inserted') {
+              // Ensure that `is_inserted` is accessed correctly
+              return report.dataValues[columnName] === '1' ? 'yes' : 'no';
+            }
+            return report.dataValues[columnName];
+          });
           worksheet.addRow(rowData);
         });
+
   
         // Write the workbook to the response object
         res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
