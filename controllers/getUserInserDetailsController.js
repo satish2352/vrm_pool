@@ -35,8 +35,7 @@ const getUserInsertDetails = [
       {
         results = await UsersCopy.findAll({
           where: userFilter,
-          order: [['id', 'DESC']],
-          group:['fileId'],          
+          order: [['id', 'DESC']],                
           attributes:[
             'fileId',
             'createdAt',
