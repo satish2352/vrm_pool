@@ -20,7 +20,6 @@ const User = dbObj.define('user', {
   },
   email: {
     type:DataTypes.STRING,
-    unique: true,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
       notNull: { msg: "Email is required." }, // Additional validation for not null
@@ -30,8 +29,8 @@ const User = dbObj.define('user', {
   },
   mobile: {
     type:DataTypes.STRING,
-    allowNull: false, 
-    unique: true,// This is the default if required is not explicitly set
+    unique: true,
+    allowNull: false,
     validate: {
       isValidMobile(value) {
           if (!/^(?:\+91|0|91)?[6-9]\d{9}$/.test(value)) {

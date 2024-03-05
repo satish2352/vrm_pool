@@ -58,6 +58,7 @@ const uploadAgents = [
       let jsonData;
       var usersNotInserted = [];
       var usersInserted = []; // New array to store inserted users
+      const processedMobileNumbers = new Set(); // Set to keep track of processed mobile numbers
 
       try {
         for (const sheetName of sheets) {
@@ -74,32 +75,49 @@ const uploadAgents = [
         const insertionPromises = usersToInsert.map(user => {
           return User.build(user).validate()
             .then(() => {
-              return User.findOne({
-                where: {
-                  mobile: user.mobile
-                }
-              });
-            })
-            .then(existingUser => {
-              if (existingUser) {
-                const userCopyModel = ({
+              const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
+              user.mobile=match[1]                      
+              if (processedMobileNumbers.has(user.mobile)) {
+                // If mobile number is already processed, skip insertion
+                const userCopyModel = {
                   name: user.name,
                   mobile: user.mobile,
                   email: user.email,
                   password: '12345678',
-                  user_type: 3,
+                  user_type: 2,
                   is_inserted: 0,
                   reason: 'Mobile number already exists',
                   fileId: fileId,
                   added_by: superviserId
-                });
-                usersNotInserted.push(userCopyModel)
+                };
+                usersNotInserted.push(userCopyModel);
                 UsersCopy.create(userCopyModel);
                 return null; // Returning null so this user is not inserted
               } else {
+                processedMobileNumbers.add(user.mobile); // Add mobile number to processed set
                 return user; // Returning the user object to be inserted
               }
             })
+            // .then(existingUser => {
+            //   if (existingUser) {
+            //     const userCopyModel = ({
+            //       name: user.name,
+            //       mobile: user.mobile,
+            //       email: user.email,
+            //       password: '12345678',
+            //       user_type: 3,
+            //       is_inserted: 0,
+            //       reason: 'Mobile number already exists',
+            //       fileId: fileId,
+            //       added_by: superviserId
+            //     });
+            //     usersNotInserted.push(userCopyModel)
+            //     UsersCopy.create(userCopyModel);
+            //     return null; // Returning null so this user is not inserted
+            //   } else {
+            //     return user; // Returning the user object to be inserted
+            //   }
+            // })
             .catch(validationError => {
               // Handle validation error for this user
               console.error(`Validation error for user ${user.name}:`, validationError.message);
