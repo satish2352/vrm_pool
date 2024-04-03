@@ -26,9 +26,19 @@ const getReportsSingleRow = [
                 userFilter.added_by = supervisor_id;
             }
 
-            if (agent_id) {
-                userFilter.id = agent_id;
+            if (Array.isArray(agent_id)) {
+                if (agent_id.length === 0) {
+                  
+                } else {
+                    if (agent_id) {
+                        userFilter.id = agent_id;
+                    }
+                }
+              } else {
+                
             }
+
+           
 
             // Fetch user data based on filters
             const users = await User.findAll({
