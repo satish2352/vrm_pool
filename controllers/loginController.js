@@ -40,19 +40,19 @@ const loginUser = [
             try {
                 const { mobile, password } = req.body;
                 let user = await User.findOne({
-                    where: { mobile: mobile,is_active:1,is_deleted:0,user_type:"1 || 2"},
+                    where: { mobile: mobile,is_active:1},
                 });
-                if(!user){
-
+                if(!user)
+                {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 }
                 const passwordCompare = await bcrypt.compare(password, user.password);
                 if (!passwordCompare) {
-                    return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
+                    return res.status(400).json({ result: false, message: 'Please enter valid credentials x' });
                 } else {
                     const userId = user.id;
-                    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' });
-                    const expiration = new Date(Date.now() + 10800000); // 3 hour expiration                
+                    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
+                    const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
                    // const createdTokenx = await Token.create({ userId, token, expiration });
                     // Find an existing token for the user or create a new one if it doesn't exist
                     const [createdToken, created] = await Token.findOrCreate({

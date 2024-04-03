@@ -23,6 +23,8 @@ const changeUserStatusController = require("./controllers/changeUserStatusContro
 const deleteUserController = require("./controllers/deleteUserController");
 const adminUserPasswordResetController = require("./controllers/adminUserPasswordResetController");
 const updateUserController = require("./controllers/updateUserController");
+const agentDataDownloadController = require("./controllers/agentDataDownloadController");
+const agentReportsController = require("./controllers/agentReportsController");
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -50,6 +52,8 @@ router.get("/downloadReports",downloadReportsController.downloadReports);
 router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getReportsSingleRow",reportExotelController.getReportsSingleRow);
+router.post("/getAgentReportsSingleRow",agentReportsController.getAgentReportsSingleRow);
+router.post("/reportsDownload",agentDataDownloadController.downloadAgentData);
 
 
 
