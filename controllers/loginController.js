@@ -40,7 +40,7 @@ const loginUser = [
             try {
                 const { mobile, password } = req.body;
                 let user = await User.findOne({
-                    where: { mobile: mobile,is_active:1},
+                    where: { mobile: mobile,is_active:1,is_delete:0,user_type:"1 || 2"},
                 });
                 if(!user){
 
