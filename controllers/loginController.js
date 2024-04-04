@@ -5,6 +5,7 @@ const apiResponse = require("../helpers/apiResponse");
 const bcrypt = require("bcryptjs");
 var jwt = require('jsonwebtoken');
 const JWT_SECRET = "realEstateApp$ecret$493458395789";
+const { Op } = require('sequelize');
 
 const loginUser = [
 
@@ -40,7 +41,15 @@ const loginUser = [
             try {
                 const { mobile, password } = req.body;
                 let user = await User.findOne({
-                    where: { mobile: mobile,is_active:1},
+                    where: {
+                        mobile: mobile,
+                        is_active: 1,
+                        is_deleted: 0,
+                        [Op.or]: [
+                            { user_type: 1 },
+                            { user_type: 2 }
+                        ]
+                    },
                 });
                 if(!user)
                 {
