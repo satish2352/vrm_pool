@@ -37,9 +37,6 @@ const getAgentReportsSingleRow = [
               } else {
                 
             }
-
-           
-
             // Fetch user data based on filters
             const users = await User.findAll({
                 where: userFilter,
@@ -89,13 +86,22 @@ const getAgentReportsSingleRow = [
                         'MissedCalls'
                     ],
                     [
-                        fn('SUM', col('OutgoingCalls')),
-                        'OutgoingCalls'
+                        fn('SUM', col('NoAnswer')),
+                        'NoAnswer'
+                    ],
+                    [
+                        fn('SUM', col('Busy')),
+                        'Busy'
                     ],
                     [
                         fn('SUM', col('Failed')),
                         'Failed'
                     ],
+                    [
+                        fn('SUM', col('OutgoingCalls')),
+                        'OutgoingCalls'
+                    ],
+                   
                     [
                         fn('SUM', col('TotalCallDurationInMinutes')),
                         'TotalCallDurationInMinutes'
@@ -104,6 +110,11 @@ const getAgentReportsSingleRow = [
                         fn('AVG', col('AverageHandlingTimeInMinutes')),
                         'AverageHandlingTimeInMinutes'
                     ],
+                    [
+                        fn('AVG', col('DeviceOnPercent')),
+                        'DeviceOnPercent'
+                    ],
+                    'DeviceOnHumanReadable',
                    // [fn('COUNT', col('duration')), 'total_calls'],                    
                 ],
                 where: reportFilter,

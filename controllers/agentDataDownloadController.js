@@ -15,7 +15,7 @@ const downloadAgentData = [
 
             downloadAndReadCSV();
 
-            setInterval(downloadAndReadCSV, 1 * 60 * 1000); // 1 minutes in milliseconds
+            setInterval(downloadAndReadCSV, 10 * 60 * 1000); // 1 minutes in milliseconds
 
         } catch (error) {
             console.error('Error fetching reports:', error);
@@ -47,72 +47,46 @@ const downloadFile = (url, destination) => {
   
   const readCSVFile = (filePath) => {
     return new Promise((resolve, reject) => {
-      try {
         const results = [];
         const matchedResults = [];
+        const promises = []; // Array to store promises for each findOne call
+        
         fs.createReadStream(filePath)
-          .pipe(csv())
-          .on('data', async (data) => {
-
-            if(data.AgentPhoneNumber){
-              await Users.findOne({
-                where: { mobile: data.AgentPhoneNumber.slice(-10) },
-              })
-              .then(user => {
-                console.log('user:', user);
-                if (user) {
-                  data.user_id = user.id.toString();
-                  matchedResults.push(data)
+            .pipe(csv())
+            .on('data', (data) => {
+                if (data.AgentPhoneNumber) {
+                    // Push a promise for each findOne call into the promises array
+                    const promise = Users.findOne({
+                        where: { mobile: data.AgentPhoneNumber.slice(-10) },
+                    }).then(user => {
+                        if (user) {
+                            data.user_id = user.id.toString();
+                            data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
+                            matchedResults.push(data);
+                        }
+                    }).catch(error => {
+                        console.error('Error finding user:', error);
+                    });
+                    promises.push(promise);
                 }
-              })
-              .catch(error => {
-                console.error('Error finding user:', error);
-                res.status(500).send({ result: false, message: 'Error finding user: ', error });
-              });
-              console.log("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-              console.log(matchedResults)
-              resolve(matchedResults);
-
-            }          
-          })
-          .on('end', () => resolve(results))
-          .on('error', (error) => reject(error));
-      } catch (error) {
-        reject(error);
-      }
+            })
+            .on('end', () => {
+                // Wait for all promises to resolve before resolving the main promise
+                Promise.all(promises).then(() => {
+                    console.log('CSV file processing complete.');
+                    console.log(matchedResults.length);
+                    resolve(matchedResults);
+                }).catch(error => {
+                    console.error('Error:', error);
+                    reject(error);
+                });
+            })
+            .on('error', (error) => {
+                console.error('Error reading CSV file:', error);
+                reject(error);
+            });
     });
-  };
-
-  const readCSVFileWithUserIds = (filePath) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const results = [];
-        const users = await Users.findAll; // Fetch user details from the database
-        const userMap = new Map(users.map(user => [user.mobile, user.id])); // Create a map of mobile numbers to user IDs
-  
-        fs.createReadStream(filePath)
-          .pipe(csv())
-          .on('data', (data) => {
-            // Check if the AgentPhoneNumber exists in the userMap
-            if (userMap.has(data.AgentPhoneNumber)) {
-              // If yes, add the user_id to the data
-              data.user_id = userMap.get(data.AgentPhoneNumber);
-            }
-            results.push(data);
-
-            console.log("11111111111111111111111111111111111111111111111111111111")
-            console.log(results)
-
-          })
-          .on('end', () => resolve(results))
-          .on('error', (error) => reject(error));
-      } catch (error) {
-        reject(error);
-      }
-    });
-  };
-  
-
+};
   const downloadAndReadCSV = async () => {
     const url = 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/1558f7e185c555de51522ce5806d993d.csv'; // URL of the CSV file to download
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
@@ -122,7 +96,7 @@ const downloadFile = (url, destination) => {
       console.log('File downloaded successfully');
   
       const data = await readCSVFile(destination);
-      console.log('CSV File contents:', data);
+      console.log('CSV File contents: called', data);
       await insertDataToAgentData(data);
       
     } catch (error) {
@@ -132,7 +106,8 @@ const downloadFile = (url, destination) => {
 
   const insertDataToAgentData = async (data) => {
 
-    console.log("*******@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*****")
+    console.log("insertDataToAgentData=========>");
+    console.log(data.length);
     try {
       await AgentData.bulkCreate(data);
       console.log('Data inserted successfully into AgentData table');
@@ -140,10 +115,6 @@ const downloadFile = (url, destination) => {
       console.error('Error:insertDataToAgentData', error);
     }
   };
-
-
-
-
 module.exports = {
   downloadAgentData,
 };
