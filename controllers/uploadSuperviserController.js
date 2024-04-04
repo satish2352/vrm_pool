@@ -26,7 +26,10 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    fileId = Date.now() + "_" + file.originalname;
+
+    const sanitizedFilename = file.originalname.replace(/[^\w\s.]/gi, "").replace(/\s+/g, "").trim();
+
+    fileId = Date.now() + "_" + sanitizedFilename;
     cb(null, fileId);
   }
 });
@@ -143,7 +146,19 @@ const uploadSupervisers = [
         })
         .catch(validationError => {
           console.error(`Validation error for user ${user.name}:`, validationError.message);
-          const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+          var errorMessage="";
+          if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
+            errorMessage='Mobile number cannot be null.';
+        } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
+          errorMessage='Name cannot be null.';
+            
+        } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
+          errorMessage='Email cannot be null.';          
+        }
+        else{
+           errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+        }
+         // const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
           const userCopyModel = {
             name: user.name,
             mobile: user.mobile,

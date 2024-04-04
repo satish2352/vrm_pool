@@ -17,8 +17,10 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Generate a unique filename by adding a timestamp
-    fileId = Date.now() + "_" + file.originalname
-    //cb(null, `${Date.now()}_${file.originalname}}`);
+
+    const sanitizedFilename = file.originalname.replace(/[^\w\s.]/gi, "").replace(/\s+/g, "").trim();
+
+    fileId = Date.now() + "_" + sanitizedFilename;
     cb(null, fileId);
   }
 });
@@ -65,7 +67,11 @@ const uploadAgents = [
           jsonData = xlsx.utils.sheet_to_json(worksheet);
           jsonData.forEach(data => data.sheetName = sheetName);
           if (jsonData.length < 1) {
+  
+            
             return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
+          }else{
+           // console.log(jsonData)
           }
         }
 
@@ -130,7 +136,18 @@ const uploadAgents = [
           })
           .catch(validationError => {
             console.error(`Validation error for user ${user.name}:`, validationError.message);
-            const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+            var errorMessage="";
+            if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
+              errorMessage='Mobile number cannot be null.';
+          } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
+            errorMessage='Name cannot be null.';
+              
+          } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
+            errorMessage='Email cannot be null.';          
+          }
+          else{
+             errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+          }
             const userCopyModel = {
               name: user.name,
               mobile: user.mobile,
