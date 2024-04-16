@@ -14,7 +14,7 @@ let dbObj;
     dialect: 'mysql',
     host: DB_HOST,
     port:DB_PORT,
-    timezone: '+05:30',
+    timezone: 'Asia/Kolkata', // Set the timezone to Asia/Kolkata
   });
 
 
