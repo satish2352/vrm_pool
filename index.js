@@ -11,6 +11,8 @@ require('dotenv').config();
 
 app.use(cors());
 const PORT = process.env.PORT || 3000;
+const timezone = process.env.APP_TIMEZONE || 'Asia/Kolkata';
+console.log(timezone);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
