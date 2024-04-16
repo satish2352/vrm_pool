@@ -64,23 +64,25 @@ const AgentData = dbObj.define('agentdata', {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    timezone: '+05:30' // Set the desired time zone here, for example, '+00:00' for UTC
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    timezone: '+05:30' // Set the desired time zone here, for example, '+00:00' for UTC
   }
 }, {
   // Other options here
    // Define hooks for manipulating createdAt and updatedAt fields
-   hooks: {
-    beforeValidate: (agentData, options) => {
-      // Set time zone before saving
-      agentData.createdAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-      agentData.updatedAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-    }
-  }
+  //  hooks: {
+  //   beforeValidate: (agentData, options) => {
+  //     // Set time zone before saving
+  //     agentData.createdAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+  //     agentData.updatedAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+  //   }
+  // }
 });
 
 // Synchronize the model with the databas
