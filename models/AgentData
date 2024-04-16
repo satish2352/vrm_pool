@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const { Sequelize } = require("sequelize");
-
+const moment = require('moment-timezone'); // Import moment-timezone
 const dbObj = require('../db');
 
 
@@ -64,12 +64,12 @@ const AgentData = dbObj.define('agentdata', {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    defaultValue: () => moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss') // Set default value for createdAt
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    defaultValue: () => moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss') // Set default value for createdAt
   }
 }, {
   // Other options here
