@@ -4,6 +4,7 @@ const User = require("../models/Users");
 const { validationResult } = require("express-validator");
 const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
+const moment = require('moment-timezone');
 
 User.hasMany(AgentData, { foreignKey: 'user_id' });
 AgentData.belongsTo(User, { foreignKey: 'user_id' });
@@ -12,7 +13,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime} = req.body;
+            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime,time} = req.body;
 
             // Construct filter for Users
             let userFilter = {
@@ -71,6 +72,20 @@ const getAgentReportsSingleRow = [
 
             if (direction) {
                 reportFilter.direction = direction;
+            }
+            if (time) {
+                // Calculate the current date and time in the 'Asia/Kolkata' timezone
+                const currentDateTime = moment().tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+        
+                // Calculate the date and time 'minutes' minutes ago in the 'Asia/Kolkata' timezone
+                const minutesAgoDateTime = moment().subtract(time, 'minutes').tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+        
+                // Construct the query
+                reportFilter.updatedAt = {
+                    [Op.between]: [minutesAgoDateTime, currentDateTime]
+                };
+        
+                // Example: execute your query using Sequelize or perform any other actions needed
             }
 
 

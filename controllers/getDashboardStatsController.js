@@ -1,12 +1,12 @@
 const verifyToken = require("../middleware/verifyToken");
-const Report = require("../models/Report");
+const AgentData = require("../models/AgentData");
 const User = require("../models/Users");
 const { validationResult } = require("express-validator");
 const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
 
-User.hasMany(Report, { foreignKey: 'user_id' });
-Report.belongsTo(User, { foreignKey: 'user_id' });
+User.hasMany(AgentData, { foreignKey: 'user_id' });
+AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const getStats = [
     verifyToken,
@@ -33,33 +33,45 @@ const getStats = [
                 where:userFilter
                 
             });                   
-            const reports = await Report.findAll({
+            const reports = await AgentData.findAll({
                 attributes: [
                     [
-                        fn('SUM', literal('CASE WHEN status = "Completed" THEN 1 ELSE 0 END')),
-                        'completed_count'
+                        fn('SUM',  col('IncomingCalls')),
+                        'IncomingCalls'
                     ],
                     [
-                        fn('SUM', literal('CASE WHEN status = "Missed" THEN 1 ELSE 0 END')),
-                        'missed_count'
+                        fn('SUM', col('MissedCalls')),
+                        'MissedCalls'
                     ],
                     [
-                        fn('SUM', literal('CASE WHEN direction = "Incoming" THEN 1 ELSE 0 END')),
-                        'incoming_count'
+                        fn('SUM', col('NoAnswer')),
+                        'NoAnswer'
                     ],
                     [
-                        fn('SUM', literal('CASE WHEN direction = "Outgoing" THEN 1 ELSE 0 END')),
-                        'outgoing_count'
+                        fn('SUM', col('Busy')),
+                        'Busy'
                     ],
                     [
-                        fn('SUM', col('duration')),
-                        'total_duration'
+                        fn('SUM', col('Failed')),
+                        'Failed'
                     ],
                     [
-                        fn('AVG', col('duration')),
-                        'average_duration'
+                        fn('SUM', col('OutgoingCalls')),
+                        'OutgoingCalls'
                     ],
-                    [fn('COUNT', col('duration')), 'total_calls'],
+                   
+                    [
+                        fn('SUM', col('TotalCallDurationInMinutes')),
+                        'TotalCallDurationInMinutes'
+                    ],
+                    [
+                        fn('AVG', col('AverageHandlingTimeInMinutes')),
+                        'AverageHandlingTimeInMinutes'
+                    ],
+                    [
+                        fn('AVG', col('DeviceOnPercent')),
+                        'DeviceOnPercent'
+                    ],
                 ],             
                 order: [['createdAt', 'DESC']]
             });

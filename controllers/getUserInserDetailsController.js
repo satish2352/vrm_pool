@@ -47,7 +47,8 @@ const getUserInsertDetails = [
             'added_by',
             'is_inserted',
             
-        ]
+        ],
+        limit: 5,
   
         });
 
@@ -68,8 +69,10 @@ const getUserInsertDetails = [
           [
               fn('SUM', literal('CASE WHEN is_inserted = "0" THEN 1 ELSE 0 END')),
               'failedCount'
-          ],        
-        ]
+          ],  
+                
+        ],
+        limit: 5,
   
         });
       }    
