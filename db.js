@@ -13,7 +13,8 @@ let dbObj;
   dbObj = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     dialect: 'mysql',
     host: DB_HOST,
-    port:DB_PORT
+    port:DB_PORT,
+    timezone: '+05:30',
   });
 
 
