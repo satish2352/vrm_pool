@@ -73,6 +73,14 @@ const AgentData = dbObj.define('agentdata', {
   }
 }, {
   // Other options here
+   // Define hooks for manipulating createdAt and updatedAt fields
+   hooks: {
+    beforeValidate: (agentData, options) => {
+      // Set time zone before saving
+      agentData.createdAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+      agentData.updatedAt = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+    }
+  }
 });
 
 // Synchronize the model with the databas
