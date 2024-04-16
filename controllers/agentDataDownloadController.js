@@ -15,7 +15,7 @@ const downloadAgentData = [
 
             downloadAndReadCSV();
 
-           // setInterval(downloadAndReadCSV, 1 * 60 * 1000); // 1 minutes in milliseconds
+            setInterval(downloadAndReadCSV, 10 * 60 * 1000); // 1 minutes in milliseconds
 
         } catch (error) {
             console.error('Error fetching reports:', error);
