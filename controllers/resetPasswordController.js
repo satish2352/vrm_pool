@@ -39,7 +39,17 @@ const resetPassword = [
                     }else
                     {                                        
                         // Find the user in the database based on the provided mobile number
-                        const user = await User.findOne({ where: { mobile } });
+                        let user = await User.findOne({
+                          where: {
+                              mobile: mobile,
+                              is_active: 1,
+                              is_deleted: 0,
+                              [Op.or]: [
+                                  { user_type: 1 },
+                                  { user_type: 2 }
+                              ]
+                          },
+                      });
                         if (!user) {
                           return res.status(404).json({ result: true,message: "Enter valid credentials" });
                         }else{
