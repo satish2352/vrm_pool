@@ -74,7 +74,8 @@ const AgentData = dbObj.define('agentdata', {
 }, {
   // Other options here
 });
-
+var time=moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+console.log(time);
 // Synchronize the model with the databas
 
 module.exports = AgentData;
