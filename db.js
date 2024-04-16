@@ -14,6 +14,7 @@ let dbObj;
     dialect: 'mysql',
     host: DB_HOST,
     port:DB_PORT,
+    timezone: '+05:30', // Set your desired time zone here
   });
 
 
