@@ -75,10 +75,10 @@ const getAgentReportsSingleRow = [
             }
             if (time) {
                 // Calculate the current date and time in the 'Asia/Kolkata' timezone
-                const currentDateTime = moment().tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+                const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
         
                 // Calculate the date and time 'minutes' minutes ago in the 'Asia/Kolkata' timezone
-                const minutesAgoDateTime = moment().subtract(time, 'minutes').tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
+                const minutesAgoDateTime = moment().subtract(time, 'minutes').format('YYYY-MM-DD HH:mm:ss');
         
                 // Construct the query
                 reportFilter.updatedAt = {

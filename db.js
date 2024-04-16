@@ -13,21 +13,8 @@ let dbObj;
   dbObj = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     dialect: 'mysql',
     host: DB_HOST,
-    port:DB_PORT,
-    timezone: '+05:30', // Set your desired time zone here
-  dialectOptions: {
-    timezone: '+05:30', // Set your desired time zone here as well
-  },
-});
+    port:DB_PORT
+  });
 
-// Set time zone for the database connection
-(async () => {
-  try {
-    await sequelize.query("SET time_zone = '+05:30';");
-    console.log('Time zone set successfully.');
-  } catch (error) {
-    console.error('Error setting time zone:', error);
-  }
-})();
 
 module.exports = dbObj
