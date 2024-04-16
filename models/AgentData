@@ -64,7 +64,6 @@ const AgentData = dbObj.define('agentdata', {
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     defaultValue: dbObj.literal('CURRENT_TIMESTAMP'),
     get() {
       return new Date(this.getDataValue('createdAt') + 'Z').toISOString().replace('Z', '+05:30');
@@ -73,7 +72,7 @@ const AgentData = dbObj.define('agentdata', {
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    defaultValue: dbObj.literal('CURRENT_TIMESTAMP'),
     get() {
       return new Date(this.getDataValue('updatedAt') + 'Z').toISOString().replace('Z', '+05:30');
     }
