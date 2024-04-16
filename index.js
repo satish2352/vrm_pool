@@ -8,7 +8,10 @@ app.use(express.json());
 const dbObj = require("./db");
 var cors = require('cors')
 require('dotenv').config();
+const moment = require('moment-timezone');
 
+// Set default timezone for your application
+moment.tz.setDefault('Asia/Kolkata');
 app.use(cors());
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
