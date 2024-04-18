@@ -17,7 +17,7 @@ let dbObj;
   });
 
 
-// module.exports = dbObj
+module.exports = dbObj
 
 
 // Satish code 
