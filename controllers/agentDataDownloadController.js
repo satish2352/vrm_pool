@@ -7,13 +7,15 @@ const apiResponse = require("../helpers/apiResponse");
 const fs = require('fs');
 const https = require('https');
 const csv = require('csv-parser');
+const { body, query, validationResult } = require("express-validator");
 
 const getAgentCallDetails = [
+  body(),
     async (req, res) => {
         try {
 
-          console.log(req.body)
-            downloadAndReadCSV(req.body.location_url);
+          console.log(req)
+            downloadAndReadCSV(req.location_url);
 
         } catch (error) {
             console.error('Error fetching reports:', error);
