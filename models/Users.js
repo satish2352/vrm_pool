@@ -92,4 +92,4 @@ const User = dbObj.define('user', {
   
 });
 
-module.exports = {User};
+module.exports = User;
