@@ -63,6 +63,7 @@ const uploadSupervisers = [
       for (const sheetName of sheets) {
         const worksheet = workbook.Sheets[sheetName];
         jsonData = xlsx.utils.sheet_to_json(worksheet);
+        console.log(jsonData)
         jsonData.forEach(data => data.sheetName = sheetName);
         if (jsonData.length < 1) {
           return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
@@ -71,6 +72,9 @@ const uploadSupervisers = [
 
       let usersToInsert = jsonData;
       const adminId = req.user.id;
+      console.log(">>>>>>>>>>>>>>>>>---------------------------------")
+
+      console.log(usersToInsert.length)
 
       const insertionPromises = usersToInsert.map(user => {
 
