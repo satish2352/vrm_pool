@@ -20,4 +20,4 @@ const UserType = dbObj.define('user_type', {
   }, 
 });
 
-module.exports = UserType;
+module.exports = {UserType};

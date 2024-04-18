@@ -37,4 +37,4 @@ const UsersCopy = dbObj.define('users_copy', {
   
 });
 
-module.exports = UsersCopy;
+module.exports = {UsersCopy};
