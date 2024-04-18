@@ -90,7 +90,7 @@ const uploadSupervisers = [
         })})
         .then(existingUser => {
           console.log("existingUser  >>>>>>>>>>>>>>>>>---------------------------------")
-        
+      
           if (existingUser) {
             const userCopyModel = {
               name: user.name,
@@ -107,7 +107,7 @@ const uploadSupervisers = [
             console.log("userCopyModel")
             return UsersCopy.create(userCopyModel);
           } else {
-            console.log("existingUser else  >>>>>>>>>>>>>>>>>---------------------------------")
+            console.log("Not existing else  >>>>>>>>>>>>>>>>>---------------------------------")
             const randomPassword = generateRandomPassword();
             const textpassword = randomPassword;
             return hashPassword(randomPassword).then(encryptedPassword => {
