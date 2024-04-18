@@ -17,7 +17,7 @@ const getAgentCallDetails = [
             apiResponse.ErrorResponse(res, 'Please provide valid token and file location ');
           } else if(req.body.location_url =='' || req.body.location_url == null ) {
             apiResponse.ErrorResponse(res, 'Please provide file location url');
-          } else if(req.body.token =='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx') {
+          } else if(req.body.token !='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx') {
             apiResponse.ErrorResponse(res, 'Please provide valid token ');
           } else {
               await downloadAndReadCSV(req.body.location_url);
