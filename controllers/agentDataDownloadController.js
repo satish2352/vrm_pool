@@ -13,9 +13,8 @@ const getAgentCallDetails = [
     async (req, res) => {
         try {
 
-          console.log(req.body)
             downloadAndReadCSV(req.body.location_url);
-
+            apiResponse.successResponse(res, 'url got successfully');
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
@@ -110,6 +109,7 @@ const downloadFile = (url, destination) => {
     try {
       await AgentData.bulkCreate(data);
       console.log('Data inserted successfully into AgentData table');
+      
     } catch (error) {
       console.error('Error:insertDataToAgentData', error);
     }
