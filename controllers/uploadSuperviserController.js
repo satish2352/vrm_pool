@@ -82,13 +82,15 @@ const uploadSupervisers = [
           const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
           user.mobile = match[1]
         user.mobile = match[1]
-        
+
         return User.findOne({
           where: {
             mobile: user.mobile
           }
         })})
         .then(existingUser => {
+          console.log("existingUser  >>>>>>>>>>>>>>>>>---------------------------------")
+        
           if (existingUser) {
             const userCopyModel = {
               name: user.name,
@@ -104,6 +106,7 @@ const uploadSupervisers = [
             usersNotInserted.push(userCopyModel);
             return UsersCopy.create(userCopyModel);
           } else {
+            console.log("existingUser else  >>>>>>>>>>>>>>>>>---------------------------------")
             const randomPassword = generateRandomPassword();
             const textpassword = randomPassword;
             return hashPassword(randomPassword).then(encryptedPassword => {
@@ -141,7 +144,7 @@ const uploadSupervisers = [
                       console.log(`Email sent to ${createdUser.email}`);
                       console.log(`Password  ${createdUser.textpassword}`);
                   } catch (error) {
-                      console.error(`Error sending email to ${user.createdUser}:`, error);
+                      console.log(`Error sending email to ${user.createdUser}:`, error);
                   }
               
                 usersInserted.push(userCopyModel);
@@ -151,7 +154,7 @@ const uploadSupervisers = [
           }
         })
         .catch(validationError => {
-          console.error(`Validation error for user ${user.name}:`, validationError.message);
+          console.log(`Validation error for user ${user.name}:`, validationError.message);
           var errorMessage="";
           if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
             errorMessage='Mobile number cannot be null.';
@@ -192,7 +195,7 @@ const uploadSupervisers = [
           });
         })
         .catch(error => {
-          console.error('Error inserting users:', error.message);
+          console.log('Error inserting users:', error.message);
           res.status(500).json({
             result: false,
             message: 'Error occurred during operation',
@@ -200,7 +203,7 @@ const uploadSupervisers = [
           });
         });
     }catch(error){
-      console.error('Error inserting users:', error.message);
+      console.log('Error inserting users:', error.message);
       res.status(500).json({
         result: false,
         message: 'Error occurred during operation',
