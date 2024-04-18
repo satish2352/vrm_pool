@@ -22,13 +22,16 @@ const getAgentCallDetails = [
 
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
-            // return res.status(400).json({ errors: errors.array() });
-            apiResponse.validationErrorWithData(res, 'Validation Errors!',{ errors: errors.array() })
+            return res.status(400).json(
+              {
+              'result': false,
+              'message': 'Validation Errors!',
+              'errors':  errors.array() });
           }
           next();
-          if (!req.body) {
-            apiResponse.ErrorResponse(res, 'Missing request body!');
-          }
+          // if (!req.body) {
+          //   apiResponse.ErrorResponse(res, 'Missing request body!');
+          // }
 
           if(req.body.location_url =='' || req.body.location_url == null ) {
             apiResponse.ErrorResponse(res, 'Please provide file location url');
