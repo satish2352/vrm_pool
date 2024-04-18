@@ -13,8 +13,8 @@ const getAgentCallDetails = [
     async (req, res) => {
         try {
 
-          console.log(req)
-            downloadAndReadCSV(req.location_url);
+          console.log(req.body)
+            downloadAndReadCSV(req.body.location_url);
 
         } catch (error) {
             console.error('Error fetching reports:', error);
