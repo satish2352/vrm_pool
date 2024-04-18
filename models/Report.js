@@ -1,6 +1,6 @@
 // Import Sequelize and the connection instance
 const { DataTypes, Model } = require('sequelize');
-const dbObj = require('../db');
+// const dbObj = require('../db');
 
 // Define the Report schema
 const Report = dbObj.define('reports', {

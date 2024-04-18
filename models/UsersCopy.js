@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const dbObj = require('../db');
+// const dbObj = require('../db');
 
 const UsersCopy = dbObj.define('users_copy', {
   name: {
