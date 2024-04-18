@@ -12,6 +12,7 @@ const getAgentCallDetails = [
     async (req, res) => {
         try {
 
+          console.log(req.body)
             downloadAndReadCSV(req.body.location_url);
 
         } catch (error) {
@@ -87,7 +88,7 @@ const downloadFile = (url, destination) => {
   const downloadAndReadCSV = async (url) => {
     // const url = 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/1558f7e185c555de51522ce5806d993d.csv'; // URL of the CSV file to download
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
-  
+    console.log("line 91",url)
     try {
       await downloadFile(url, destination);
       console.log('File downloaded successfully');
