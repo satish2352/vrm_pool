@@ -17,7 +17,7 @@ const getAgentCallDetails = [
     .notEmpty().withMessage('Token is required')
     .isLength({ min: 30 }).withMessage('Token must be at least 30 characters long'),
   
-    async (req, res, next) => {
+    async (req, res) => {
         try {
 
           const errors = validationResult(req);
@@ -28,7 +28,6 @@ const getAgentCallDetails = [
               'message': 'Validation Errors!',
               'errors':  errors.array() });
           }
-          next();
           // if (!req.body) {
           //   apiResponse.ErrorResponse(res, 'Missing request body!');
           // }
