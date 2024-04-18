@@ -52,6 +52,7 @@ const uploadSupervisers = [
       return res.status(400).json({ result: false, message: 'To upload file select valid file. only .xlsx or .xls file is allowed.' });
     }
     try {
+      console.log("---------------------------------")
     console.log(req.file.path)
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames;
