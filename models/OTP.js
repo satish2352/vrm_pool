@@ -24,4 +24,4 @@ const OTP = dbObj.define('otp', {
       },
 });
 OTP.sync();
-module.exports = {OTP};
+module.exports = OTP;

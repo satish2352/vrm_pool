@@ -21,4 +21,4 @@ const Token = dbObj.define('token', {
       }
 });
 
-module.exports = {Token};
+module.exports = Token;
