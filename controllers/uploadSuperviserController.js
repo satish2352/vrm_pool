@@ -52,9 +52,9 @@ const uploadSupervisers = [
       return res.status(400).json({ result: false, message: 'To upload file select valid file. only .xlsx or .xls file is allowed.' });
     }
     try {
-      console.log("---------------------------------")
+    console.log("---------------------------------")
     console.log(req.file.path)
-    console.log(">>>>>>>>>>>>>>>>>---------------------------------")
+    
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames;
     let jsonData;
@@ -73,7 +73,6 @@ const uploadSupervisers = [
       let usersToInsert = jsonData;
       const adminId = req.user.id;
       console.log(">>>>>>>>>>>>>>>>>---------------------------------")
-
       console.log(usersToInsert.length)
 
       const insertionPromises = usersToInsert.map(user => {
@@ -83,6 +82,7 @@ const uploadSupervisers = [
           const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
           user.mobile = match[1]
         user.mobile = match[1]
+        
         return User.findOne({
           where: {
             mobile: user.mobile
@@ -180,6 +180,8 @@ const uploadSupervisers = [
           return UsersCopy.create(userCopyModel);
         });
       });
+      console.log("insertionPromises---")
+      console.log(insertionPromises)
       Promise.all(insertionPromises)
         .then(() => {
           res.status(200).json({
