@@ -13,7 +13,7 @@ const getAgentCallDetails = [
     async (req, res) => {
         try {
 
-          if(req.body.token =='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx' && (req.body.location_url !='' || req.body.location_url != null )) {
+          if(req.body.token == '' && (req.body.location_url !='' || req.body.location_url != null )) {
             apiResponse.ErrorResponse(res, 'Please provide valid token and file location ');
           } else if(req.body.location_url =='' || req.body.location_url == null ) {
             apiResponse.ErrorResponse(res, 'Please provide file location url');
