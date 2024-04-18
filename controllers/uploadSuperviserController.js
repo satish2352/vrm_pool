@@ -77,7 +77,11 @@ const uploadSupervisers = [
 
       const insertionPromises = usersToInsert.map(user => {
 
-        return User.build(user).validate()
+        console.log("usersToInsert Insidse---------------------------------")
+        console.log(user)
+        return User.build(user).validate(
+
+        )
         .then(() => {
           const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
           user.mobile = match[1]
