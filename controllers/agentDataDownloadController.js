@@ -40,7 +40,7 @@ const getAgentCallDetails = [
             apiResponse.ErrorResponse(res, 'Please provide valid token and file location ');
           } else {
               await downloadAndReadCSV(req.body.location_url);
-              apiResponse.successResponse(res, 'url got successfully');
+              apiResponse.successResponse(res, 'URL received successfully');
           }
         } catch (error) {
             console.error('Error fetching reports:', error);
