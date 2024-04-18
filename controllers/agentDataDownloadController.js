@@ -13,8 +13,16 @@ const getAgentCallDetails = [
     async (req, res) => {
         try {
 
-            downloadAndReadCSV(req.body.location_url);
-            apiResponse.successResponse(res, 'url got successfully');
+          if(req.body.token =='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx' && (req.body.location_url !='' || req.body.location_url != null )) {
+            apiResponse.ErrorResponse(res, 'Please provide valid token and file location ');
+          } else if(req.body.location_url !='' || req.body.location_url != null ) {
+            apiResponse.ErrorResponse(res, 'Please provide file location url');
+          } else if(req.body.token =='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx') {
+            apiResponse.ErrorResponse(res, 'Please provide valid token ');
+          } else {
+              await downloadAndReadCSV(req.body.location_url);
+              apiResponse.successResponse(res, 'url got successfully');
+          }
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
@@ -86,7 +94,6 @@ const downloadFile = (url, destination) => {
     });
 };
   const downloadAndReadCSV = async (url) => {
-    // const url = 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/1558f7e185c555de51522ce5806d993d.csv'; // URL of the CSV file to download
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
     console.log("line 91",url)
     try {
