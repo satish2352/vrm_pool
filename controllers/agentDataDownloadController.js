@@ -9,9 +9,25 @@ const csv = require('csv-parser');
 const { body, query, validationResult } = require("express-validator");
 
 const getAgentCallDetails = [
-  body(),
-    async (req, res) => {
+  body('location_url')
+    .notEmpty().withMessage('Location url is required'),
+
+  // Validate token
+  body('token')
+    .notEmpty().withMessage('Token is required')
+    .isLength({ min: 30 }).withMessage('Token must be at least 30 characters long'),
+  
+    async (req, res, next) => {
         try {
+
+          const errors = validationResult(req);
+          if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+          }
+          next();
+          if (!req.body) {
+            apiResponse.ErrorResponse(res, 'Missing request body!');
+          }
 
           if(req.body.location_url =='' || req.body.location_url == null ) {
             apiResponse.ErrorResponse(res, 'Please provide file location url');
