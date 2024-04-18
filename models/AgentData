@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const { Sequelize } = require("sequelize");
 
-// const dbObj = require('../db');
+const dbObj = require('../db');
 
 
 const AgentData = dbObj.define('agentdata', {
