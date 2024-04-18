@@ -54,6 +54,7 @@ const uploadSupervisers = [
     try {
       console.log("---------------------------------")
     console.log(req.file.path)
+    console.log(">>>>>>>>>>>>>>>>>---------------------------------")
     const workbook = xlsx.readFile(req.file.path);
     const sheets = workbook.SheetNames;
     let jsonData;
