@@ -1,7 +1,6 @@
 const verifyToken = require("../middleware/verifyToken");
 const AgentData = require("../models/AgentData");
 const Users = require("../models/Users");
-const { validationResult } = require("express-validator");
 const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
 const fs = require('fs');
