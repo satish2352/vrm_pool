@@ -17,6 +17,7 @@ const bcrypt = require("bcryptjs");
 const { Op, fn, col, literal } = require('sequelize');
 
 const createTransporter = require('../config/nodemailerConfig');
+const { error } = require("console");
 const transporter = createTransporter();
 let fileId;
 
@@ -25,7 +26,9 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
+
     const sanitizedFilename = file.originalname.replace(/[^\w\s.]/gi, "").replace(/\s+/g, "").trim();
+
     fileId = Date.now() + "_" + sanitizedFilename;
     cb(null, fileId);
   }
@@ -36,7 +39,7 @@ const excelFilter = function (req, file, cb) {
   if (extname === '.xlsx' || extname === '.xls') {
     return cb(null, true);
   }
-  cb(new Error('Only Excel files are allowed'));
+  cb(null, false);
 };
 
 const upload = multer({ storage: storage, fileFilter: excelFilter });
@@ -45,35 +48,41 @@ const uploadSupervisers = [
   verifyToken,
   upload.single('file'),
   async (req, res) => {
-    try {
-      if (!req.file) {
-        return apiResponse.errorResponse(res, "To upload file select valid file. Only .xlsx or .xls files are allowed.", 400);
-      }
-      
-      const workbook = xlsx.readFile(req.file.path);
-      const sheets = workbook.SheetNames;
-      let jsonData;
-      let usersNotInserted = [];
-      let usersInserted = [];
+    if (!req.file) {
+      return res.status(400).json({ result: false, message: 'To upload file select valid file. only .xlsx or .xls file is allowed.' });
+    }
+    const workbook = xlsx.readFile(req.file.path);
+    const sheets = workbook.SheetNames;
+    let jsonData;
+    var usersNotInserted = [];
+    var usersInserted = [];
 
+    try {
       for (const sheetName of sheets) {
         const worksheet = workbook.Sheets[sheetName];
         jsonData = xlsx.utils.sheet_to_json(worksheet);
         jsonData.forEach(data => data.sheetName = sheetName);
         if (jsonData.length < 1) {
-          return apiResponse.errorResponse(res, "Excel file is empty or contains only a single row.", 400);
+          return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
         }
       }
 
       let usersToInsert = jsonData;
       const adminId = req.user.id;
 
-      const insertionPromises = usersToInsert.map(async user => {
-        try {
-          await User.build(user).validate();
+      const insertionPromises = usersToInsert.map(user => {
+
+        return User.build(user).validate()
+        .then(() => {
           const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
-          user.mobile = match[1];
-          const existingUser = await User.findOne({ where: { mobile: user.mobile } });
+          user.mobile = match[1]
+        user.mobile = match[1]
+        return User.findOne({
+          where: {
+            mobile: user.mobile
+          }
+        })})
+        .then(existingUser => {
           if (existingUser) {
             const userCopyModel = {
               name: user.name,
@@ -87,57 +96,69 @@ const uploadSupervisers = [
               added_by: adminId
             };
             usersNotInserted.push(userCopyModel);
-            await UsersCopy.create(userCopyModel);
+            return UsersCopy.create(userCopyModel);
           } else {
             const randomPassword = generateRandomPassword();
-            const encryptedPassword = await hashPassword(randomPassword);
-            const createdUser = await User.create({
-              name: user.name,
-              mobile: user.mobile,
-              email: user.email,
-              password: encryptedPassword,
-              user_type: 2,
-              is_inserted: 1,
-              reason: '',
-              fileId: fileId,
-              added_by: adminId,
-              textpassword: randomPassword
+            const textpassword = randomPassword;
+            return hashPassword(randomPassword).then(encryptedPassword => {
+              return User.create({
+                name: user.name,
+                mobile: user.mobile,
+                email: user.email,
+                password: encryptedPassword,
+                user_type: 2,
+                is_inserted: 1,
+                reason: '',
+                fileId: fileId,
+                added_by: adminId,
+                textpassword: textpassword
+              }).then(async createdUser => {
+                const userCopyModel = {
+                  name: user.name,
+                  mobile: user.mobile,
+                  email: user.email,
+                  password: '12345678',
+                  user_type: 2,
+                  is_inserted: 1,
+                  reason: '',
+                  fileId: fileId,
+                  added_by: adminId,
+                  textpassword: textpassword
+                };              
+                  try {
+                      await transporter.sendMail({
+                          from: 'vishvambhargore@sumagoinfotech.in',
+                          to: user.email,
+                          subject: 'Welcome to Our VRM POOL',
+                          text: `Dear ${createdUser.name},\nWelcome to our platform! Your account has been successfully created. your password is ${createdUser.textpassword}`,
+                      });
+                      console.log(`Email sent to ${createdUser.email}`);
+                      console.log(`Password  ${createdUser.textpassword}`);
+                  } catch (error) {
+                      console.error(`Error sending email to ${user.createdUser}:`, error);
+                  }
+              
+                usersInserted.push(userCopyModel);
+                return UsersCopy.create(userCopyModel);
+              });
             });
-            const userCopyModel = {
-              name: user.name,
-              mobile: user.mobile,
-              email: user.email,
-              password: '12345678',
-              user_type: 2,
-              is_inserted: 1,
-              reason: '',
-              fileId: fileId,
-              added_by: adminId,
-              textpassword: randomPassword
-            };
-            await transporter.sendMail({
-              from: 'vishvambhargore@sumagoinfotech.in',
-              to: createdUser.email,
-              subject: 'Welcome to Our VRM POOL',
-              text: `Dear ${createdUser.name},\nWelcome to our platform! Your account has been successfully created. your password is ${createdUser.textpassword}`,
-            });
-            console.log(`Email sent to ${createdUser.email}`);
-            console.log(`Password  ${createdUser.textpassword}`);
-            usersInserted.push(userCopyModel);
-            await UsersCopy.create(userCopyModel);
           }
-        } catch (error) {
-          console.error(`Error processing user: ${error.message}`);
-          let errorMessage;
-          if (error.name === 'SequelizeValidationError' && error.errors.some(err => err.path === 'mobile')) {
-            errorMessage = 'Mobile number cannot be null.';
-          } else if (error.name === 'SequelizeValidationError' && error.errors.some(err => err.path === 'name')) {
-            errorMessage = 'Name cannot be null.';
-          } else if (error.name === 'SequelizeValidationError' && error.errors.some(err => err.path === 'email')) {
-            errorMessage = 'Email cannot be null.';
-          } else {
-            errorMessage = error.message.replaceAll('Validation error:', '').trim();
-          }
+        })
+        .catch(validationError => {
+          console.error(`Validation error for user ${user.name}:`, validationError.message);
+          var errorMessage="";
+          if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
+            errorMessage='Mobile number cannot be null.';
+        } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
+          errorMessage='Name cannot be null.';
+            
+        } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
+          errorMessage='Email cannot be null.';          
+        }
+        else{
+           errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
+        }
+         // const errorMessage = validationError.message.replaceAll('Validation error:', '').trim();
           const userCopyModel = {
             name: user.name,
             mobile: user.mobile,
@@ -150,27 +171,36 @@ const uploadSupervisers = [
             added_by: adminId
           };
           usersNotInserted.push(userCopyModel);
-          await UsersCopy.create(userCopyModel);
-        }
+          return UsersCopy.create(userCopyModel);
+        });
       });
-
-      await Promise.all(insertionPromises);
-      return apiResponse.successResponse(res, {
-        message: 'File Processed Successfully',
-        inserted: usersInserted.length,
-        notInserted: usersNotInserted.length
+      Promise.all(insertionPromises)
+        .then(() => {
+          res.status(200).json({
+            result: true,
+            message: 'File Processed Successfully ',
+            inserted: usersInserted.length,
+            notInserted: usersNotInserted.length
+          });
+        })
+        .catch(error => {
+          console.error('Error inserting users:', error.message);
+          res.status(500).json({
+            result: false,
+            message: 'Error occurred during operation',
+            error: error.message
+          });
+        });
+    }catch(error){
+      console.error('Error inserting users:', error.message);
+      res.status(500).json({
+        result: false,
+        message: 'Error occurred during operation',
+        error
       });
-    } catch (error) {
-      console.error(`Error processing users: ${error.message}`);
-      return apiResponse.errorResponse(res, "Error occurred during operation", 500);
-    } finally {
-      // Clean up: Delete uploaded file after processing
-      if (req.file) {
-        fs.unlinkSync(req.file.path);
-      }
     }
   }
-];
+  ];
 
 function generateRandomPassword() {
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
