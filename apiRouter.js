@@ -46,7 +46,7 @@ router.post("/deleteUser",deleteUserController.deleteUser);
 router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgentReportsSingleRow);
-router.post("/reportsDownload",agentDataDownloadController.downloadAgentData);
+router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 
 

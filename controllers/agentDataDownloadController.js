@@ -8,14 +8,11 @@ const fs = require('fs');
 const https = require('https');
 const csv = require('csv-parser');
 
-const downloadAgentData = [
+const getAgentCallDetails = [
     async (req, res) => {
         try {
-            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime} = req.body;
 
-            downloadAndReadCSV();
-
-            setInterval(downloadAndReadCSV, 10 * 60 * 1000); // 1 minutes in milliseconds
+            downloadAndReadCSV(req.body.location_url);
 
         } catch (error) {
             console.error('Error fetching reports:', error);
@@ -87,8 +84,8 @@ const downloadFile = (url, destination) => {
             });
     });
 };
-  const downloadAndReadCSV = async () => {
-    const url = 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/1558f7e185c555de51522ce5806d993d.csv'; // URL of the CSV file to download
+  const downloadAndReadCSV = async (url) => {
+    // const url = 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/1558f7e185c555de51522ce5806d993d.csv'; // URL of the CSV file to download
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
   
     try {
@@ -116,5 +113,5 @@ const downloadFile = (url, destination) => {
     }
   };
 module.exports = {
-  downloadAgentData,
+  getAgentCallDetails,
 };
