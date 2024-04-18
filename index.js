@@ -3,7 +3,7 @@ const apiRouter = require("./apiRouter");
 const app = express();
 var bodyParser = require('body-parser')
 app.use(express.urlencoded({ extended: true }));
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 const dbObj = require("./db");
 var cors = require('cors')
