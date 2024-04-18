@@ -184,7 +184,9 @@ const uploadSupervisers = [
             fileId: fileId,
             added_by: adminId
           };
+          console.log(`Validation error for user ${user.name}:`, validationError.message);
           usersNotInserted.push(userCopyModel);
+
           return UsersCopy.create(userCopyModel);
         });
       });
