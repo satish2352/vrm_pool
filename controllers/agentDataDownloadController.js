@@ -22,7 +22,8 @@ const getAgentCallDetails = [
 
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            // return res.status(400).json({ errors: errors.array() });
+            apiResponse.validationErrorWithData(res, 'Validation Errors!',{ errors: errors.array() })
           }
           next();
           if (!req.body) {
