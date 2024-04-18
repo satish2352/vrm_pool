@@ -104,6 +104,7 @@ const uploadSupervisers = [
               added_by: adminId
             };
             usersNotInserted.push(userCopyModel);
+            console.log("userCopyModel")
             return UsersCopy.create(userCopyModel);
           } else {
             console.log("existingUser else  >>>>>>>>>>>>>>>>>---------------------------------")
@@ -187,6 +188,7 @@ const uploadSupervisers = [
       console.log(insertionPromises)
       Promise.all(insertionPromises)
         .then(() => {
+          console.log("insertionPromises----------all")
           res.status(200).json({
             result: true,
             message: 'File Processed Successfully ',
@@ -195,6 +197,7 @@ const uploadSupervisers = [
           });
         })
         .catch(error => {
+          console.log("insertionPromises----------errrr")
           console.log('Error inserting users:', error.message);
           res.status(500).json({
             result: false,
@@ -203,6 +206,7 @@ const uploadSupervisers = [
           });
         });
     }catch(error){
+      console.log("Catch---------------------errrr")
       console.log('Error inserting users:', error.message);
       res.status(500).json({
         result: false,
