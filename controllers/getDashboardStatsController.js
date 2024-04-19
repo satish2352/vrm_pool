@@ -1,20 +1,42 @@
 const verifyToken = require("../middleware/verifyToken");
 const AgentData = require("../models/AgentData");
 const User = require("../models/Users");
-const { validationResult } = require("express-validator");
 const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
-
+const { body, query, validationResult } = require("express-validator");
 User.hasMany(AgentData, { foreignKey: 'user_id' });
 AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const getStats = [
+    body(),
     verifyToken,
     async (req, res) => {
         try {        
-            let userFilter = {
-              
-              };   
+            const { id } = req.body;
+            let userFilter={}
+            let reportFilter={}
+            if(id){
+                userFilter = {
+                    added_by:id
+                    };
+
+                    const usersUnderSuperviser = await User.findAll({
+                        where: userFilter,
+                    });
+                    const userIds = usersUnderSuperviser.map(user => user.id);
+                      // Construct filter for Reports
+             reportFilter = {
+                user_id: userIds,
+            };
+            }
+             
+            
+
+            // Extract user IDs for filtering reports
+            
+
+          
+            
             const users = await User.findAll({
                 attributes: [                
                     [
@@ -73,7 +95,9 @@ const getStats = [
                         'DeviceOnPercent'
                     ],
                 ],             
-                order: [['createdAt', 'DESC']]
+                order: [['createdAt', 'DESC']],
+                where:reportFilter
+            
             });
             
            var combinedData=({
