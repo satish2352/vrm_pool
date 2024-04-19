@@ -38,7 +38,7 @@ const verifyToken=async (req,res,next)=>{
         // req.user=data.user;
         // next();
     }catch(error){
-        res.status(401).send({result:false,message:'Invalid token'});
+        res.status(401).send({result:false,message:'Invalid token',status:401});
     }
 }
 module.exports = verifyToken;
