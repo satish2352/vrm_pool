@@ -9,10 +9,7 @@ const csv = require('csv-parser');
 const { body, query, validationResult } = require("express-validator");
 
 const getAgentCallDetails = [
-  body('csv_url')
-    .notEmpty().withMessage('Please provide CSV file location url'),
-
-  
+ 
     async (req, res) => {
         try {
 
@@ -46,20 +43,7 @@ const getAgentCallDetails = [
 
           
 
-          const errors = validationResult(req);
-          if (!errors.isEmpty()) {
-            // return res.status(400).json(
-            //   {
-            //   'result': false,
-            //   'message': 'Mandatory parameters missing!',
-            //   'errors':  errors.array() });
-
-            return res.status(400).json({
-              'status': 400,
-              'message': 'Mandatory parameters missing'
-            });
-          }
-        
+     
 
           if(req.body.csv_url =='' || req.body.csv_url == null ) {
             // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
