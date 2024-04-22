@@ -21,6 +21,7 @@ const adminUserPasswordResetController = require("./controllers/adminUserPasswor
 const updateUserController = require("./controllers/updateUserController");
 const agentDataDownloadController = require("./controllers/agentDataDownloadController");
 const agentReportsSingleRowController = require("./controllers/agentReportsSingleRowController");
+const agentReportsSingleRowControllerNew = require("./controllers/agentReportsSingleRowControllerNew");
 const getAllReportsController = require("./controllers/getAllReportsController");
 const { body, query, validationResult } = require("express-validator");
 
@@ -46,6 +47,7 @@ router.post("/deleteUser",deleteUserController.deleteUser);
 router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgentReportsSingleRow);
+router.post("/getAgentReportsSingleRowNew",agentReportsSingleRowControllerNew.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 
