@@ -10,12 +10,8 @@ const { body, query, validationResult } = require("express-validator");
 
 const getAgentCallDetails = [
   body('csv_url')
-    .notEmpty().withMessage('CSV location url is required'),
+    .notEmpty().withMessage('Please provide CSV file location url'),
 
-  // Validate token
-  body('token')
-    .notEmpty().withMessage('Token is required')
-    .isLength({ min: 30 }).withMessage('Token must be at least 30 characters long'),
   
     async (req, res) => {
         try {
@@ -24,7 +20,7 @@ const getAgentCallDetails = [
           if (!authHeader) {
             return res.status(401).json({
               'result': false,
-              'message': 'Authorization header missing'
+              'message': 'Invalid Authorization header format'
             });
           }
     
@@ -55,20 +51,20 @@ const getAgentCallDetails = [
             return res.status(400).json(
               {
               'result': false,
-              'message': 'Validation Errors!',
+              'message': 'Mandatory parameters missing!',
               'errors':  errors.array() });
           }
         
 
           if(req.body.csv_url =='' || req.body.csv_url == null ) {
-            apiResponse.ErrorResponse(res, 'Please provide file location url');
+            apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
           }  else {
               await downloadAndReadCSV(req.body.csv_url);
               apiResponse.successResponse(res, 'CSV URL received successfully');
           }
         } catch (error) {
             console.error('Error fetching reports:', error);
-            apiResponse.ErrorResponse(res, "Error occurred during API call");
+            apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
         }
     },
 ];
