@@ -48,23 +48,40 @@ const getAgentCallDetails = [
 
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
-            return res.status(400).json(
-              {
-              'result': false,
-              'message': 'Mandatory parameters missing!',
-              'errors':  errors.array() });
+            // return res.status(400).json(
+            //   {
+            //   'result': false,
+            //   'message': 'Mandatory parameters missing!',
+            //   'errors':  errors.array() });
+
+            return res.status(400).json({
+              'status': 400,
+              'message': 'Mandatory parameters missing'
+            });
           }
         
 
           if(req.body.csv_url =='' || req.body.csv_url == null ) {
-            apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
+            // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
+            return res.status(500).json({
+              'status': 500,
+              'message': 'Please provide CSV file location url'
+            });
           }  else {
               await downloadAndReadCSV(req.body.csv_url);
-              apiResponse.successResponse(res, 'CSV URL received successfully');
+              // apiResponse.successResponse(res, 'CSV URL received successfully');
+              return res.status(200).json({
+                'status': 200,
+                'message': 'CSV URL received successfully'
+              });
           }
         } catch (error) {
             console.error('Error fetching reports:', error);
-            apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
+            // apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
+            return res.status(500).json({
+              'status': 500,
+              'message': 'Error occurred during CSV processing '
+            });
         }
     },
 ];
