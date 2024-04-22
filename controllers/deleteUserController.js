@@ -18,7 +18,7 @@ const deleteUser = [
                 });
             } else {
                 let user_type = req.user.user_type;
-                let idTobeUpdated = req.body.id;                
+                let idTobeUpdated = req.body.id;
                 if (user_type) {
                     if (user_type == '1') {
 
@@ -27,30 +27,63 @@ const deleteUser = [
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
                         if (user) {
-                            // Update the name attribute
-                            user.is_deleted = '1';
-                            // Save the changes to the database
-                            await user.save()
-                            .then(updatedUser => {
-                                // Handle successful update
-                                //console.log('User status updated successfully:', updatedUser);
-                                return res.status(200).json({ result: true, message: "User deleted updated successfully" });
-                            })
-                            .catch(error => {
-                                // Handle update error
-                                console.error('Error updating user status:', error);
-                                return res.status(500).json({ result: false, message: "Error updating user status" });
-                            });
 
-                    } else {                                            
-                        return res.status(400).send({ result: false, message: "You are not authorized" });
+                            if (user.user_type == '2') {
+                                const conditionCount = await User.count({
+                                    where: {
+                                        added_by: idTobeUpdated
+                                    }
+                                });
+
+                                if (conditionCount > 0) {
+
+                                    return res.status(400).json({ result: false, message: `User cant be deleted because ${conditionCount} relationship  managers are mapped to this user`});
+                                } else {
+                                    // Update the name attribute
+                                    user.is_deleted = '1';
+                                    // Save the changes to the database
+                                    await user.save()
+                                        .then(updatedUser => {
+                                            // Handle successful update
+                                            //console.log('User status updated successfully:', updatedUser);
+                                            return res.status(200).json({ result: true, message: "User deleted successfully" });
+                                        })
+                                        .catch(error => {
+                                            // Handle update error
+                                            console.error('Error updating user status:', error);
+                                            return res.status(500).json({ result: false, message: "Error updating user status" });
+                                        });
+
+                                }
+
+
+                            } else {
+                                // Update the name attribute
+                                user.is_deleted = '1';
+                                // Save the changes to the database
+                                await user.save()
+                                    .then(updatedUser => {
+                                        // Handle successful update
+                                        //console.log('User status updated successfully:', updatedUser);
+                                        return res.status(200).json({ result: true, message: "User deleted updated successfully" });
+                                    })
+                                    .catch(error => {
+                                        // Handle update error
+                                        console.error('Error updating user status:', error);
+                                        return res.status(500).json({ result: false, message: "Error updating user status" });
+                                    });
+                            }
+
+
+                        } else {
+                            return res.status(400).send({ result: false, message: "You are not authorized" });
+                        }
+
                     }
-
+                } else {
+                    return res.status(400).send({ result: false, message: "Error occured during api call" });
                 }
-            }else{
-                return res.status(400).send({ result: false, message: "Error occured during api call" });
             }
-        }
         } catch (err) {
             console.log(err);
             res.status(500).send({ result: false, err });

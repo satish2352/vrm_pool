@@ -33,9 +33,7 @@ const changePassword = [
             } else {
                 let user_type = req.user.user_type;
                 let idTobeUpdated = req.body.id;
-                if (user_type) {
-                    if (user_type == '1') {
-
+            
                         let user = await User.findByPk(idTobeUpdated);
                         if (!user) {
                             return res.status(404).json({ result: false, message: "User not found" });
@@ -46,28 +44,9 @@ const changePassword = [
                             req.user.set('password', encryptedPassword); // Admin Self password change
                             await req.user.save();
                             return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
+                        }else{
+                            return res.status(400).send({ result: false, message: "You are not authorized to change password of this user" });
                         }
-                        if (user.user_type == '2' || user.user_type == '3') {
-                            const salt = await bcrypt.genSalt(10);
-                            const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                            user.set('password', encryptedPassword); // Admin changes other users password change
-                            await user.save();
-                            return res.status(200).send({ result: true, message: "Users Password Changed Successfully" });
-                        } else {
-                            return res.status(400).send({ result: false, message: "Bad request you are not authorized" });
-                        }
-
-                    } else if (user_type == '2') {                        
-                        const salt = await bcrypt.genSalt(10);
-                        const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                        req.user.set('password', encryptedPassword); // Superviser  Self Password Change
-                        await req.user.save();
-                        return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
-                    } else {
-                        return res.status(400).send({ result: false, message: "Bad request you are not authorized" });
-                    }
-
-                }
             }
         } catch (err) {
             console.log(err);

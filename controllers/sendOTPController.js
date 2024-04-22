@@ -64,7 +64,7 @@ const sendOTP = [
                 });
 
                 if (lastOTPSent || otpCountToday >= 5) {
-                    return res.status(400).send({ result: false, message: "You can only send OTP once every 1 minutes and up to 5 times per day" });
+                    return res.status(400).send({ result: false, message: "You can only send Temporary Password once every 1 minutes and up to 5 times per day" });
                 }
 
                 // Generate OTP and send email
@@ -85,14 +85,15 @@ const sendOTP = [
                     await transporter.sendMail({
                         from: 'vishvambhargore@sumagoinfotech.in',
                         to: user.email,
-                        subject: 'OTP for Resetting the password for your account with VRMPool ',
-                        text: `Dear ${user.name},\nWelcome to our platform! Your can change your password using otp given below.Your otp is ${otp} is valid for 5 minutes`,
+                        subject: 'Temporary password - VRM Pool Monitoring Dashboard',
+                        text: `Your temporary password to reset your password is :${otp} and it is valid for 5 minutes only.
+                        Please use this temporary password and add a new password to your account.`,
                     });
                     console.log(`Email sent to ${user.email}`);
-                    return res.status(200).send({ result: true, message: "OTP Sent Successfully Check your email" });
+                    return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
                 } catch (error) {
                     console.error(`Error sending email to ${user.email}:`, error);
-                    return res.status(500).send({ result: false, message: "Error sending OTP email" });
+                    return res.status(500).send({ result: false, message: "Error sending Temporary password email" });
                 }
             }
         } catch (err) {
@@ -104,9 +105,13 @@ const sendOTP = [
 
 function generateOTP() {
     // Generate a random buffer of 3 bytes (24 bits)
-    const otp = Math.floor(100000 + Math.random() * 900000);
-    // Convert the number to a string and pad it with leading zeros to ensure 6 digits
-    return otp.toString().padStart(6, '0');
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^";
+    let password = "";
+    for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
 }
 
 module.exports = { sendOTP }

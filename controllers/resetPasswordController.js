@@ -9,8 +9,9 @@ const resetPassword = [
             min: 10,
             max: 10,
           }).trim(),
-          body("otp", "Enter valid otp").isLength({
-            min: 6,            
+          body("otp", "Enter valid temporary password sent to you via email").isLength({
+            min: 10,
+            max:10,            
           }).trim(),
           body("password", "Enter valid password min 8 digits maximum 30 digits").isLength({
             min: 8,
@@ -66,9 +67,9 @@ const resetPassword = [
                                  user_id:user.id
                                 }
                               });                                 
-                              return res.status(200).send({ result: true, message: "Your password Reset Successfully" });
+                              return res.status(200).send({ result: true, message: "Your password reset Successfully" });
                             }else{
-                              return res.status(200).send({ result: false, message: "Please enter valid otp" });
+                              return res.status(200).send({ result: false, message: "Please enter valid temporary password" });
                             }
                            
                           }

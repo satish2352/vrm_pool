@@ -129,8 +129,11 @@ const uploadSupervisers = [
                       await transporter.sendMail({
                           from: 'vishvambhargore@sumagoinfotech.in',
                           to: user.email,
-                          subject: 'Welcome to Our VRM POOL',
-                          text: `Dear ${createdUser.name},\nWelcome to our platform! Your account has been successfully created. your password is ${createdUser.textpassword}`,
+                          subject: 'Welcome to VRM Pool Monitoring Dashboard',
+                          text: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\nPlease find below your login credentials.\n              
+                          \nusername :${createdUser.mobile}\n
+                          \npassword :${createdUser.randomPassword}\n               
+                          Note: Please change your password post login.\n`,
                       });
                       console.log(`Email sent to ${createdUser.email}`);
                       console.log(`Password  ${createdUser.textpassword}`);
