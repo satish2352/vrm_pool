@@ -9,42 +9,63 @@ const csv = require('csv-parser');
 const { body, query, validationResult } = require("express-validator");
 
 const getAgentCallDetails = [
-  body('location_url')
-    .notEmpty().withMessage('Location url is required'),
-
-  // Validate token
-  body('token')
-    .notEmpty().withMessage('Token is required')
-    .isLength({ min: 30 }).withMessage('Token must be at least 30 characters long'),
-  
+ 
     async (req, res) => {
         try {
 
-          const errors = validationResult(req);
-          if (!errors.isEmpty()) {
-            return res.status(400).json(
-              {
+          const authHeader = req.headers['authorization'];
+          if (!authHeader) {
+            return res.status(401).json({
               'result': false,
-              'message': 'Validation Errors!',
-              'errors':  errors.array() });
+              'message': 'Invalid Authorization header format'
+            });
           }
-          // if (!req.body) {
-          //   apiResponse.ErrorResponse(res, 'Missing request body!');
-          // }
+    
+          const authData = authHeader.split(' ');
+          if (authData.length !== 2 || authData[0].toLowerCase() !== 'basic') {
+            return res.status(401).json({
+              'result': false,
+              'message': 'Invalid Authorization header format'
+            });
+          }
+    
+          const credentials = Buffer.from(authData[1], 'base64').toString().split(':');
+          const username = credentials[0];
+          const password = credentials[1];
+    
+          // Check if username and password match expected values
+          if (username !== 'vrmpooluser' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR') {
+            return res.status(401).json({
+              'result': false,
+              'message': 'Invalid username or password'
+            });
+          }
 
-          if(req.body.location_url =='' || req.body.location_url == null ) {
-            apiResponse.ErrorResponse(res, 'Please provide file location url');
-          } else if(req.body.token !='HCTRQtKrpnJWlPWFBBPXAetFBLnyMx') {
-            apiResponse.ErrorResponse(res, 'Please provide valid token ');
-          } else if(req.body.token == '' && (req.body.location_url !='' || req.body.location_url != null )) {
-            apiResponse.ErrorResponse(res, 'Please provide valid token and file location ');
-          } else {
-              await downloadAndReadCSV(req.body.location_url);
-              apiResponse.successResponse(res, 'URL received successfully');
+          
+
+     
+
+          if(req.body.csv_url =='' || req.body.csv_url == null ) {
+            // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
+            return res.status(500).json({
+              'status': 500,
+              'message': 'Please provide CSV file location url'
+            });
+          }  else {
+              await downloadAndReadCSV(req.body.csv_url);
+              // apiResponse.successResponse(res, 'CSV URL received successfully');
+              return res.status(200).json({
+                'status': 200,
+                'message': 'CSV URL received successfully'
+              });
           }
         } catch (error) {
             console.error('Error fetching reports:', error);
-            apiResponse.ErrorResponse(res, "Error occurred during API call");
+            // apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
+            return res.status(500).json({
+              'status': 500,
+              'message': 'Error occurred during CSV processing '
+            });
         }
     },
 ];
