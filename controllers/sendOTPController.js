@@ -86,7 +86,7 @@ const sendOTP = [
                         from: 'vishvambhargore@sumagoinfotech.in',
                         to: user.email,
                         subject: 'Temporary password - VRM Pool Monitoring Dashboard',
-                        text: `Your temporary password to reset your password is :${otp} and it is valid for 5 minutes only.
+                        text: `Your temporary password to reset your password is :${otp} and it is valid for 5 minutes only.\n
                         Please use this temporary password and add a new password to your account.`,
                     });
                     console.log(`Email sent to ${user.email}`);

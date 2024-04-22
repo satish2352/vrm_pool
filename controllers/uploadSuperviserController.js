@@ -130,10 +130,10 @@ const uploadSupervisers = [
                           from: 'vishvambhargore@sumagoinfotech.in',
                           to: user.email,
                           subject: 'Welcome to VRM Pool Monitoring Dashboard',
-                          text: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\nPlease find below your login credentials.\n              
-                          \nusername :${createdUser.mobile}\n
-                          \npassword :${createdUser.randomPassword}\n               
-                          Note: Please change your password post login.\n`,
+                          text: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\n Please find below your login credentials. \n              
+                          \n username :${createdUser.mobile} \n
+                          \n password :${createdUser.randomPassword} \n               
+                          Note: Please change your password post login. \n`,
                       });
                       console.log(`Email sent to ${createdUser.email}`);
                       console.log(`Password  ${createdUser.textpassword}`);
