@@ -17,11 +17,14 @@ const getAgentCallDetails = [
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+       
+
         return res.status(204).json({
           'result': false,
-          'message': 'Mandatory parameters missing!',
-          'errors':  errors.array() 
+          'message': "Mandatory parameters missing!",
+          'errors': errors.array() 
         });
+
       }
 
       // Extract username and password from Authorization header
@@ -54,7 +57,11 @@ const getAgentCallDetails = [
       }
 
       if(req.body.csv_url =='' || req.body.csv_url == null ) {
-        apiResponse.ErrorResponsetwozerofour(res, 'Please provide CSV file location url');
+        return res.status(204).json({
+          'result': false,
+          'message': "Please provide CSV file location url!",
+        });
+
       } else {
         await downloadAndReadCSV(req.body.csv_url);
         apiResponse.successResponse(res, 'CSV URL received successfully');
