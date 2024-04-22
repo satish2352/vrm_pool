@@ -23,7 +23,6 @@ exports.ErrorResponse = function (res, msg) {
 	return res.status(500).json(data);
 };
 
-
 exports.notFoundResponse = function (res, msg) {
 	var data = {
 		result: false,
