@@ -47,7 +47,7 @@ const resetUserPassword = [
                                         to: user.email,
                                         subject: `Forgot password - VRM Pool Monitoring Dashboard`,
                                         text: `Dear Supervisor,\n
-                                        \n Your temporary password to reset your password is : ${randomPassword} and it is valid for 5 minutes only.
+                                        \n Your temporary password to reset your password is   ${randomPassword}  and it is valid for 5 minutes only.
                                         
                                         \n Please use this temporary password and add a new password to your account.`,
                                     });

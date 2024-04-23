@@ -14,11 +14,6 @@ const getAgentReportsSingleRow = [
     async (req, res) => {
         try {
             const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime,time} = req.body;
-
-            const fromTime = new Date('2024-04-22 18:30:00'); // From time in UTC
-            const toTime = new Date('2024-04-22 23:00:59'); 
-            var slots= await splitTimeIntoSlots(fromTime,toTime)
-            console.log(slots)
             let userFilter = {
                 is_active:1,
                 is_deleted:0
@@ -70,8 +65,6 @@ const getAgentReportsSingleRow = [
             if (time) {
                 // Calculate the current date and time in the 'Asia/Kolkata' timezone
                 const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
-        
-                // Calculate the date and time 'minutes' minutes ago in the 'Asia/Kolkata' timezone
                 const minutesAgoDateTime = moment().subtract(time, 'minutes').format('YYYY-MM-DD HH:mm:ss');
         
                 // Construct the query
@@ -80,8 +73,7 @@ const getAgentReportsSingleRow = [
                 // };
                
 
-             
-                // Example: execute your query using Sequelize or perform any other actions needed
+            
             }
             
 
@@ -135,8 +127,7 @@ const getAgentReportsSingleRow = [
                             fn('AVG', col('DeviceOnPercent')),
                             'DeviceOnPercent'
                         ],
-                        'DeviceOnHumanReadable',
-                       // [fn('COUNT', col('duration')), 'total_calls'],                    
+                        'DeviceOnHumanReadable',                                       
                     ],
                     where: reportFilter,
                     include: [{
@@ -145,14 +136,8 @@ const getAgentReportsSingleRow = [
                     }],
                     group: ['user_id'], 
                     order: [['createdAt', 'DESC']]
-                });
-                    
-                reports.forEach(report => {
-                    report.slot = slot; // Add the slot information to each report
-                    // allReports.push(report); // Push the report into the allReports array
-                });
-                    allReports.push({ slot: slot, reports: reports });
-            
+                });                
+                allReports.push({ slot: slot, reports: reports });
               }
             apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
         } catch (error) {

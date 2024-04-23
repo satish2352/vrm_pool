@@ -21,7 +21,7 @@ const adminUserPasswordResetController = require("./controllers/adminUserPasswor
 const updateUserController = require("./controllers/updateUserController");
 const agentDataDownloadController = require("./controllers/agentDataDownloadController");
 const agentReportsSingleRowController = require("./controllers/agentReportsSingleRowController");
-const agentReportsSingleRowControllerNew = require("./controllers/agentReportsSingleRowControllerNew");
+const getAgentReportsSingleTimeSlotWise = require("./controllers/getAgentReportsSingleTimeSlotWise");
 const getAllReportsController = require("./controllers/getAllReportsController");
 
 const tempSendEmailController=require("./controllers/tempSendEmailController")
@@ -51,7 +51,7 @@ router.post("/deleteUser",deleteUserController.deleteUser);
 router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgentReportsSingleRow);
-router.post("/getAgentReportsSingleRowNew",agentReportsSingleRowControllerNew.getAgentReportsSingleRow);
+router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWise.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
