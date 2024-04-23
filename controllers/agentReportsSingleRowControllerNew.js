@@ -15,12 +15,10 @@ const getAgentReportsSingleRow = [
         try {
             const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime,time} = req.body;
 
-            const fromTime = new Date('2024-04-22T18:30:00Z'); // From time in UTC
-            const toTime = new Date('2024-04-22T20:30:00Z'); 
+            const fromTime = new Date('2024-04-22 18:30:00'); // From time in UTC
+            const toTime = new Date('2024-04-22 23:00:59'); 
             var slots= await splitTimeIntoSlots(fromTime,toTime)
             console.log(slots)
-            // Fetch reports based on filters
-            // Construct filter for Users
             let userFilter = {
                 is_active:1,
                 is_deleted:0
@@ -31,7 +29,6 @@ const getAgentReportsSingleRow = [
             if (supervisor_id) {
                 userFilter.added_by = supervisor_id;
             }
-
             if (Array.isArray(agent_id)) {
                 if (agent_id.length === 0) {
                   
@@ -41,7 +38,6 @@ const getAgentReportsSingleRow = [
                     }
                 }
               } else {
-                
             }
             // Fetch user data based on filters
             const users = await User.findAll({
@@ -50,16 +46,9 @@ const getAgentReportsSingleRow = [
 
             // Extract user IDs for filtering reports
             const userIds = users.map(user => user.id);
-
-            // Construct filter for Reports
             let reportFilter = {
                 user_id: userIds,
-            };
-            // if (fromdate && todate) {
-            //     reportFilter.updatedAt = {
-            //         [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
-            //     };
-            // }
+            };    
             if ((fromdate && todate) &&  (! fromtime && ! totime)) {
                 reportFilter.updatedAt = {
                     [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
@@ -97,15 +86,16 @@ const getAgentReportsSingleRow = [
             
 
             var allReports=[];
+            const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
+            const toTimeNew = new Date(todate+" "+totime+":59"); 
+            var slots= await splitTimeIntoSlots(fromTimeNew,toTimeNew)
             for (let i = 0; i < slots.length; i++) {
-
-                console.log("inside")
                 const slot = slots[i];
                 reportFilter.updatedAt = {
                     [Op.between]: [slot.start_time, slot.end_time]
                 };
-                console.log("Start Time:", slot.start_time, "| End Time:", slot.end_time);
-        
+                console.log("Start Time:", convertUTCtoIST(slot.start_time), "| End Time:", convertUTCtoIST(slot.end_time));
+
                 const reports = await AgentData.findAll({
                     attributes: [                   
                         [
@@ -156,13 +146,14 @@ const getAgentReportsSingleRow = [
                     group: ['user_id'], 
                     order: [['createdAt', 'DESC']]
                 });
-                console.log(`---------${i}`)
-                console.log(reports)
-
-                allReports.push({ slot: slot, reports: reports });
+                    
+                reports.forEach(report => {
+                    report.slot = slot; // Add the slot information to each report
+                    // allReports.push(report); // Push the report into the allReports array
+                });
+                    allReports.push({ slot: slot, reports: reports });
+            
               }
-
-
             apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
         } catch (error) {
             console.error('Error fetching reports:', error);
@@ -171,27 +162,21 @@ const getAgentReportsSingleRow = [
     },
 ];
 
-// function roundToNearest30Minutes(time) {
-//     let [hours, minutes] = time.split(':').map(Number);
-//     let roundedMinutes = Math.round(minutes / 30) * 30;
-//     if (roundedMinutes === 60) {
-//         hours++;
-//         roundedMinutes = 0;
-//     }
-//     return `${String(hours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}`;
-// }
+function convertUTCtoIST(utcDate) {
+    // Convert UTC date string to JavaScript Date object
+    const utcDateTime = new Date(utcDate);
 
-// function generateTimeSlots(startTime, endTime, interval) {
-//     let timeSlots = [];
-//     let current = new Date("January 1, 2024 " + startTime);
-//     let end = new Date("January 1, 2024 " + endTime);
-//     while (current <= end) {
-//         let time = current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-//         timeSlots.push(time);
-//         current.setTime(current.getTime() + interval * 60000); // Adding interval minutes
-//     }
-//     return timeSlots;
-// }
+    // Get the UTC time in milliseconds
+    const utcTime = utcDateTime.getTime();
+
+    // Calculate the Indian Standard Time (IST) offset in milliseconds (GMT+5:30)
+    const istOffset = 5.5 * 60 * 60 * 1000;
+
+    // Add IST offset to UTC time to get IST time
+    const istTime = new Date(utcTime + istOffset);
+
+    return istTime;
+}
 
 async function splitTimeIntoSlots(fromTime, toTime) {
     const records = [];

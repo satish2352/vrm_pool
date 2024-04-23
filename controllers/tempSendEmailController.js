@@ -45,21 +45,6 @@ ses.sendEmail(params, (err, data) => {
     },
   ];
 
-
-
-// // Method 2: Using AWS CLI to send email
-// const awsCliCommand = `aws ses send-email --from sender@example.com --to recipient@example.com --subject "Test Email" --text "This is a test email"`;
-
-// exec(awsCliCommand, (err, stdout, stderr) => {
-//     if (err) {
-//         console.error('Error sending email via AWS CLI:', err);
-//     } else {
-//         console.log('Email sent successfully via AWS CLI');
-//         console.log('STDOUT:', stdout);
-//         console.error('STDERR:', stderr);
-//     }
-// });
-
 module.exports = {
     sentTempEmail
   };

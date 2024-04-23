@@ -38,6 +38,7 @@ const resetUserPassword = [
                             const salt = await bcrypt.genSalt(10);
                             const encryptedPassword = await bcrypt.hash(randomPassword, salt)
                             user.set('password', encryptedPassword); // Admin Self password change            
+                            user.set('is_password_reset', 1); // Set Password is Reset            
                             //user.set('is_password_reset',1); // Admin Self password change            
                             await user.save().then(async updatedUser=>{
                                 try {

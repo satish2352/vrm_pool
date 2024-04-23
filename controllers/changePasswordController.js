@@ -42,6 +42,7 @@ const changePassword = [
                             const salt = await bcrypt.genSalt(10);
                             const encryptedPassword = await bcrypt.hash(req.body.password, salt)
                             req.user.set('password', encryptedPassword); // Admin Self password change
+                            req.user.set('is_password_reset', 0); // Change it 0 when password reset
                             await req.user.save();
                             return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
                         }else{

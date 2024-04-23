@@ -53,36 +53,74 @@ const loginUser = [
                 });
                 if(!user)
                 {
-                    return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
+                    return res.status(400).json({ result: false, message: 'User not found' });
                 }        
                 const passwordCompare = await bcrypt.compare(password, user.password);
                 if (!passwordCompare) {
-                    return res.status(400).json({ result: false, message: 'Please enter valid credentials x' });
+                    return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
-                    const userId = user.id;
-                    const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
-                    const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
-                   // const createdTokenx = await Token.create({ userId, token, expiration });
-                    // Find an existing token for the user or create a new one if it doesn't exist
-                    const [createdToken, created] = await Token.findOrCreate({
-                        where: { userId: userId },
-                        defaults: { token: token, expiration: expiration }
-                    });
-                    // If token already exists, update it
-                    if (!created) {
-                        createdToken.token = token;
-                        createdToken.expiration = expiration;
-                        await createdToken.save();
-                    }
-                    return res.status(200).json({
-                        result: true, message: 'User login successful', token: token, data: {
-                            id: user.id,
-                            name: user.name,                            
-                            email: user.email,
-                            mobile: user.mobile,
-                            user_type: user.user_type
+                    if(passwordCompare && user.is_password_reset==1)
+                    {
+                        var isLessThan5Minutes=isTimeDifferenceGreaterThan5Minutes(new Date(user.updatedAt))
+                        console.log(isLessThan5Minutes)
+                        console.log(user.updatedAt)
+                        if(isLessThan5Minutes){
+                            const userId = user.id;
+                            const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
+                            const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
+                           // const createdTokenx = await Token.create({ userId, token, expiration });
+                            // Find an existing token for the user or create a new one if it doesn't exist
+                            const [createdToken, created] = await Token.findOrCreate({
+                                where: { userId: userId },
+                                defaults: { token: token, expiration: expiration }
+                            });
+                            // If token already exists, update it
+                            if (!created) {
+                                createdToken.token = token;
+                                createdToken.expiration = expiration;
+                                await createdToken.save();
+                            }
+                            return res.status(200).json({
+                                result: true, message: 'User login successful', token: token, data: {
+                                    id: user.id,
+                                    name: user.name,                            
+                                    email: user.email,
+                                    mobile: user.mobile,
+                                    user_type: user.user_type
+                                }
+                            });
+                        }else{
+                            return res.status(400).json({ result: false, message: 'Your temporary password is expired.' });
                         }
-                    });
+                    }else{
+                        const userId = user.id;
+                        const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
+                        const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
+                       // const createdTokenx = await Token.create({ userId, token, expiration });
+                        // Find an existing token for the user or create a new one if it doesn't exist
+                        const [createdToken, created] = await Token.findOrCreate({
+                            where: { userId: userId },
+                            defaults: { token: token, expiration: expiration }
+                        });
+                        // If token already exists, update it
+                        if (!created) {
+                            createdToken.token = token;
+                            createdToken.expiration = expiration;
+                            await createdToken.save();
+                        }
+                        return res.status(200).json({
+                            result: true, message: 'User login successful', token: token, data: {
+                                id: user.id,
+                                name: user.name,                            
+                                email: user.email,
+                                mobile: user.mobile,
+                                user_type: user.user_type
+                            }
+                        });
+                    }
+
+                    
+                    
                 }
             } catch (err) {
                 console.log(err);
@@ -91,7 +129,19 @@ const loginUser = [
         }
     },
 ];
+function isTimeDifferenceGreaterThan5Minutes(updatedAtFromDB) {
+    // Convert updatedAt from MySQL to JavaScript Date object
+    const updatedAt = new Date(updatedAtFromDB);
 
+    // Get current time
+    const currentTime = new Date();
+
+    // Calculate time difference in milliseconds
+    const timeDifference = currentTime.getTime() - updatedAt.getTime();
+
+    // Check if time difference is greater than 5 minutes (300000 milliseconds)
+    return timeDifference < (5 * 60 * 1000); // 5 minutes = 300000 milliseconds
+}
 module.exports = {
     loginUser,
 };

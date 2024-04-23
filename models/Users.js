@@ -6,6 +6,9 @@ const User = dbObj.define('user', {
   type:DataTypes.INTEGER,
   primaryKey:true
   },
+  is_password_reset:{
+    type:DataTypes.INTEGER,
+  },
   name: {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
