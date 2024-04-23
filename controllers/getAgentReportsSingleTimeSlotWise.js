@@ -81,75 +81,86 @@ const getAgentReportsSingleRow = [
             const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
             const toTimeNew = new Date(todate+" "+totime+":59"); 
             var slots= await splitTimeIntoSlots(fromTimeNew,toTimeNew)
-            for (let i = 0; i < slots.length; i++) {
-                const slot = slots[i];
-                reportFilter.updatedAt = {
-                    [Op.between]: [slot.start_time, slot.end_time]
-                };
-                console.log("Start Time:", convertUTCtoIST(slot.start_time), "| End Time:", convertUTCtoIST(slot.end_time));
+            // if()
+            // const all_agent = await User.findAll({});
+            const all_agent = await User.findAll({
+                where:userFilter
+            });
+            console.log("all_agent");
+            console.log(all_agent);
+             for (let i = 0; i < all_agent.length; i++) {
+                let agent_id = all_agent[i].id
+                reportFilter.user_id = agent_id;
+                for (let i = 0; i < slots.length; i++) {
+                    const slot = slots[i];
+                    reportFilter.updatedAt = {
+                        [Op.between]: [slot.start_time, slot.end_time]
+                    };
+                    console.log("Start Time:", convertUTCtoIST(slot.start_time), "| End Time:", convertUTCtoIST(slot.end_time));
 
-                const reports = await AgentData.findAll({
-                    attributes: [                   
-                        [
-                            fn('SUM',  col('IncomingCalls')),
-                            'IncomingCalls'
+                    const reports = await AgentData.findAll({
+                        attributes: [                   
+                            [
+                                fn('SUM',  col('IncomingCalls')),
+                                'IncomingCalls'
+                            ],
+                            [
+                                fn('SUM', col('MissedCalls')),
+                                'MissedCalls'
+                            ],
+                            [
+                                fn('SUM', col('NoAnswer')),
+                                'NoAnswer'
+                            ],
+                            [
+                                fn('SUM', col('Busy')),
+                                'Busy'
+                            ],
+                            [
+                                fn('SUM', col('Failed')),
+                                'Failed'
+                            ],
+                            [
+                                fn('SUM', col('OutgoingCalls')),
+                                'OutgoingCalls'
+                            ],
+                        
+                            [
+                                fn('SUM', col('TotalCallDurationInMinutes')),
+                                'TotalCallDurationInMinutes'
+                            ],
+                            [
+                                fn('AVG', col('AverageHandlingTimeInMinutes')),
+                                'AverageHandlingTimeInMinutes'
+                            ],
+                            [
+                                fn('AVG', col('DeviceOnPercent')),
+                                'DeviceOnPercent'
+                            ],
+                            'DeviceOnHumanReadable', 
+                            [
+                                fn('SUM',  col('IncomingCalls')),
+                                'slot'
+                            ],                                      
                         ],
-                        [
-                            fn('SUM', col('MissedCalls')),
-                            'MissedCalls'
-                        ],
-                        [
-                            fn('SUM', col('NoAnswer')),
-                            'NoAnswer'
-                        ],
-                        [
-                            fn('SUM', col('Busy')),
-                            'Busy'
-                        ],
-                        [
-                            fn('SUM', col('Failed')),
-                            'Failed'
-                        ],
-                        [
-                            fn('SUM', col('OutgoingCalls')),
-                            'OutgoingCalls'
-                        ],
-                       
-                        [
-                            fn('SUM', col('TotalCallDurationInMinutes')),
-                            'TotalCallDurationInMinutes'
-                        ],
-                        [
-                            fn('AVG', col('AverageHandlingTimeInMinutes')),
-                            'AverageHandlingTimeInMinutes'
-                        ],
-                        [
-                            fn('AVG', col('DeviceOnPercent')),
-                            'DeviceOnPercent'
-                        ],
-                        'DeviceOnHumanReadable', 
-                        [
-                            fn('SUM',  col('IncomingCalls')),
-                            'slot'
-                        ],                                      
-                    ],
-                    where: reportFilter,
-                    include: [{
-                        model: User,
-                        attributes: ['mobile', 'id', 'name','email', 'user_type', 'is_active'],                
-                    }],
-                    group: ['user_id'], 
-                    order: [['createdAt', 'DESC']]
-                });                
-                //allReports.push({ slot: slot, reports: reports });
-                if(reports.length>0)
-                {
-                   reports[0]['DeviceOnHumanReadable']=slot                              
-                    allReports.push(reports)
+                        where: reportFilter,
+                        include: [{
+                            model: User,
+                            attributes: ['mobile', 'id', 'name','email', 'user_type', 'is_active'],                
+                        }],
+                        group: ['user_id'], 
+                        order: [['createdAt', 'DESC']]
+                    });                
+                    //allReports.push({ slot: slot, reports: reports });
+                    if(reports.length>0)
+                    {
+                    reports[0]['DeviceOnHumanReadable']=slot                              
+                    allReports.push(reports[0])
+                    }
+                    
                 }
-                
-              }
-            apiResponse.successResponseWithData(res, 'All details get successfully', allReports[0]);
+             }
+            apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
