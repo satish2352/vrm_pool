@@ -149,7 +149,7 @@ const getAgentReportsSingleRow = [
                 }
                 
               }
-            apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
+            apiResponse.successResponseWithData(res, 'All details get successfully', allReports[0]);
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
