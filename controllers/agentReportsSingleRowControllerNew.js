@@ -102,7 +102,7 @@ const getAgentReportsSingleRow = [
                 console.log("inside")
                 const slot = slots[i];
                 reportFilter.updatedAt = {
-                    [Op.between]: ['2024-04-22 19:40:05', '2024-04-22 20:50:05']
+                    [Op.between]: [slot.start_time, slot.end_time]
                 };
                 console.log("Start Time:", slot.start_time, "| End Time:", slot.end_time);
         
@@ -156,34 +156,12 @@ const getAgentReportsSingleRow = [
                     group: ['user_id'], 
                     order: [['createdAt', 'DESC']]
                 });
+                console.log(`---------${i}`)
                 console.log(reports)
 
-                allReports.push(reports)
+                allReports.push({ slot: slot, reports: reports });
               }
 
-              const distinctUsers = {};
-
-// Iterate over each slot's reports
-allReports.forEach(slotReports => {
-    // Iterate over reports in the current slot
-    slotReports.forEach(report => {
-        const userId = report.user.id;
-
-        // Check if the user already exists in distinctUsers
-        if (!distinctUsers[userId]) {
-            // If user doesn't exist, add the user to distinctUsers with the report
-            distinctUsers[userId] = report;
-        } else {
-            // If user exists, update the report with the values from the current report
-            Object.assign(distinctUsers[userId], report);
-        }
-    });
-});
-
-// Convert the distinctUsers object into an array
-const mergedReports = Object.values(distinctUsers);
-
-console.log(mergedReports);
 
             apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
         } catch (error) {
@@ -193,27 +171,27 @@ console.log(mergedReports);
     },
 ];
 
-function roundToNearest30Minutes(time) {
-    let [hours, minutes] = time.split(':').map(Number);
-    let roundedMinutes = Math.round(minutes / 30) * 30;
-    if (roundedMinutes === 60) {
-        hours++;
-        roundedMinutes = 0;
-    }
-    return `${String(hours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}`;
-}
+// function roundToNearest30Minutes(time) {
+//     let [hours, minutes] = time.split(':').map(Number);
+//     let roundedMinutes = Math.round(minutes / 30) * 30;
+//     if (roundedMinutes === 60) {
+//         hours++;
+//         roundedMinutes = 0;
+//     }
+//     return `${String(hours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}`;
+// }
 
-function generateTimeSlots(startTime, endTime, interval) {
-    let timeSlots = [];
-    let current = new Date("January 1, 2024 " + startTime);
-    let end = new Date("January 1, 2024 " + endTime);
-    while (current <= end) {
-        let time = current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        timeSlots.push(time);
-        current.setTime(current.getTime() + interval * 60000); // Adding interval minutes
-    }
-    return timeSlots;
-}
+// function generateTimeSlots(startTime, endTime, interval) {
+//     let timeSlots = [];
+//     let current = new Date("January 1, 2024 " + startTime);
+//     let end = new Date("January 1, 2024 " + endTime);
+//     while (current <= end) {
+//         let time = current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+//         timeSlots.push(time);
+//         current.setTime(current.getTime() + interval * 60000); // Adding interval minutes
+//     }
+//     return timeSlots;
+// }
 
 async function splitTimeIntoSlots(fromTime, toTime) {
     const records = [];
