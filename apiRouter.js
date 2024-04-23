@@ -23,6 +23,10 @@ const agentDataDownloadController = require("./controllers/agentDataDownloadCont
 const agentReportsSingleRowController = require("./controllers/agentReportsSingleRowController");
 const agentReportsSingleRowControllerNew = require("./controllers/agentReportsSingleRowControllerNew");
 const getAllReportsController = require("./controllers/getAllReportsController");
+
+const tempSendEmailController=require("./controllers/tempSendEmailController")
+
+
 const { body, query, validationResult } = require("express-validator");
 
 
@@ -50,6 +54,11 @@ router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgent
 router.post("/getAgentReportsSingleRowNew",agentReportsSingleRowControllerNew.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
+router.post("/sendTempEmail",tempSendEmailController.sentTempEmail);
+
+
+
+
 
 
 
