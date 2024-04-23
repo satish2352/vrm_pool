@@ -4,7 +4,6 @@ const apiResponse = require("../helpers/apiResponse");
 
 
 const sentTempEmail = [
-
     async (req, res) => {
       try {
         // Configure the AWS SDK to automatically use IAM role credentials
@@ -61,6 +60,6 @@ ses.sendEmail(params, (err, data) => {
 // });
 
 module.exports = {
-    sentTempEmail,
+    sentTempEmail
   };
   

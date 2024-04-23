@@ -54,7 +54,7 @@ router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgent
 router.post("/getAgentReportsSingleRowNew",agentReportsSingleRowControllerNew.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
-router.post("/sendTempEmail",tempSendEmailController.sentTempEmail);
+router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 
 
 
