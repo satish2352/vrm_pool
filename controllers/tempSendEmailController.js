@@ -8,6 +8,7 @@ const sentTempEmail = [
       try {
         // Configure the AWS SDK to automatically use IAM role credentials
 AWS.config.update({ region: 'ap-south-1' }); // Use Mumbai region
+AWS.config.credentials = new AWS.EC2MetadataCredentials();
 
 // Create a new SES object
 const ses = new AWS.SES();
