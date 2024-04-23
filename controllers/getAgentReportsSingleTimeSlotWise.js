@@ -127,7 +127,11 @@ const getAgentReportsSingleRow = [
                             fn('AVG', col('DeviceOnPercent')),
                             'DeviceOnPercent'
                         ],
-                        'DeviceOnHumanReadable',                                       
+                        'DeviceOnHumanReadable', 
+                        [
+                            fn('SUM',  col('IncomingCalls')),
+                            'slot'
+                        ],                                      
                     ],
                     where: reportFilter,
                     include: [{
@@ -137,7 +141,13 @@ const getAgentReportsSingleRow = [
                     group: ['user_id'], 
                     order: [['createdAt', 'DESC']]
                 });                
-                allReports.push({ slot: slot, reports: reports });
+                //allReports.push({ slot: slot, reports: reports });
+                if(reports.length>0)
+                {
+                    reports[0]['DeviceOnHumanReadable']=slot
+                    allReports.push(reports[0])
+                }
+                
               }
             apiResponse.successResponseWithData(res, 'All details get successfully', allReports);
         } catch (error) {
