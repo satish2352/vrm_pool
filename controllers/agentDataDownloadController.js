@@ -14,10 +14,19 @@ const getAgentCallDetails = [
         try {
 
           const authHeader = req.headers['authorization'];
+
+          if (!authHeader && (req.body.csv_url =='' || req.body.csv_url == null )) {
+            return res.status(400).json({
+              'result': false,
+              'message': 'Bad Request '
+            });
+          }
+    
+          
           if (!authHeader) {
             return res.status(401).json({
               'result': false,
-              'message': 'Invalid Authorization header format'
+              'message': 'Invalid authentication details'
             });
           }
     
@@ -25,7 +34,7 @@ const getAgentCallDetails = [
           if (authData.length !== 2 || authData[0].toLowerCase() !== 'basic') {
             return res.status(401).json({
               'result': false,
-              'message': 'Invalid Authorization header format'
+              'message': 'Invalid authentication details'
             });
           }
     
@@ -34,10 +43,10 @@ const getAgentCallDetails = [
           const password = credentials[1];
     
           // Check if username and password match expected values
-          if (username !== 'vrmpooluser' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR') {
+          if (username !== 'vrm_pool' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR==') {
             return res.status(401).json({
               'result': false,
-              'message': 'Invalid username or password'
+              'message': 'Invalid authentication details'
             });
           }
 
@@ -48,15 +57,14 @@ const getAgentCallDetails = [
           if(req.body.csv_url =='' || req.body.csv_url == null ) {
             // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
             return res.status(500).json({
-              'status': 500,
-              'message': 'Please provide CSV file location url'
+              'status': 204,
+              'message': 'Mandatory parameter missing'
             });
           }  else {
               await downloadAndReadCSV(req.body.csv_url);
-              // apiResponse.successResponse(res, 'CSV URL received successfully');
               return res.status(200).json({
                 'status': 200,
-                'message': 'CSV URL received successfully'
+                'message': 'Data received successfully'
               });
           }
         } catch (error) {
@@ -64,7 +72,7 @@ const getAgentCallDetails = [
             // apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
             return res.status(500).json({
               'status': 500,
-              'message': 'Error occurred during CSV processing '
+              'message': 'Internal server error '
             });
         }
     },
