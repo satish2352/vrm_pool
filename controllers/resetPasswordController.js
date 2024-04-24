@@ -85,8 +85,7 @@ const resetPassword = [
   async function verifyOTP(userId, otp) {
     const otpRecord = await OTP.findOne({
       where: {
-        user_id: userId,
-        otp,
+        user_id: userId,       
         expiry_time: {
           [Sequelize.Op.gt]: new Date(), // Check if expiry_time > current time
         },        
@@ -96,8 +95,13 @@ const resetPassword = [
       ],
       limit: 1,
     });
-  
-    return otpRecord !== null; // If otpRecord is null, OTP is either invalid or expired
+
+   if (!otpRecord || otpRecord.otp !== otp) {
+        return false;
+    }
+
+    // OTP record found and matches the provided OTP, return true
+    return true; // If otpRecord is null, OTP is either invalid or expired
   }
   
 module.exports = {resetPassword}
