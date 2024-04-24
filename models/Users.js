@@ -92,7 +92,7 @@ const User = dbObj.define('user', {
     type: DataTypes.STRING,
   },
   user_agent: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.TEXT,
   },
   
