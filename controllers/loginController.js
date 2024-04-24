@@ -60,7 +60,7 @@ const loginUser = [
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
                     const userAgent = req.get('User-Agent');
-                    if(!user.user_agent) {
+                    if(user.user_agent != null) {
                         if(user.user_agent !== userAgent) {
                             return res.status(400).json({ result: false, message: 'Please logout from another browser' });
                         } else {
