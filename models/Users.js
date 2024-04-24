@@ -91,6 +91,11 @@ const User = dbObj.define('user', {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  user_agent: {
+    allowNull: false,
+    type: DataTypes.TEXT,
+  },
+  
 
   
 });

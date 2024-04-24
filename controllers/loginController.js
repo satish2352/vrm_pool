@@ -59,6 +59,20 @@ const loginUser = [
                 if (!passwordCompare) {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
+                    const userAgent = req.get('User-Agent');
+                    if(!user.user_agent) {
+                        if(user.user_agent !== userAgent) {
+                            return res.status(400).json({ result: false, message: 'Please logout from another browser' });
+                        } else {
+                            user.user_agent = userAgent;
+                            await user.save();
+                        }
+                    } else {
+                            user.user_agent = userAgent;
+                            await user.save();
+                    }
+                   
+
                     if(passwordCompare && user.is_password_reset==1)
                     {
                         var isLessThan5Minutes=isTimeDifferenceGreaterThan5Minutes(new Date(user.updatedAt))
