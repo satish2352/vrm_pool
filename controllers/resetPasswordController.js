@@ -34,7 +34,7 @@ const resetPassword = [
                 if (!checkErrorInValidations.isEmpty()) {
                     return res.status(400).json({
                                 result: false,
-                                message: "Validation error",
+                                message: "Enter valid temporary password and new password min 8 digits maximum 30 digits",
                                 errors: checkErrorInValidations.array(),
                             });
                     }else
