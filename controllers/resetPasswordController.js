@@ -70,8 +70,7 @@ const resetPassword = [
                               return res.status(200).send({ result: true, message: "Your password reset Successfully" });
                             }else{
                               return res.status(200).send({ result: false, message: "Please enter valid temporary password" });
-                            }
-                           
+                            }                          
                           }
                           
                         }                                                                

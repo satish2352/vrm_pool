@@ -15,6 +15,16 @@ exports.successResponseWithData = function (res, msg, data) {
 	return res.status(200).json(resData);
 };
 
+exports.successResponseWithDataSlotWise = function (res, msg, data) {
+	var resData = {
+		result: true,
+		message: msg,
+		data: data,
+		slot:true
+	};
+	return res.status(200).json(resData);
+};
+
 exports.ErrorResponse = function (res, msg) {
 	var data = {
 		result: false,
