@@ -180,7 +180,7 @@ const uploadSupervisers = [
                           },
                           Message: {
                             Body: {
-                              Text: { Data: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\nPlease find below your login credentials.\n\n username: ${createdUser.mobile} \n\n password: ${createdUser.randomPassword} \nNote: Please change your password post login. \n` },
+                              Text: { Data: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\n\nPlease find below your login credentials.\n\nusername: ${createdUser.mobile}\n\npassword: ${randomPassword}\n\nNote: Please change your password post login.\n` },
                             },
                             Subject: { Data: `Welcome to VRM Pool Monitoring Dashboard` },
                           },
