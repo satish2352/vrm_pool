@@ -15,7 +15,7 @@ const workbookOfDownloadFile = new excelJS.Workbook();
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcryptjs");
 const { Op, fn, col, literal } = require('sequelize');
-
+const AWS = require('aws-sdk');
 const createTransporter = require('../config/nodemailerConfig');
 const { error } = require("console");
 const transporter = createTransporter();
