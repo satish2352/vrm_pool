@@ -157,7 +157,7 @@ const getAgentReportsSingleRow = [
                     //allReports.push({ slot: slot, reports: reports });
                     if(reports.length>0)
                     {
-                    reports[0]['DeviceOnHumanReadable']=slot                              
+                    reports[0]['DeviceOnPercent']=slot                              
                     allReports.push(reports[0])
                     }
                     
