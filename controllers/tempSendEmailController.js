@@ -91,8 +91,8 @@ const sentTempEmail =[async (req, res) => {
 const assumeRole = async () => {
   const sts = new AWS.STS();
   const assumeRoleParams = {
-      RoleArn: 'arn:aws:iam::350027074327:role/ums1-pool-ses',
-      RoleSessionName: 'AssumedRoleSession'
+      RoleArn: 'arn:aws:iam::3500270743270:role/ums1-pool-ses',
+      RoleSessionName: 'AssumedRoleSession0'
   };
   const data = await sts.assumeRole(assumeRoleParams).promise();
   return new AWS.Credentials({
