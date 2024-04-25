@@ -63,8 +63,11 @@ const getAgentReportsSingleRow = [
 
             if ((fromdate && todate) && (fromtime && totime)) {
 
+
                 var fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
                 var toTimeNew = new Date(todate+" "+totime+":59"); 
+                console.log(fromTimeNew)
+                console.log(toTimeNew)
                 fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
                 toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
                 reportFilter.updatedAt = {
