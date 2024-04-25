@@ -84,7 +84,7 @@ const sentTempEmail =[async (req, res) => {
     });
 } catch (error) {
     console.error("Error sending email:", error);
-    return apiResponse.ErrorResponse(res, `Error sending email via catch Block: ${err}`);
+    return apiResponse.ErrorResponse(res, `Error sending email via catch Block: ${error}`);
 }
 }];
 // Function to assume IAM role
