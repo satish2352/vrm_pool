@@ -70,9 +70,13 @@ const getAgentReportsSingleRow = [
                 console.log(toTimeNew)
                 fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
                 toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
+                const fromTimeUTC = new Date(fromTimeNew.getTime() - fromTimeNew.getTimezoneOffset() * 60000);
+
+// Convert toTimeNew to UTC
+const toTimeUTC = new Date(toTimeNew.getTime() - toTimeNew.getTimezoneOffset() * 60000);
                 reportFilter.updatedAt = {
                     //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
-                    [Op.between]: [fromTimeNew, toTimeNew]
+                    [Op.between]: [fromTimeUTC, toTimeUTC]
                 };
             }
             if (status) {
