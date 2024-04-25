@@ -8,6 +8,8 @@ const crypto = require('crypto');
 const { Op, fn, col, literal, Sequelize } = require('sequelize');
 const createTransporter = require('../config/nodemailerConfig');
 const transporter = createTransporter();
+const AWS = require('aws-sdk');
+
 const sendOTP = [
     body("mobile", "Enter valid mobile number").isLength({
         min: 10,
@@ -82,17 +84,63 @@ const sendOTP = [
 
                 // Send email with OTP
                 try {
-                    await transporter.sendMail({
-                        from: 'vishvambhargore@sumagoinfotech.in',
-                        to: user.email,
-                        subject: 'Temporary password - VRM Pool Monitoring Dashboard',
-                        text: `Your temporary password to reset your password is  ${otp}  and it is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.`,
-                    });
-                    console.log(`Email sent to ${user.email}`);
+
+                    AWS.config.update({ region: 'us-east-1' });
+    
+                    // Create an instance of the STS service
+                    const sts = new AWS.STS();
+                    
+                    // Assume the IAM role in the SGP account (ums1-pool-ses)
+                    const assumeRoleParams = {
+                      RoleArn: 'arn:aws:iam::350027074327:role/ums1-pool-ses',
+                      RoleSessionName: 'AssumedRoleSession',
+                    };
+                    
+                    sts.assumeRole(assumeRoleParams, (err, data) => {
+                        if (err) {
+                          console.error('Error assuming role:', err);
+                          return;
+                        }
+                      
+                        // Configure AWS SDK with the temporary credentials from the assumed role
+                        const credentials = data.Credentials;
+                        const assumedRoleConfig = {
+                          accessKeyId: credentials.AccessKeyId,
+                          secretAccessKey: credentials.SecretAccessKey,
+                          sessionToken: credentials.SessionToken,
+                        };
+                        const ses = new AWS.SES(assumedRoleConfig);
+                      
+                        // Construct the SES email parameters
+                        const params = {
+                          Destination: {
+                            ToAddresses: [`${user.email}`],
+                          },
+                          Message: {
+                            Body: {
+                              Text: { Data: `Your temporary password to reset your password is  ${otp}  and it is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
+                            },
+                            Subject: { Data: `Temporary Password - VRM Pool Monitoring Dashboard` },
+                          },
+                          Source: 'noreply@exotel.in',
+                        };
+                      
+                        // Send the email using SES
+                        ses.sendEmail(params, (err, data) => {
+                          if (err) {
+                            console.error('Error sending email:', err);
+                            return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK =>  ${err}`);
+                  
+                          } else {
+                            console.log('Email sent successfully:', data);
+                            return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
+                        }
+                        });
+                      });                
                     return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
                 } catch (error) {
                     console.error(`Error sending email to ${user.email}:`, error);
-                    return res.status(500).send({ result: false, message: "Error sending Temporary password email" });
+                    return res.status(500).send({ result: false, message: `Error sending Temporary password email ${error}` });
                 }
             }
         } catch (err) {

@@ -86,8 +86,11 @@ const getAgentReportsSingleRow = [
             const all_agent = await User.findAll({
                 where:userFilter
             });
-            console.log("all_agent");
-            console.log(all_agent);
+            // console.log("all_agent");
+            // console.log(all_agent);
+            console.log("------------------");
+            console.log(slots.length);
+            console.log(slots);
              for (let i = 0; i < all_agent.length; i++) {
                 let agent_id = all_agent[i].id
                 reportFilter.user_id = agent_id;
@@ -186,15 +189,16 @@ function convertUTCtoIST(utcDate) {
 
 async function splitTimeIntoSlots(fromTime, toTime) {
     const records = [];
-    let currentTime = new Date(fromTime);
-  
+    let currentTime = new Date(fromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
+     toTime = new Date(toTime.getTime() - 60 * 60000); // Subtract 60 minutes from t
+
     while (currentTime <= toTime) {
       const slotStartTime = new Date(currentTime);
-      const slotEndTime = new Date(currentTime.getTime() + 30 * 60000); // Add 30 minutes
+      const slotEndTime = new Date(currentTime.getTime() + 60 * 60000); // Add 60 minutes
   
       records.push({ start_time: slotStartTime, end_time: slotEndTime });
   
-      // Move to the next 30-minute slot
+      // Move to the next 60-minute slot
       currentTime = slotEndTime;
     }
   
