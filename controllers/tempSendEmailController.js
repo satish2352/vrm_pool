@@ -76,7 +76,7 @@ const sentTempEmail =[async (req, res) => {
     ses.sendEmail(params, (err, data) => {
         if (err) {
             console.error('Error sending email via AWS SDK:', err);
-            return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK: ${err}`);
+            return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK =>  ${err}`);
         } else {
             console.log('Email sent successfully via AWS SDK:', data);
             return apiResponse.successResponseWithData(res, 'Email sent successfully', data);
