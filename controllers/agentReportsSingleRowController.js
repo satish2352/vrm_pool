@@ -62,8 +62,14 @@ const getAgentReportsSingleRow = [
             }
 
             if ((fromdate && todate) && (fromtime && totime)) {
+
+                const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
+                const toTimeNew = new Date(todate+" "+totime+":59"); 
+                fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
+                toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
                 reportFilter.updatedAt = {
-                    [Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
+                    //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
+                    [Op.between]: [fromTimeNew, toTimeNew]
                 };
             }
             if (status) {
