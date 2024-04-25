@@ -48,7 +48,7 @@ const apiResponse = require("../helpers/apiResponse");
 const sentTempEmail = async (req, res) => {
   try {
       // Configure the AWS SDK
-      AWS.config.update({
+      const config =new AWS.config.update({
           region: 'us-east-1', // Specify the desired region
           credentials: new AWS.ChainableTemporaryCredentials({
               params: {
@@ -59,7 +59,7 @@ const sentTempEmail = async (req, res) => {
       });
 
       // Create a new SES object
-      const ses = new AWS.SES();
+      const ses = new AWS.SES(config);
 
       // Construct email parameters
       const params = {
