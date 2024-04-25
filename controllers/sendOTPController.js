@@ -112,6 +112,8 @@ const sendOTP = [
                         const ses = new AWS.SES(assumedRoleConfig);
                       
                         var toEmail=user.email
+                        console.log('---------------')
+                        console.log(user.email)
                         // Construct the SES email parameters
                         const params = {
                           Destination: {
