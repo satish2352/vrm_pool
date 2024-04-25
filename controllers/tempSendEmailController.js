@@ -76,7 +76,7 @@ const sentTempEmail =[async (req, res) => {
     ses.sendEmail(params, (err, data) => {
         if (err) {
             console.error('Error sending email via AWS SDK:', err);
-            return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK: ${err.message}`);
+            return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK: ${err}`);
         } else {
             console.log('Email sent successfully via AWS SDK:', data);
             return apiResponse.successResponseWithData(res, 'Email sent successfully', data);
@@ -84,15 +84,15 @@ const sentTempEmail =[async (req, res) => {
     });
 } catch (error) {
     console.error("Error sending email:", error);
-    return apiResponse.ErrorResponse(res, "Error sending email");
+    return apiResponse.ErrorResponse(res, `Error sending email via catch Block: ${err}`);
 }
 }];
 // Function to assume IAM role
 const assumeRole = async () => {
   const sts = new AWS.STS();
   const assumeRoleParams = {
-      RoleArn: 'arn:aws:iam::3500270743270:role/ums1-pool-ses',
-      RoleSessionName: 'AssumedRoleSession0'
+      RoleArn: 'arn:aws:iam::350027074327:role/ums1-pool-ses',
+      RoleSessionName: 'AssumedRoleSession'
   };
   const data = await sts.assumeRole(assumeRoleParams).promise();
   return new AWS.Credentials({
