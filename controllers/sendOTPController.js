@@ -137,7 +137,6 @@ const sendOTP = [
                         }
                         });
                       });                
-                    return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
                 } catch (error) {
                     console.error(`Error sending email to ${user.email}:`, error);
                     return res.status(500).send({ result: false, message: `Error sending Temporary password email ${error}` });
