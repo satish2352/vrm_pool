@@ -79,20 +79,20 @@ const getAgentReportsSingleRow = [
             if (direction) {
                 reportFilter.direction = direction;
             }
-            if (time) {
-                // Calculate the current date and time in the 'Asia/Kolkata' timezone
-                const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            // if (time) {
+            //     // Calculate the current date and time in the 'Asia/Kolkata' timezone
+            //     const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
         
-                // Calculate the date and time 'minutes' minutes ago in the 'Asia/Kolkata' timezone
-                const minutesAgoDateTime = moment().subtract(time, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+            //     // Calculate the date and time 'minutes' minutes ago in the 'Asia/Kolkata' timezone
+            //     const minutesAgoDateTime = moment().subtract(time, 'minutes').format('YYYY-MM-DD HH:mm:ss');
         
-                // Construct the query
-                reportFilter.updatedAt = {
-                    [Op.between]: [minutesAgoDateTime, currentDateTime]
-                };
+            //     // Construct the query
+            //     reportFilter.updatedAt = {
+            //         [Op.between]: [minutesAgoDateTime, currentDateTime]
+            //     };
         
-                // Example: execute your query using Sequelize or perform any other actions needed
-            }
+            //     // Example: execute your query using Sequelize or perform any other actions needed
+            // }
 
 
             // Fetch reports based on filters
