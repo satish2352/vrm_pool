@@ -60,6 +60,7 @@ const loginUser = [
                 if (!passwordCompare) {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
+                    const userAgent = req.get('User-Agent');
                     var macaddressFinal ='';
                    await macaddress.one().then(function (mac) {
                         macaddressFinal = mac
