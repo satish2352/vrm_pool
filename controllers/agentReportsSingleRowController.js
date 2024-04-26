@@ -76,7 +76,7 @@ const getAgentReportsSingleRow = [
             //     };
             // }
 
-            if (fromtime && ! totime) {
+            if (fromtime &&  totime) {
                     reportFilter.updatedAt = {
                         [Op.between]: [fromtime, totime]
                     };
