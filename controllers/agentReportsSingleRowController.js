@@ -13,7 +13,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime,time} = req.body;
+            const { user_type,supervisor_id,agent_id,fromtime,totime} = req.body;
 
             // Construct filter for Users
             let userFilter = {
@@ -55,33 +55,32 @@ const getAgentReportsSingleRow = [
             //         [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
             //     };
             // }
-            if ((fromdate && todate) &&  (! fromtime && ! totime)) {
-                reportFilter.updatedAt = {
-                    [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
-                };
-            }
+            // if ((fromdate && todate) &&  (! fromtime && ! totime)) {
+            //     reportFilter.updatedAt = {
+            //         [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
+            //     };
+            // }
 
-            if ((fromdate && todate) && (fromtime && totime)) {
+            // if ((fromdate && todate) && (fromtime && totime)) {
 
 
-                var fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
-                var toTimeNew = new Date(todate+" "+totime+":59"); 
-                console.log(fromTimeNew)
-                console.log(toTimeNew)
-                fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
-                toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
-                reportFilter.updatedAt = {
-                    //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
-                    [Op.between]: [fromTimeNew, toTimeNew]
-                };
-            }
-            if (status) {
-                reportFilter.status = status;
-            }
+            //     var fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
+            //     var toTimeNew = new Date(todate+" "+totime+":59"); 
+            //     console.log(fromTimeNew)
+            //     console.log(toTimeNew)
+            //     fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
+            //     toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
+            //     reportFilter.updatedAt = {
+            //         //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
+            //         [Op.between]: [fromTimeNew, toTimeNew]
+            //     };
+            // }
 
-            if (direction) {
-                reportFilter.direction = direction;
-            }
+            if (fromtime && ! totime) {
+                    reportFilter.updatedAt = {
+                        [Op.between]: [fromtime, totime]
+                    };
+                }           
             // if (time) {
             //     // Calculate the current date and time in the 'Asia/Kolkata' timezone
             //     const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
