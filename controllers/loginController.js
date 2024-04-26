@@ -68,7 +68,7 @@ const loginUser = [
                     if(user.user_agent != null) {
 
                         if(user.mac !== macaddressFinal) {
-                            return res.status(400).json({ result: false, message: 'Please logout from another browser' });
+                            return res.status(400).json({ result: false, message: 'Please logout from another browser a' });
                         } else {
                             user.user_agent = userAgent;
                             user.mac = macaddressFinal;
@@ -79,7 +79,7 @@ const loginUser = [
 
                         // if(user.user_agent != userAgent && user.mac != macaddressFinal) {
                         if(user.mac !== macaddressFinal) {
-                            return res.status(400).json({ result: false, message: 'Please logout from another browser' });
+                            return res.status(400).json({ result: false, message: 'Please logout from another browser b' });
                         } else {
                             user.user_agent = userAgent;
                             user.mac = macaddressFinal;
