@@ -46,7 +46,7 @@ const getAgentReportsSingleRow = [
             };    
             // const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
             // const toTimeNew = new Date(todate+" "+totime+":59"); 
-            var slots= await splitTimeIntoSlots(fromtime,totime)
+            var slots= await splitTimeIntoSlots(new Date(fromtime),new Date(totime))
             const all_agent = await User.findAll({
                 where:userFilter
             });
@@ -146,7 +146,7 @@ function convertUTCtoIST(utcDate) {
 
 async function splitTimeIntoSlots(fromTime, toTime) {
     const records = [];
-    let currentTime = new Date(fromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
+     let currentTime = new Date(fromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
      toTime = new Date(toTime.getTime() - 60 * 60000); // Subtract 60 minutes from t
 
     while (currentTime <= toTime) {
