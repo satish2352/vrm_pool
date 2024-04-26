@@ -71,8 +71,10 @@ const getAgentReportsSingleRow = [
                 fromTimeNew=new Date(fromTimeNew.getTime() - 60 * 60000)
                 toTimeNew=new Date(toTimeNew.getTime() - 60 * 60000)
 
-                console.log(fromTimeNew.toUTCString())
                 
+                const indianTime = moment.tz(fromTimeNew, "Asia/Kolkata");
+                const utcTime = indianTime.utc().format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+                console.log(utcTime)
                 reportFilter.updatedAt = {
                     //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
                     [Op.between]: [fromTimeNew, toTimeNew]
