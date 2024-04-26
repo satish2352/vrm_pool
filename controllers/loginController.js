@@ -34,7 +34,7 @@ const loginUser = [
         if (!checkErrorInValidations.isEmpty()) {
             return res.status(400).json({
                 result: false,
-                message: "Please enter valid indian mobile number and  valid password",
+                message: "Please enter valid registered mobile number and valid password",
                 errors: checkErrorInValidations.array(),
             });
         } else {

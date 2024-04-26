@@ -13,7 +13,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, fromdate, todate, status,  supervisor_id,agent_id,direction ,fromtime,totime,time} = req.body;
+            const { user_type,supervisor_id,agent_id ,fromtime,totime} = req.body;
             let userFilter = {
                 is_active:1,
                 is_deleted:0
@@ -44,53 +44,12 @@ const getAgentReportsSingleRow = [
             let reportFilter = {
                 user_id: userIds,
             };    
-            if ((fromdate && todate) &&  (! fromtime && ! totime)) {
-                reportFilter.updatedAt = {
-                    [Op.between]: [fromdate+" 00:00:00", todate+" 23:59:59"]
-                };
-            }
-
-            if ((fromdate && todate) && (fromtime && totime)) {
-                reportFilter.updatedAt = {
-                    [Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
-                };
-            }
-            if (status) {
-                reportFilter.status = status;
-            }
-
-            if (direction) {
-                reportFilter.direction = direction;
-            }
-            if (time) {
-                // Calculate the current date and time in the 'Asia/Kolkata' timezone
-                const currentDateTime = moment().format('YYYY-MM-DD HH:mm:ss');
-                const minutesAgoDateTime = moment().subtract(time, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-        
-                // Construct the query
-                // reportFilter.updatedAt = {
-                //     [Op.between]: [minutesAgoDateTime, currentDateTime]
-                // };
-               
-
-            
-            }
-            
-
-            var allReports=[];
-            const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
-            const toTimeNew = new Date(todate+" "+totime+":59"); 
-            var slots= await splitTimeIntoSlots(fromTimeNew,toTimeNew)
-            // if()
-            // const all_agent = await User.findAll({});
+            // const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
+            // const toTimeNew = new Date(todate+" "+totime+":59"); 
+            var slots= await splitTimeIntoSlots(fromtime,totime)
             const all_agent = await User.findAll({
                 where:userFilter
             });
-            // console.log("all_agent");
-            // console.log(all_agent);
-            console.log("------------------");
-            console.log(slots.length);
-            console.log(slots);
              for (let i = 0; i < all_agent.length; i++) {
                 let agent_id = all_agent[i].id
                 reportFilter.user_id = agent_id;
@@ -98,9 +57,7 @@ const getAgentReportsSingleRow = [
                     const slot = slots[i];
                     reportFilter.updatedAt = {
                         [Op.between]: [slot.start_time, slot.end_time]
-                    };
-                    console.log("Start Time:", convertUTCtoIST(slot.start_time), "| End Time:", convertUTCtoIST(slot.end_time));
-
+                    };                            
                     const reports = await AgentData.findAll({
                         attributes: [                   
                             [
