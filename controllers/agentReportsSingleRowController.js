@@ -76,8 +76,8 @@ const getAgentReportsSingleRow = [
 //Convert toTimeNew to UTC
  const toTimeUTC = new Date(toTimeNew.getTime() + (toTimeNew.getTimezoneOffset() * 60000));
 
-// console.log(fromTimeUTC.toISOString()); // Output will be in UTC
-// console.log(toTimeUTC.toISOString());   // Output will be in UTC
+ console.log(fromTimeUTC.toISOString()); // Output will be in UTC
+console.log(toTimeUTC.toISOString());   // Output will be in UTC
                 
                 reportFilter.updatedAt = {
                     //[Op.between]: [fromdate+" "+fromtime+":00", todate+" "+totime+":59"]
