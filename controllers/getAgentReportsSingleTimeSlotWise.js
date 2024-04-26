@@ -47,6 +47,7 @@ const getAgentReportsSingleRow = [
             // const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
             // const toTimeNew = new Date(todate+" "+totime+":59"); 
             var slots= await splitTimeIntoSlots(new Date(fromtime),new Date(totime))
+            var allReports=[]
             const all_agent = await User.findAll({
                 where:userFilter
             });
