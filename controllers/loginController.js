@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 var jwt = require('jsonwebtoken');
 const JWT_SECRET = "realEstateApp$ecret$493458395789";
 const { Op } = require('sequelize');
+var macaddress = require('macaddress');
 
 const loginUser = [
 
@@ -59,20 +60,35 @@ const loginUser = [
                 if (!passwordCompare) {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
-                    const userAgent = req.get('User-Agent');
+                    var macaddressFinal ='';
+                   await macaddress.one().then(function (mac) {
+                        macaddressFinal = mac
+                    });
+                  
                     if(user.user_agent != null) {
-                        if(user.user_agent !== userAgent) {
+
+                        if(user.mac != macaddressFinal) {
                             return res.status(400).json({ result: false, message: 'Please logout from another browser' });
                         } else {
                             user.user_agent = userAgent;
+                            user.mac = macaddressFinal;
                             await user.save();
+                           
                         }
                     } else {
+
+                        // if(user.user_agent != userAgent && user.mac != macaddressFinal) {
+                        if(user.mac != macaddressFinal) {
+                            return res.status(400).json({ result: false, message: 'Please logout from another browser' });
+                        } else {
                             user.user_agent = userAgent;
+                            user.mac = macaddressFinal;
                             await user.save();
+                            
+                        }
+                          
                     }
                    
-
                     if(passwordCompare && user.is_password_reset==1)
                     {
                         var isLessThan5Minutes=isTimeDifferenceGreaterThan5Minutes(new Date(user.updatedAt))

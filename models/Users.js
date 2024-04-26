@@ -95,6 +95,11 @@ const User = dbObj.define('user', {
     allowNull: true,
     type: DataTypes.TEXT,
   },
+
+  mac: {
+    allowNull: true,
+    type: DataTypes.TEXT,
+  },
   
 
   
