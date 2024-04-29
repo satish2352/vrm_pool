@@ -31,7 +31,8 @@ const getUserList = [
       // Initialize an empty filter object      
       if (user_type) {
         userFilter = {
-          user_type: user_type
+          user_type: user_type,
+          is_deleted: '0',
         }
       }else{
         userFilter.user_type = [2, 3];      

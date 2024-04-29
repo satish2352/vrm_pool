@@ -13,11 +13,16 @@ const getStats = [
     async (req, res) => {
         try {        
             const { id } = req.body;
-            let userFilter={}
+            let userFilter={
+                is_deleted: '0',
+                is_active:'1'
+            }
             let reportFilter={}
             if(id){
                 userFilter = {
-                    added_by:id
+                    added_by:id,
+                    is_deleted: '0',
+                    is_active:'1'
                     };
 
                     const usersUnderSuperviser = await User.findAll({

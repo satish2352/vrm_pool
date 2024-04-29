@@ -60,35 +60,35 @@ const loginUser = [
                 if (!passwordCompare) {
                     return res.status(400).json({ result: false, message: 'Please enter valid credentials' });
                 } else {
-                    const userAgent = req.get('User-Agent');
-                    var macaddressFinal ='';
-                   await macaddress.one().then(function (mac) {
-                        macaddressFinal = mac
-                    });
+                //     const userAgent = req.get('User-Agent');
+                //     var macaddressFinal ='';
+                //    await macaddress.one().then(function (mac) {
+                //         macaddressFinal = mac
+                //     });
                   
-                    if(user.mac == null) {
+                //     if(user.mac == null) {
 
-                        // if(user.mac !== macaddressFinal) {
-                        //     return res.status(400).json({ result: false, message: 'Please logout from another browser a' });
-                        // } else {
-                            user.user_agent = userAgent;
-                            user.mac = macaddressFinal;
-                            await user.save();
+                //         // if(user.mac !== macaddressFinal) {
+                //         //     return res.status(400).json({ result: false, message: 'Please logout from another browser a' });
+                //         // } else {
+                //             user.user_agent = userAgent;
+                //             user.mac = macaddressFinal;
+                //             await user.save();
                            
-                        //}
-                    } else {
+                //         //}
+                //     } else {
 
-                        // if(user.user_agent != userAgent && user.mac != macaddressFinal) {
-                        if(user.mac != macaddressFinal) {
-                            return res.status(400).json({ result: false, message: 'Please logout from another browser b' });
-                        } else {
-                            user.user_agent = userAgent;
-                            user.mac = macaddressFinal;
-                            await user.save();
+                //         // if(user.user_agent != userAgent && user.mac != macaddressFinal) {
+                //         if(user.mac != macaddressFinal) {
+                //             return res.status(400).json({ result: false, message: 'Please logout from another browser b' });
+                //         } else {
+                //             user.user_agent = userAgent;
+                //             user.mac = macaddressFinal;
+                //             await user.save();
                             
-                        }
+                //         }
                           
-                    }
+                //     }
                    
                     if(passwordCompare && user.is_password_reset==1)
                     {
