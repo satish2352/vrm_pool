@@ -1,14 +1,21 @@
-module.exports = {
-    apps: [
+{
+  "apps": [
       {
-        name: 'scheduler cronjob nodejs', // Name of the application
-        script: 'node scheduler.js', // Path to your Node.js script
-        autorestart: true, // Set to true to automatically restart the script if it crashes
-        max_restarts: 10, // Maximum number of restarts within 60 seconds (to prevent constant restarts if the script keeps crashing)
-        error_file: 'logs/error.log', // Path to error log file
-        out_file: 'logs/output.log', // Path to output log file
-       
+        "name": "scheduler cronjob nodejs",
+        "script": "node",
+        "args": "scheduler.js",
+        "watch": true, 
+        "ignore_watch": ["node_modules", "logs"], 
+        "env": {
+          "NODE_ENV": "development" 
+        }
       }
     ]
-  };
+  }
+  
+  
+  
+  
+  
+  
   
