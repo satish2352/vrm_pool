@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const { exec } = require('child_process');
 
 // Schedule the job to run on the first day of every month at 11:59 PM
-const job = cron.schedule('* * * * *', () => {
+const job = cron.schedule('59 23 1 * *', () => {
   // Execute your shell script
   exec('sh dumpdata.sh', (error, stdout, stderr) => {
     if (error) {
