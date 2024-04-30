@@ -12,7 +12,9 @@ const getAgentCallDetails = [
  
     async (req, res) => {
         try {
+console.log('req.body');
 
+console.log(req.body.output_parameters.report_link);
           const authHeader = req.headers['authorization'];
 
           if (!authHeader && (req.body.output_parameters.report_link =='' || req.body.output_parameters.report_link == null )) {
