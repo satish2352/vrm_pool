@@ -56,6 +56,19 @@ router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetai
 router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 
+router.post('/cronejob', (req, res) => {
+    exec('sh dumpdata.sh', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error executing the script: ${error}`);
+        return res.status(500).send('Error executing the script');
+      }
+      console.log(`Script output: ${stdout}`);
+      console.error(`Script errors: ${stderr}`);
+      res.send('Script executed successfully');
+    });
+  });
+  
+
 
 
 
