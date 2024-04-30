@@ -1,0 +1,21 @@
+
+
+"apps": [
+    {
+      "name": "devp",
+      "script": "node_modules/nodemon/bin/nodemon.js",
+      "args": "index.js",
+      "watch": true, // Enable watch mode to automatically reload the application on file changes
+      "ignore_watch": ["node_modules", "logs"], // Folders or files to ignore when watching for changes
+      "env": {
+        "NODE_ENV": "development" // Set the environment variable to development
+      }
+    }
+  ]
+}
+
+
+
+
+
+
