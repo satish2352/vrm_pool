@@ -24,6 +24,8 @@ const agentReportsSingleRowController = require("./controllers/agentReportsSingl
 const getAgentReportsSingleTimeSlotWise = require("./controllers/getAgentReportsSingleTimeSlotWise");
 const getAllReportsController = require("./controllers/getAllReportsController");
 
+const getActiveUserListController = require("./controllers/getActiveUserListController");
+
 const tempSendEmailController=require("./controllers/tempSendEmailController")
 const { exec } = require('child_process');
 
@@ -56,6 +58,7 @@ router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWi
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
+router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
 
 router.post('/cronejob', (req, res) => {
     exec('sh dumpdata.sh', (error, stdout, stderr) => {

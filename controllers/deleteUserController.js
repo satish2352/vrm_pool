@@ -31,12 +31,13 @@ const deleteUser = [
                             if (user.user_type == '2') {
                                 const conditionCount = await User.count({
                                     where: {
-                                        added_by: idTobeUpdated
+                                        added_by: idTobeUpdated,
+                                        is_active:1,
                                     }
                                 });
 
                                 if (conditionCount > 0) {
-
+ 
                                     return res.status(400).json({ result: false, message: `User cant be deleted because ${conditionCount} relationship  managers are mapped to this user`});
                                 } else {
                                     // Update the name attribute
