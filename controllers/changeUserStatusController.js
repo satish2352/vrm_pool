@@ -34,6 +34,19 @@ const changeUserStatus = [
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
                         if (user) {
+
+                            const conditionCount = await User.count({
+                                where: {
+                                    added_by: user.added_by,                                
+                                    is_deleted:1
+                                }
+                            });
+                            
+                            if (conditionCount > 0) {
+                                return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
+                            } else {
+
+
                             // Update the name attribute
                             user.is_active = status;
                             // Save the changes to the database
@@ -48,6 +61,7 @@ const changeUserStatus = [
                                 console.error('Error updating user status:', error);
                                 return res.status(500).json({ result: false, message: "Error updating user status" });
                             });
+                        }
 
                     } else {                                            
                         return res.status(400).send({ result: false, message: "You are not authorized" });
