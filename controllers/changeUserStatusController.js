@@ -30,6 +30,8 @@ const changeUserStatus = [
                     if (user_type == '1') {
 
                         let user = await User.findByPk(idTobeUpdated);
+                        console.log('user');
+                        console.log(user);
                         if (!user) {
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
