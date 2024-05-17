@@ -41,11 +41,9 @@ const changeUserStatus = [
                                 conditionCount = await User.count({
                                     where: {
                                         added_by: user.added_by,                                
-                                        is_active:0,                                                       
+                                        is_active:1,                                                       
                                     }
                                 });
-
-
                                 if (conditionCount == 0) {
                                     return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
                                 } else  {
@@ -64,31 +62,35 @@ const changeUserStatus = [
                                         console.error('Error updating user status:', error);
                                         return res.status(500).json({ result: false, message: "Error updating user status" });
                                     });
-                                }
-
-                                
+                                }                                
                             } else {
                                 conditionCount = await User.count({
                                     where: {
                                         added_by: user.id,                                
-                                        is_active:0,                                                       
+                                        is_active:1,                                                       
                                     }
                                 });
 
-                                user.is_active = status;
-                                // Save the changes to the database
-                                await user.save()
-                                .then(updatedUser => {
-                                    // Handle successful update
-                                    //console.log('User status updated successfully:', updatedUser);
-                                    return res.status(200).json({ result: true, message: "User status updated successfully" });
-                                })
-                                .catch(error => {
-                                    // Handle update error
-                                    console.error('Error updating user status:', error);
-                                    return res.status(500).json({ result: false, message: "Error updating user status" });
-                                });
-    
+
+                                if(conditionCount>0)
+                                    {
+                                        return res.status(400).json({ result: false, message: `User status can not be changed as agents mapped to this user are enabled`});
+                                    }else{
+                                        user.is_active = status;
+                                        // Save the changes to the database
+                                        await user.save()
+                                        .then(updatedUser => {
+                                            // Handle successful update
+                                            //console.log('User status updated successfully:', updatedUser);
+                                            return res.status(200).json({ result: true, message: "User status updated successfully" });
+                                        })
+                                        .catch(error => {
+                                            // Handle update error
+                                            console.error('Error updating user status:', error);
+                                            return res.status(500).json({ result: false, message: "Error updating user status" });
+                                        });
+                                    }
+
                             }
                            
                           
