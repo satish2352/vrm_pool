@@ -49,10 +49,6 @@ const getAgentCallDetails = [
             });
           }
 
-          // console.log('req.body')
-          // console.log(req.body.output_parameters.report_link)
-
-     
 
           if(req.body.output_parameters.report_link =='' || req.body.output_parameters.report_link == null ) {
             // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
@@ -127,8 +123,6 @@ const downloadFile = (url, destination) => {
             .on('end', () => {
                 // Wait for all promises to resolve before resolving the main promise
                 Promise.all(promises).then(() => {
-                    console.log('CSV file processing complete.');
-                    console.log(matchedResults.length);
                     resolve(matchedResults);
                 }).catch(error => {
                     console.error('Error:', error);
@@ -143,13 +137,9 @@ const downloadFile = (url, destination) => {
 };
   const downloadAndReadCSV = async (url) => {
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
-    console.log("line 91",url)
     try {
       await downloadFile(url, destination);
-      console.log('File downloaded successfully');
-  
       const data = await readCSVFile(destination);
-      console.log('CSV File contents: called', data);
       await insertDataToAgentData(data);
       
     } catch (error) {
@@ -159,12 +149,8 @@ const downloadFile = (url, destination) => {
 
   const insertDataToAgentData = async (data) => {
 
-    console.log("insertDataToAgentData=========>");
-    console.log(data.length);
     try {
       await AgentData.bulkCreate(data);
-      console.log('Data inserted successfully into AgentData table');
-      
     } catch (error) {
       console.error('Error:insertDataToAgentData', error);
     }
