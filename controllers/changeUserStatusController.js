@@ -38,7 +38,8 @@ const changeUserStatus = [
                             const conditionCount = await User.count({
                                 where: {
                                     added_by: user.added_by,                                
-                                    is_deleted:1
+                                    is_deleted:1,
+                                    user_type:2
                                 }
                             });
                             
