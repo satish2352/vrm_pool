@@ -40,11 +40,15 @@ const changeUserStatus = [
                                     is_active:0,                                                       
                                 }
                             });
+                            console.log('condition count')
+                            console.log(conditionCount)
                     
                             if (conditionCount > 0) {
                                 return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
                             } else 
                             {
+                        
+                                console.log('else')
                             // Update the name attribute
                             user.is_active = status;
                             // Save the changes to the database
