@@ -34,19 +34,17 @@ const changeUserStatus = [
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
                         if (user) {
-
                             const conditionCount = await User.count({
                                 where: {
                                     added_by: user.id,                                
-                                    is_active:1,                                                       
+                                    is_active:0,                                                       
                                 }
                             });
-                            
+                    
                             if (conditionCount > 0) {
                                 return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
                             } else 
                             {
-
                             // Update the name attribute
                             user.is_active = status;
                             // Save the changes to the database
