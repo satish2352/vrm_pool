@@ -36,7 +36,7 @@ const changeUserStatus = [
                         }
                         if (user) {
                             var conditionCount;
-                            if(user.user_type == 3) {
+                            if(user.user_type === '3') {
                                 console.log('in if log 3');
                                 conditionCount = await User.count({
                                     where: {
