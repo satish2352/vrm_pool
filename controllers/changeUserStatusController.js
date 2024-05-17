@@ -44,6 +44,29 @@ const changeUserStatus = [
                                         is_active:0,                                                       
                                     }
                                 });
+
+
+                                if (conditionCount === 0) {
+                                    return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
+                                } else  {
+                                    console.log('else')
+                                    // Update the name attribute
+                                    user.is_active = status;
+                                    // Save the changes to the database
+                                    await user.save()
+                                    .then(updatedUser => {
+                                        // Handle successful update
+                                        //console.log('User status updated successfully:', updatedUser);
+                                        return res.status(200).json({ result: true, message: "User status updated successfully" });
+                                    })
+                                    .catch(error => {
+                                        // Handle update error
+                                        console.error('Error updating user status:', error);
+                                        return res.status(500).json({ result: false, message: "Error updating user status" });
+                                    });
+                                }
+
+                                
                             } else {
                                 conditionCount = await User.count({
                                     where: {
@@ -51,38 +74,25 @@ const changeUserStatus = [
                                         is_active:0,                                                       
                                     }
                                 });
+                                
+                                user.is_active = status;
+                                // Save the changes to the database
+                                await user.save()
+                                .then(updatedUser => {
+                                    // Handle successful update
+                                    //console.log('User status updated successfully:', updatedUser);
+                                    return res.status(200).json({ result: true, message: "User status updated successfully" });
+                                })
+                                .catch(error => {
+                                    // Handle update error
+                                    console.error('Error updating user status:', error);
+                                    return res.status(500).json({ result: false, message: "Error updating user status" });
+                                });
+    
                             }
-                            // const conditionCount = await User.count({
-                            //     where: {
-                            //         added_by: user.id,                                
-                            //         is_active:0,                                                       
-                            //     }
-                            // });
-                            console.log('condition count')
-                            console.log(conditionCount)
-                    
-                            if (conditionCount === 0) {
-                                return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
-                            } else 
-                            {
-                        
-                            console.log('else')
-                            // Update the name attribute
-                            user.is_active = status;
-                            // Save the changes to the database
-                            await user.save()
-                            .then(updatedUser => {
-                                // Handle successful update
-                                //console.log('User status updated successfully:', updatedUser);
-                                return res.status(200).json({ result: true, message: "User status updated successfully" });
-                            })
-                            .catch(error => {
-                                // Handle update error
-                                console.error('Error updating user status:', error);
-                                return res.status(500).json({ result: false, message: "Error updating user status" });
-                            });
-                        }
-
+                           
+                          
+                         
                     } else {                                            
                         return res.status(400).send({ result: false, message: "You are not authorized" });
                     }
