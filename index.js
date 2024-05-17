@@ -92,16 +92,29 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  logger.info({
-    message: 'HTTP Request',
-    method: req.method,
-    url: req.url,
-    headers: req.headers,
-    body: req.body,
-  });
+  const start = Date.now();
+
+  // Capture the original send function
+  const originalSend = res.send.bind(res);
+
+  // Override the send function to capture the response body
+  res.send = (body) => {
+    const responseTime = Date.now() - start;
+    logger.info({
+      message: 'HTTP Request and Response',
+      method: req.method,
+      url: req.url,
+      headers: req.headers,
+      requestBody: req.body,
+      responseBody: body,
+      statusCode: res.statusCode,
+      responseTime: `${responseTime}ms`,
+    });
+    return originalSend(body);
+  };
+
   next();
 });
-
 
 // Database connection
 const dbObj = require("./db");
