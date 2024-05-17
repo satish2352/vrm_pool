@@ -37,11 +37,14 @@ const changeUserStatus = [
 
                             const conditionCount = await User.count({
                                 where: {
-                                    added_by: user.added_by,                                
+                                    added_by: user.id,                                
                                     is_deleted:1,
                                     user_type:2
                                 }
                             });
+
+                            console.log("---------")
+                            console.log(conditionCount)
                             
                             if (conditionCount > 0) {
                                 return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
