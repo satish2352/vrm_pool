@@ -39,7 +39,7 @@ const changeUserStatus = [
                                 where: {
                                     added_by: user.id,                                
                                     is_deleted:1,
-                                    is_active:1,                                
+                                    is_active:0,                                
                                 }
                             });
                             
