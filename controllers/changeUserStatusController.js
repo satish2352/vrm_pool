@@ -36,12 +36,27 @@ const changeUserStatus = [
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
                         if (user) {
-                            const conditionCount = await User.count({
-                                where: {
-                                    added_by: user.id,                                
-                                    is_active:0,                                                       
-                                }
-                            });
+                            if(user.user_type ===3) {
+                                const conditionCount = await User.count({
+                                    where: {
+                                        added_by: user.added_by,                                
+                                        is_active:0,                                                       
+                                    }
+                                });
+                            } else {
+                                const conditionCount = await User.count({
+                                    where: {
+                                        added_by: user.id,                                
+                                        is_active:0,                                                       
+                                    }
+                                });
+                            }
+                            // const conditionCount = await User.count({
+                            //     where: {
+                            //         added_by: user.id,                                
+                            //         is_active:0,                                                       
+                            //     }
+                            // });
                             console.log('condition count')
                             console.log(conditionCount)
                     
