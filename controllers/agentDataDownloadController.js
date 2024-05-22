@@ -140,8 +140,8 @@ const downloadFile = (url, destination) => {
     try {
       await downloadFile(url, destination);
       const data = await readCSVFile(destination);
-      await insertDataToAgentData(data);
-      //await insertDataToAgentDataInChunks(data,100);
+      //await insertDataToAgentData(data);
+      await insertDataToAgentDataInChunks(data,100);
 
       
     } catch (error) {
