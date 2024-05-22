@@ -6,16 +6,21 @@ const apiResponse = require("../helpers/apiResponse");
 const NotFoundAgentCallDetails = require("../models/NotFoundAgentCallDetails");
 const path = require('path');
 const excelJS = require("exceljs");
+const { body, query, validationResult } = require("express-validator");
 
 const downloadNotInsertedDetailsFile = [
+  query('fileUrl').notEmpty().withMessage('fileUrl is required'),
   async (req, res) => {
     try {
+      if (!checkErrorInValidations.isEmpty()) {
+        return res.status(400).json({
+            result: false,
+            message: "Please enter valid fileUrl",
+            errors: checkErrorInValidations.array(),
+        });
+    } 
       const { fileUrl } = req.query;
-
       console.log(fileUrl)
-
-
-
       // Get all columns from the UsersCopy model
       const attributes = Object.keys(NotFoundAgentCallDetails.rawAttributes);
 
