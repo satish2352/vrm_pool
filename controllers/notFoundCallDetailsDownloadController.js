@@ -45,11 +45,11 @@ const downloadNotInsertedDetailsFile = [
         worksheet.addRow(report);
       });
 
-      var datetime=new Date.now();
+      const currentDateTimeInMillis = Date.now();
 
       // Write the workbook to the response object
       res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-      res.setHeader("Content-Disposition", `attachment; filename=${datetime}.xlsx`);
+      res.setHeader("Content-Disposition", `attachment; filename=${currentDateTimeInMillis}.xlsx`);
       await workbook.xlsx.write(res);
       res.end(); // Send response after writing is completed
     } catch (error) {
