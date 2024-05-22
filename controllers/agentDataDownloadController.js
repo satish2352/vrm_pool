@@ -96,7 +96,7 @@ const downloadFile = (url, destination) => {
     });
   };
   
-  const readCSVFile = (filePath) => {
+  const readCSVFile = (filePath,url) => {
     return new Promise((resolve, reject) => {
         const results = [];
         const matchedResults = [];
@@ -117,14 +117,14 @@ const downloadFile = (url, destination) => {
                             matchedResults.push(data);
                         }else{
                               
-                          data.fileUrl=req.body.output_parameters.report_link;
+                          data.fileUrl=url;
                           data.message="Relationship Manager Not Found";
                           notMatchedResults.push(data)
                         
                         }
                     }).catch(error => {
                         console.error('Error finding user:', error);
-                        data.fileUrl=req.body.output_parameters.report_link;
+                        data.fileUrl=url;
                         data.message="Error";
                         data.error=`${error}`;
                         notMatchedResults.push(data)
@@ -151,7 +151,7 @@ const downloadFile = (url, destination) => {
     const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
     try {
       await downloadFile(url, destination);
-      const [data,notMatchedData] = await readCSVFile(destination);
+      const [data,notMatchedData] = await readCSVFile(destination,url);
       //await insertDataToAgentData(data);
       await insertDataToAgentDataInChunks(data,1000);
       await insertNotMatchedDataInChunks(notMatchedData,1000)
