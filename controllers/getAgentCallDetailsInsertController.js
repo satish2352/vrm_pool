@@ -19,6 +19,10 @@ const getAgentNotInsertCallDetails = [
           group:['fileUrl'],
           attributes:[
             [fn('COUNT', col('id')), 'totalCount'],
+            'fileUrl',
+            'createdAt',
+            'updatedAt',
+            'id',
                 
         ], 
          });
