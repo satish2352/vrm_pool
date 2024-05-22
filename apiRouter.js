@@ -64,7 +64,7 @@ router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
 
-router.post("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
+router.get("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
 router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.getAgentNotInsertCallDetails);
 
 
