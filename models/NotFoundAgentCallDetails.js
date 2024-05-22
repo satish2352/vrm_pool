@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const dbObj = require('../db');
 
 
-const AgentCallDetails = dbObj.define('notfoundagentcalldetails', {
+const NotFoundAgentCallDetails = dbObj.define('notfoundagentcalldetails', {
   AgentName: {
     type: DataTypes.STRING(255),
     allowNull: true
@@ -89,4 +89,4 @@ const AgentCallDetails = dbObj.define('notfoundagentcalldetails', {
 
 // Synchronize the model with the databas
 
-module.exports = AgentCallDetails;
+module.exports = NotFoundAgentCallDetails;

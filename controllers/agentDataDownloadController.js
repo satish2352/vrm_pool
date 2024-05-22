@@ -1,6 +1,6 @@
 const verifyToken = require("../middleware/verifyToken");
 const AgentData = require("../models/AgentData");
-const AgentCallDetails = require("../models/AgentCallDetails");
+const NotFoundAgentCallDetails = require("../models/NotFoundAgentCallDetails");
 const Users = require("../models/Users");
 const { Op, fn, col, literal } = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
@@ -116,7 +116,8 @@ const readCSVFile = (filePath, url) => {
               data.user_id = user.id.toString();
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               matchedResults.push(data);
-            } else 
+            } 
+            else 
             {
               data.fileUrl = url;
               data.message = "Relationship Manager Not Found";
@@ -127,7 +128,7 @@ const readCSVFile = (filePath, url) => {
             data.fileUrl = url;
             data.message = "Error";
             data.error = `${error}`;
-            //notMatchedResults.push(data)
+            notMatchedResults.push(data)
           });
         }else if(!data.AgentPhoneNumber) {
           data.fileUrl = url;
@@ -215,7 +216,7 @@ const insertNotMatchedDataInChunks = async (data, chunkSize = 1000) => {
   // Process each chunk sequentially
   for (const chunk of chunks) {
     try {
-      await AgentCallDetails.bulkCreate(chunk);
+      await NotFoundAgentCallDetails.bulkCreate(chunk);
     } catch (error) {
       console.error('Error: insertDataToAgentData', error);
       // Optionally, handle retries or other error handling here

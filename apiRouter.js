@@ -24,8 +24,11 @@ const agentReportsSingleRowController = require("./controllers/agentReportsSingl
 const getAgentReportsSingleTimeSlotWise = require("./controllers/getAgentReportsSingleTimeSlotWise");
 const getAllReportsController = require("./controllers/getAllReportsController");
 const uploadAgentsControllerNew = require("./controllers/uploadAgentsControllerNew");
-
 const getActiveUserListController = require("./controllers/getActiveUserListController");
+const notFoundCallDetailsDownloadController = require("./controllers/notFoundCallDetailsDownloadController");
+const getAgentCallDetailsInsertController = require("./controllers/getAgentCallDetailsInsertController");
+
+
 
 const tempSendEmailController=require("./controllers/tempSendEmailController")
 const { exec } = require('child_process');
@@ -60,6 +63,11 @@ router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetai
 router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
+
+router.post("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
+router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.getAgentNotInsertCallDetails);
+
+
 
 
 router.post("/uploadAgentsNew",uploadAgentsControllerNew.uploadAgents);
