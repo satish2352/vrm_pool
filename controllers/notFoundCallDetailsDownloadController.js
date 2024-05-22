@@ -17,7 +17,7 @@ const downloadNotInsertedDetailsFile = [
       }
 
       // Get all columns from the UsersCopy model
-      const attributes = Object.keys(UsersCopy.rawAttributes);
+      const attributes = Object.keys(NotFoundAgentCallDetails.rawAttributes);
 
       const workbook = new excelJS.Workbook();
       const worksheet = workbook.addWorksheet('Report');
@@ -31,7 +31,7 @@ const downloadNotInsertedDetailsFile = [
 
       // Fetch reports from the database
       const reports = await NotFoundAgentCallDetails.findAll({
-        where: { url: url }
+        where: { fileUrl: url }
       });
 
       if (!reports.length) {
