@@ -16,7 +16,11 @@ const getAgentNotInsertCallDetails = [
         var results; 
         results = await NotFoundAgentCallDetails.findAll({    
           order: [['id', 'DESC']],
-          group:['fileUrl'] 
+          group:['fileUrl'],
+          attributes:[
+            [fn('COUNT', col('id')), 'totalCount'],
+                
+        ], 
          });
       apiResponse.successResponseWithData(res, 'All details get successfully', results);
     } catch (error) {
