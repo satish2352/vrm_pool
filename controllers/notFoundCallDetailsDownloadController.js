@@ -11,6 +11,7 @@ const downloadNotInsertedDetailsFile = [
   query('fileUrl').notEmpty().withMessage('fileUrl is required'),
   async (req, res) => {
     try {
+      const checkErrorInValidations = validationResult(req);
       if (!checkErrorInValidations.isEmpty()) {
         return res.status(400).json({
             result: false,
