@@ -41,13 +41,7 @@ const downloadNotInsertedDetailsFile = [
 
       // Populate the worksheet with data
       reports.forEach(report => {
-        const rowData = attributes.map(attribute => {
-          if (attribute === 'is_inserted') {
-            // Conditionally pass "yes" or "no" based on the value of `is_inserted`
-            return report.dataValues[attribute] === '1' ? 'yes' : 'no';
-          }
-          return report.dataValues[attribute];
-        });
+    
         worksheet.addRow(rowData);
       });
 
