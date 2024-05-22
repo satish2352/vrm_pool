@@ -11,8 +11,6 @@ const getAgentNotInsertCallDetails = [
   body('fileUrl').notEmpty().withMessage('fileUrl is required'),
   verifyToken,
   async (req, res) => {
-    const fileUrl = req.body.fileUrl; // Filter by role
-    console.log(fileUrl);
     const checkErrorInValidations = validationResult(req);
       if (!checkErrorInValidations.isEmpty()) {
         return res.status(400).json({
@@ -21,6 +19,8 @@ const getAgentNotInsertCallDetails = [
             errors: checkErrorInValidations.array(),
         });
     }
+    const fileUrl = req.body.fileUrl; // Filter by role
+    console.log(fileUrl);
     try {
         var results; 
         results = await NotFoundAgentCallDetails.findAll({
