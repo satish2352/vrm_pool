@@ -129,7 +129,7 @@ const readCSVFile = (filePath, url) => {
             data.error = `${error}`;
             notMatchedResults.push(data)
           });
-        }else{
+        }else if(!data.AgentPhoneNumber) {
           data.fileUrl = url;
           data.message = "Number Not Found";
           data.error = 'sd';
