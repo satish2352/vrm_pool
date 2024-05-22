@@ -13,9 +13,6 @@ const getAgentNotInsertCallDetails = [
   async (req, res) => {
     const url = req.body.url; // Filter by role
     try {
-     // const { fileId} = req.body;
-
-      // Step 1: Filter users based on user_type if provided
       let userFilter = {}; // Initialize an empty filter object
       if (url) {
         userFilter = {
@@ -27,10 +24,8 @@ const getAgentNotInsertCallDetails = [
       {
         results = await NotFoundAgentCallDetails.findAll({
           where: userFilter,
-          order: [['id', 'DESC']],                
-        
-        });
-
+          order: [['id', 'DESC']], 
+         });
     }
       apiResponse.successResponseWithData(res, 'All details get successfully', results);
     } catch (error) {
