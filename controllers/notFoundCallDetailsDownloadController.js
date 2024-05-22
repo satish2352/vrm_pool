@@ -47,7 +47,7 @@ const downloadNotInsertedDetailsFile = [
 
       // Write the workbook to the response object
       res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-      res.setHeader("Content-Disposition", `attachment; filename=${fileUrl}.xlsx`);
+      res.setHeader("Content-Disposition", `attachment; filename=${sachin}.xlsx`);
       await workbook.xlsx.write(res);
       res.end(); // Send response after writing is completed
     } catch (error) {
