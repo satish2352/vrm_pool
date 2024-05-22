@@ -12,9 +12,7 @@ const downloadNotInsertedDetailsFile = [
     try {
       const { url } = req.query;
 
-      if (!url) {
-        return res.status(400).send({ result: false, message: "Enter valid report type" });
-      }
+
 
       // Get all columns from the UsersCopy model
       const attributes = Object.keys(NotFoundAgentCallDetails.rawAttributes);
