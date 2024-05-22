@@ -106,14 +106,7 @@ const readCSVFile = (filePath, url) => {
     fs.createReadStream(filePath)
       .pipe(csv())
       .on('data', (data) => {
-
-        if ('AgentPhoneNumber' in data) {
-        } else {
-          data.message = 'AgentPhoneNumber column is missing';
-          notMatchedResults.push(data);
-        }
-
-        if ('AgentPhoneNumber' in data){
+        if (data && data.AgentPhoneNumber){
           var promise;
           promise = Users.findOne({
             where: { mobile: data.AgentPhoneNumber.slice(-10) },
