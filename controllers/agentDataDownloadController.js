@@ -130,6 +130,12 @@ const downloadFile = (url, destination) => {
                         notMatchedResults.push(data)
                     });
                     promises.push(promise);
+                }else{
+                       data.fileUrl=url;
+                        data.message="Error";
+                        data.error=`${error}`;
+                        data.AgentPhoneNumber="Number is null or empty"
+                        notMatchedResults.push(data)
                 }
             })
             .on('end', () => {
