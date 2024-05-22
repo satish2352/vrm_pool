@@ -1,5 +1,4 @@
 const verifyToken = require("../middleware/verifyToken");
-const { body, query, validationResult } = require("express-validator");
 const sequelize = require('../db');
 const { Op } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
