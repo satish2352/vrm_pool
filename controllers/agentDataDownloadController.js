@@ -160,6 +160,14 @@ const downloadFile = (url, destination) => {
       const [data,notMatchedData] = await readCSVFile(destination,url);
       //await insertDataToAgentData(data);
       await insertDataToAgentDataInChunks(data,1000);
+      console.log('--------------------------------------')
+      console.log('--------------------------------------')
+      console.log('--------------------------------------')
+      console.log(notMatchedData.length)
+      console.log('--------------------------------------')
+      console.log('--------------------------------------')
+      console.log('--------------------------------------')
+      console.log('--------------------------------------')
       await insertNotMatchedDataInChunks(notMatchedData,1000)
     
     } catch (error) {
