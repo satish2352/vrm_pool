@@ -10,7 +10,7 @@ const excelJS = require("exceljs");
 const downloadNotInsertedDetailsFile = [
   async (req, res) => {
     try {
-      const { url } = req.query;
+      const { fileUrl } = req.query;
 
 
 
@@ -29,7 +29,7 @@ const downloadNotInsertedDetailsFile = [
 
       // Fetch reports from the database
       const reports = await NotFoundAgentCallDetails.findAll({
-        where: { fileUrl: url }
+        where: { fileUrl: fileUrl }
       });
 
       if (!reports.length) {
