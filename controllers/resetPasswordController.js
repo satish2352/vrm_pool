@@ -52,7 +52,7 @@ const resetPassword = [
                           },
                       });
                         if (!user) {
-                          return res.status(404).json({ result: true,message: "Enter valid credentials" });
+                          return res.status(404).json({ result: true,message: "User not found or not active with entered mobile number" });
                         }else{
                         
                           var otpRecord=await verifyOTP(user.id,otp);

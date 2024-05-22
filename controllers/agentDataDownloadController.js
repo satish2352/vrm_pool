@@ -140,7 +140,9 @@ const downloadFile = (url, destination) => {
     try {
       await downloadFile(url, destination);
       const data = await readCSVFile(destination);
-      await insertDataToAgentData(data);
+      //await insertDataToAgentData(data);
+      await insertDataToAgentDataInChunks(data,100);
+
       
     } catch (error) {
       console.error('Error:downloadAndReadCSV', error);
@@ -155,6 +157,32 @@ const downloadFile = (url, destination) => {
       console.error('Error:insertDataToAgentData', error);
     }
   };
+
+
+
+  const insertDataToAgentDataInChunks = async (data, chunkSize = 1000) => {
+    // Helper function to chunk the data array
+    const chunkArray = (array, chunkSize) => {
+      const results = [];
+      for (let i = 0; i < array.length; i += chunkSize) {
+        results.push(array.slice(i, i + chunkSize));
+      }
+      return results;
+    };
+  
+    const chunks = chunkArray(data, chunkSize);
+  
+    // Process each chunk sequentially
+    for (const chunk of chunks) {
+      try {
+        await AgentData.bulkCreate(chunk);
+      } catch (error) {
+        console.error('Error: insertDataToAgentData', error);
+        // Optionally, handle retries or other error handling here
+      }
+    }
+  };
+
 module.exports = {
   getAgentCallDetails,
 };

@@ -23,6 +23,7 @@ const agentDataDownloadController = require("./controllers/agentDataDownloadCont
 const agentReportsSingleRowController = require("./controllers/agentReportsSingleRowController");
 const getAgentReportsSingleTimeSlotWise = require("./controllers/getAgentReportsSingleTimeSlotWise");
 const getAllReportsController = require("./controllers/getAllReportsController");
+const uploadAgentsControllerNew = require("./controllers/uploadAgentsControllerNew");
 
 const getActiveUserListController = require("./controllers/getActiveUserListController");
 
@@ -59,6 +60,9 @@ router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetai
 router.post("/getAllReports",getAllReportsController.getAllReports);
 router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
+
+
+router.post("/uploadAgentsNew",uploadAgentsControllerNew.uploadAgents);
 
 router.post('/cronejob', (req, res) => {
     exec('sh dumpdata.sh', (error, stdout, stderr) => {
