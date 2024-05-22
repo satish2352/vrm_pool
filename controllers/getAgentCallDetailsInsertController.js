@@ -8,12 +8,19 @@ const { Op, fn, col ,literal} = require('sequelize'); // Importing Op, fn, and c
 
 
 const getAgentNotInsertCallDetails = [
-  body(),
+  body('fileUrl').notEmpty().withMessage('fileUrl is required'),
   verifyToken,
   async (req, res) => {
     const fileUrl = req.body.fileUrl; // Filter by role
-
     console.log(fileUrl);
+    const checkErrorInValidations = validationResult(req);
+      if (!checkErrorInValidations.isEmpty()) {
+        return res.status(400).json({
+            result: false,
+            message: "Please enter valid fileUrl",
+            errors: checkErrorInValidations.array(),
+        });
+    }
     try {
         var results; 
         results = await NotFoundAgentCallDetails.findAll({
