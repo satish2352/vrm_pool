@@ -127,7 +127,7 @@ const readCSVFile = (filePath, url) => {
             data.fileUrl = url;
             data.message = "Error";
             data.error = `${error}`;
-            notMatchedResults.push(data)
+            //notMatchedResults.push(data)
           });
         }else if(!data.AgentPhoneNumber) {
           data.fileUrl = url;
