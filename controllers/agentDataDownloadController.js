@@ -106,6 +106,13 @@ const readCSVFile = (filePath, url) => {
     fs.createReadStream(filePath)
       .pipe(csv())
       .on('data', (data) => {
+
+        if ('AgentPhoneNumber' in data) {
+        } else {
+          data.message = 'AgentPhoneNumber column is missing';
+          notMatchedResults.push(data);
+        }
+
         if ('AgentPhoneNumber' in data){
           var promise;
           promise = Users.findOne({
@@ -115,12 +122,11 @@ const readCSVFile = (filePath, url) => {
               data.user_id = user.id.toString();
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               matchedResults.push(data);
-            } else {
-
+            } else 
+            {
               data.fileUrl = url;
               data.message = "Relationship Manager Not Found";
               notMatchedResults.push(data)
-
             }
           }).catch(error => {
             console.error('Error finding user:', error);
@@ -129,11 +135,6 @@ const readCSVFile = (filePath, url) => {
             data.error = `${error}`;
             notMatchedResults.push(data)
           });
-        }else{
-          data.fileUrl = url;
-            data.message = "AgentPhoneNumber Not found";
-            data.error = `${error}`;
-            notMatchedResults.push(data)
         }
         promises.push(promise);
       })
