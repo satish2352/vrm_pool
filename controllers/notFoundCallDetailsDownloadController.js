@@ -42,7 +42,7 @@ const downloadNotInsertedDetailsFile = [
       // Populate the worksheet with data
       reports.forEach(report => {
     
-        worksheet.addRow(rowData);
+        worksheet.addRow(report);
       });
 
       // Write the workbook to the response object
