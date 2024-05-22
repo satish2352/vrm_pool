@@ -11,24 +11,17 @@ const getAgentNotInsertCallDetails = [
   body(),
   verifyToken,
   async (req, res) => {
-    const url = req.body.url; // Filter by role
+    const url = req.body.fileUrl; // Filter by role
 
-    console.log(url);
+    console.log(fileUrl);
     try {
-      let userFilter = {}; // Initialize an empty filter object
-      if (url) {
-        userFilter = {
-            url: url
-        };
-      }
-      var results; 
-      if(url)
-      {
+        var results; 
         results = await NotFoundAgentCallDetails.findAll({
-          where: userFilter,
+          where: {
+            fileUrl:fileUrl
+          },
           order: [['id', 'DESC']], 
          });
-    }
       apiResponse.successResponseWithData(res, 'All details get successfully', results);
     } catch (error) {
       apiResponse.ErrorResponse(res, "Error occured during api call");
