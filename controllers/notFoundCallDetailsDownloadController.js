@@ -12,6 +12,8 @@ const downloadNotInsertedDetailsFile = [
     try {
       const { fileUrl } = req.query;
 
+      console.log(fileUrl)
+
 
 
       // Get all columns from the UsersCopy model
