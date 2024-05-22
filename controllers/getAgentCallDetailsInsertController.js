@@ -11,7 +11,7 @@ const getAgentNotInsertCallDetails = [
   body(),
   verifyToken,
   async (req, res) => {
-    const url = req.body.fileUrl; // Filter by role
+    const fileUrl = req.body.fileUrl; // Filter by role
 
     console.log(fileUrl);
     try {
