@@ -107,9 +107,10 @@ const downloadFile = (url, destination) => {
             .pipe(csv())
             .on('data', (data) => {
                 if (data.AgentPhoneNumber) {
+                  var promise;
                     // Push a promise for each findOne call into the promises array
                     if (data.AgentPhoneNumber !== null && data.AgentPhoneNumber !== '') {
-                      const promise = Users.findOne({
+                       promise = Users.findOne({
                         where: { mobile: data.AgentPhoneNumber.slice(-10) },
                     }).then(user => {
                         if (user) {
