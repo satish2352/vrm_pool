@@ -108,7 +108,8 @@ const downloadFile = (url, destination) => {
             .on('data', (data) => {
                 if (data.AgentPhoneNumber) {
                     // Push a promise for each findOne call into the promises array
-                    const promise = Users.findOne({
+                    if (data.AgentPhoneNumber !== null && data.AgentPhoneNumber !== '') {
+                      const promise = Users.findOne({
                         where: { mobile: data.AgentPhoneNumber.slice(-10) },
                     }).then(user => {
                         if (user) {
@@ -129,13 +130,16 @@ const downloadFile = (url, destination) => {
                         data.error=`${error}`;
                         notMatchedResults.push(data)
                     });
+                      
+                    }else{
+                        data.fileUrl=url;
+                         data.message="Error";
+                         data.error=`Number is null or empty`;
+                         data.AgentPhoneNumber="Number is null or empty"
+                         notMatchedResults.push(data)
+                    }
+                    
                     promises.push(promise);
-                }else{
-                       data.fileUrl=url;
-                        data.message="Error";
-                        data.error=`Number is null or empty`;
-                        data.AgentPhoneNumber="Number is null or empty"
-                        notMatchedResults.push(data)
                 }
             })
             .on('end', () => {
