@@ -133,7 +133,7 @@ const downloadFile = (url, destination) => {
                 }else{
                        data.fileUrl=url;
                         data.message="Error";
-                        data.error=`${error}`;
+                        data.error=`Number is null or empty`;
                         data.AgentPhoneNumber="Number is null or empty"
                         notMatchedResults.push(data)
                 }
