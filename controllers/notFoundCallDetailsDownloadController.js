@@ -41,7 +41,10 @@ const downloadNotInsertedDetailsFile = [
 
       if (!reports.length) {
         console.log("No reports found");
-        return apiResponse.successResponse(res, "No reports found", []);
+        return res.status(200).json({
+          result: false,
+          message: "No records found",
+      });
       }
 
       // Populate the worksheet with data
