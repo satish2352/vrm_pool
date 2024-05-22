@@ -12,6 +12,8 @@ const getAgentNotInsertCallDetails = [
   verifyToken,
   async (req, res) => {
     const url = req.body.url; // Filter by role
+
+    console.log(url);
     try {
       let userFilter = {}; // Initialize an empty filter object
       if (url) {
