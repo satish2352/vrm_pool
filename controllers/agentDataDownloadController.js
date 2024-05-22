@@ -106,10 +106,8 @@ const readCSVFile = (filePath, url) => {
     fs.createReadStream(filePath)
       .pipe(csv())
       .on('data', (data) => {
-        if (data && data.AgentPhoneNumber) {
+        if ('AgentPhoneNumber' in data){
           var promise;
-          // Push a promise for each findOne call into the promises array
-
           promise = Users.findOne({
             where: { mobile: data.AgentPhoneNumber.slice(-10) },
           }).then(user => {
@@ -131,13 +129,11 @@ const readCSVFile = (filePath, url) => {
             data.error = `${error}`;
             notMatchedResults.push(data)
           });
-
-        } else {
+        }else{
           data.fileUrl = url;
-          data.message = "Error";
-          data.error = `Number is null or empty`;
-          data.AgentPhoneNumber = "Number is null or empty"
-          notMatchedResults.push(data)
+            data.message = "AgentPhoneNumber Not found";
+            data.error = `${error}`;
+            notMatchedResults.push(data)
         }
         promises.push(promise);
       })
