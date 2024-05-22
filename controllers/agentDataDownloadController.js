@@ -135,7 +135,7 @@ const downloadFile = (url, destination) => {
             .on('end', () => {
                 // Wait for all promises to resolve before resolving the main promise
                 Promise.all(promises).then(() => {
-                    resolve(matchedResults,notMatchedResults);
+                    resolve([matchedResults,notMatchedResults]);
                 }).catch(error => {
                     console.error('Error:', error);
                     reject(error);
