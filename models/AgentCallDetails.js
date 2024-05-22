@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const dbObj = require('../db');
 
 
-const AgentCallDetails = dbObj.define('agentcalldetails', {
+const AgentCallDetails = dbObj.define('notfoundagentcalldetails', {
   AgentName: {
     type: DataTypes.STRING(255),
     allowNull: true

@@ -129,6 +129,11 @@ const readCSVFile = (filePath, url) => {
             data.error = `${error}`;
             notMatchedResults.push(data)
           });
+        }else{
+          data.fileUrl = url;
+          data.message = "Number Not Found";
+          data.error = 'sd';
+          notMatchedResults.push(data)
         }
         promises.push(promise);
       })
