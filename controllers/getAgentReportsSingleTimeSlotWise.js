@@ -52,7 +52,9 @@ const getAgentReportsSingleRow = [
 
                 for (const agent of agentsBatch) {
                     const userId = agent.id;
-                    const slots = await splitTimeIntoSlots(new Date(fromtime), new Date(totime));
+                    var fromTimeDate = new Date(fromtime);
+                    fromTimeDate=new Date(fromTimeDate.getTime() - 60 * 60000)
+                    const slots = await splitTimeIntoSlots(fromTimeDate, fromTimeDate);
                     const reportsBatch = [];
 
                     for (const slot of slots) {
