@@ -25,13 +25,13 @@ const getAgentReportsSingleRow = [
 
             let processedCount = 0;
             const allReports = [];
-            let currentTime1HrBack = new Date(fromtime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-            let toTime1Hrback = new Date(currentTime.getTime() + 60 * 60000); // Subtract 60 
+            let currentTime1HrBack = new Date(fromtime).getTime() - 60 * 60000; // Subtract 60 minutes from fromTime
+            let toTime1Hrback = new Date(currentTime).getTime() + 60 * 60000; // Subtract 60 
 
             while (true) {
                 const reportFilter = {
                     updatedAt: {
-                        [Op.between]: [new Date(fromtcurrentTime1HrBackime), new Date(toTime1Hrback)]
+                        [Op.between]: [new Date(currentTime1HrBack), new Date(toTime1Hrback)]
                     }
                 };
 
