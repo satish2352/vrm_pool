@@ -43,7 +43,7 @@ const getAgentReportsSingleRow = [
             while (true) {
                 const reportFilter = {
                     updatedAt: {
-                        [Op.between]: [new Date(currentTime1HrBack), new Date(toTime1Hrback)]
+                        [Op.between]: [new Date(toTime1Hrback), new Date(currentTime1HrBack)]
                     }
                 };
 
