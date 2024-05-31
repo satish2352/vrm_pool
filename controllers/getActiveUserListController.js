@@ -3,6 +3,7 @@ const Users = require("../models/Users");
 const { body, query, validationResult } = require("express-validator");
 const { Op } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
+require('dotenv').config();
 
 
 const getActiveUserList = [
@@ -11,7 +12,17 @@ const getActiveUserList = [
   async (req, res) => {
     const user_type = req.body.user_type; // Filter by role
     const superviserId = req.body.superviserId; // Filter by role
-    const { page = 1, pageSize = 100 } = req.body;
+    const { page = 1} = req.body;
+    if(!page)
+      {
+          page=1;
+      }
+    var pageSize =process.env.PAGE_LENGTH
+    const  customPageSize = req.body.pageSize;
+    if(customPageSize)
+      {
+        pageSize =customPageSize
+      }
     try {
 
       let userFilter ={};

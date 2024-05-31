@@ -13,8 +13,19 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1, pageSize = 100} = req.body;
+            const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1,} = req.body;
 
+            if(!page)
+                {
+                    page=1;
+                }
+            pageSize =process.env.PAGE_LENGTH
+            const  customPageSize = req.body.pageSize;
+            if(customPageSize)
+              {
+                pageSize =customPageSize
+              }
+        
             // Construct filter for Users
             let userFilter = {
                 is_active: 1,
