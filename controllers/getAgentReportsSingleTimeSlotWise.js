@@ -14,6 +14,7 @@ const getAgentReportsSingleRow = [
     async (req, res) => {
         try {
             const { user_type,supervisor_id,agent_id ,fromtime,totime} = req.body;
+            const { page = 1, pageSize = 100} = req.body;
             let userFilter = {
                 is_active:1,
                 is_deleted:0
@@ -43,7 +44,13 @@ const getAgentReportsSingleRow = [
             const userIds = users.map(user => user.id);
             let reportFilter = {
                 user_id: userIds,
-            };    
+            };
+            
+            // Pagination parameters
+            const offset = (page - 1) * pageSize;
+            const limit = parseInt(pageSize);
+
+
             // const fromTimeNew = new Date(fromdate+" "+fromtime+":00"); // From time in UTC
             // const toTimeNew = new Date(todate+" "+totime+":59"); 
             var slots= await splitTimeIntoSlots(new Date(fromtime),new Date(totime))
@@ -51,6 +58,7 @@ const getAgentReportsSingleRow = [
             const all_agent = await User.findAll({
                 where:userFilter
             });
+       
              for (let i = 0; i < all_agent.length; i++) {
                 let agent_id = all_agent[i].id
                 reportFilter.user_id = agent_id;
@@ -59,7 +67,7 @@ const getAgentReportsSingleRow = [
                     reportFilter.updatedAt = {
                         [Op.between]: [slot.start_time, slot.end_time]
                     };                            
-                    const reports = await AgentData.findAll({
+                   const { count, rows: reports } = await AgentData.findAll({
                         attributes: [                   
                             [
                                 fn('SUM',  col('IncomingCalls')),
@@ -110,18 +118,35 @@ const getAgentReportsSingleRow = [
                             attributes: ['mobile', 'id', 'name','email', 'user_type', 'is_active'],                
                         }],
                         group: ['user_id'], 
-                        order: [['createdAt', 'DESC']]
+                        order: [['createdAt', 'DESC']],
+                        limit,
+                        offset,
                     });                
                     //allReports.push({ slot: slot, reports: reports });
                     if(reports.length>0)
                     {
+                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>-----------------------------------------------------');
+                        console.log('reports lenth 0');
                     reports[0]['DeviceOnPercent']=slot                              
                     allReports.push(reports[0])
+                    }else{
+                        console.log('-----------------------------------------------------');
+                        console.log('reports lenth 0');
                     }
                     
                 }
              }
-            apiResponse.successResponseWithDataSlotWise(res, 'All details get successfully', allReports);
+             const totalPages = Math.ceil(allReports.length / pageSize);
+             var resData = {
+                result: true,               
+                data: allReports,
+                totalItems: allReports.length,
+                totalPages: totalPages,
+                currentPage: page,
+                pageSize: pageSize,
+            };
+            return res.status(200).json(resData);
+            //apiResponse.successResponseWithDataSlotWise(res, 'All details get successfully', allReports);
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");

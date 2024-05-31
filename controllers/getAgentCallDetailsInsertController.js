@@ -21,9 +21,7 @@ const getAgentNotInsertCallDetails = [
             [fn('COUNT', col('id')), 'totalCount'],
             'fileUrl',
             'createdAt',
-            'updatedAt',
-            'id',
-                
+            'updatedAt'                
         ], 
          });
       apiResponse.successResponseWithData(res, 'All details get successfully', results);

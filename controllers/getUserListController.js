@@ -1,62 +1,68 @@
 const verifyToken = require("../middleware/verifyToken");
 const Users = require("../models/Users");
-const { body, query, validationResult } = require("express-validator");
+const { body } = require("express-validator");
 const { Op } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
-
 
 const getUserList = [
   body(),
   verifyToken,
   async (req, res) => {
     const user_type = req.body.user_type; // Filter by role
-    const superviserId = req.body.superviserId; // Filter by role
-  
+    const superviserId = req.body.superviserId; // Filter by supervisor ID
+    const { page = 1, pageSize = 100 } = req.body;
+
     try {
+      let userFilter = {};
 
-      console.log('--------');
-      console.log(req.user.user_type);
-
-      let userFilter ={};
-      if(req.user.user_type=='1'){
-      
-        userFilter = 
-        {          
+      if (req.user.user_type == '1') {
+        userFilter = {
           is_deleted: '0',
         };
-      }else{
-        userFilter = 
-        {          
+      } else {
+        userFilter = {
           is_deleted: '0',
-          is_active:'1'
+          is_active: '1'
         };
       }
-      // Step 1: Filter users based on user_type if provided
-      // Initialize an empty filter object      
+
       if (user_type) {
-        userFilter = {
-          user_type: user_type,
-          is_deleted: '0',
-        }
-      }else{
-        userFilter.user_type = [2, 3];      
+        userFilter.user_type = user_type;
+      } else {
+        userFilter.user_type = { [Op.in]: [2, 3] };
       }
+
       if (superviserId) {
-        userFilter = {
-          added_by: superviserId
-        };
+        userFilter.added_by = superviserId;
       }
-      
-      
-      const userMobiles = await Users.findAll({
-        attributes:['id','name','email','mobile','user_type','is_active','is_deleted'],
-        where: userFilter, 
-        order: [['id', 'DESC']]           
+
+      // Pagination parameters
+      const offset = (page - 1) * pageSize;
+      const limit = parseInt(pageSize);
+
+      // Fetch users with pagination
+      const { count, rows: reports } = await Users.findAndCountAll({
+        attributes: ['id', 'name', 'email', 'mobile', 'user_type', 'is_active', 'is_deleted'],
+        where: userFilter,
+        order: [['id', 'DESC']],
+        limit,
+        offset,
       });
 
-      apiResponse.successResponseWithData(res, 'All details get successfully', userMobiles);
+      const totalPages = Math.ceil(count / pageSize);
+
+      const resData = {
+        result: true,
+        data: reports,
+        totalItems: count,
+        totalPages: totalPages,
+        currentPage: page,
+        pageSize: pageSize,
+      };
+
+      return res.status(200).json(resData);
     } catch (error) {
-      apiResponse.ErrorResponse(res, "Error occured during api call");
+      apiResponse.ErrorResponse(res, "Error occurred during API call");
       console.error('Error fetching users with filters:', error);
       throw error;
     }
@@ -64,5 +70,5 @@ const getUserList = [
 ];
 
 module.exports = {
-    getUserList,
+  getUserList,
 };

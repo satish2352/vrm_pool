@@ -11,7 +11,7 @@ const getActiveUserList = [
   async (req, res) => {
     const user_type = req.body.user_type; // Filter by role
     const superviserId = req.body.superviserId; // Filter by role
-  
+    const { page = 1, pageSize = 100 } = req.body;
     try {
 
       let userFilter ={};
@@ -37,14 +37,31 @@ const getActiveUserList = [
           is_deleted: 0,
           is_active: 1
         };
-      }             
-      const userMobiles = await Users.findAll({
+      }
+      // Pagination parameters
+      const offset = (page - 1) * pageSize;
+      const limit = parseInt(pageSize);
+
+      const { count, rows: reports } = await Users.findAndCountAll({
         attributes:['id','name','email','mobile','user_type','is_active','is_deleted'],
         where: userFilter, 
-        order: [['id', 'DESC']]           
+        order: [['id', 'DESC']],
+        limit,
+        offset,           
       });
 
-      apiResponse.successResponseWithData(res, 'All details get successfully', userMobiles);
+      const totalPages = Math.ceil(count / pageSize);
+
+      const resData = {
+        result: true,
+        data: reports,
+        totalItems: count,
+        totalPages: totalPages,
+        currentPage: page,
+        pageSize: pageSize,
+      };
+
+      return res.status(200).json(resData);
     } catch (error) {
       apiResponse.ErrorResponse(res, "Error occured during api call");
       console.error('Error fetching users with filters:', error);

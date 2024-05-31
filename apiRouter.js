@@ -30,7 +30,8 @@ const getAgentCallDetailsInsertController = require("./controllers/getAgentCallD
 
 
 
-const tempSendEmailController=require("./controllers/tempSendEmailController")
+//const tempSendEmailController=require("./controllers/tempSendEmailController")
+
 const { exec } = require('child_process');
 
 
@@ -61,7 +62,7 @@ router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgent
 router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWise.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
-router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
+//router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
 
 router.get("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
