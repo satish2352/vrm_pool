@@ -29,6 +29,9 @@ const notFoundCallDetailsDownloadController = require("./controllers/notFoundCal
 const getAgentCallDetailsInsertController = require("./controllers/getAgentCallDetailsInsertController");
 
 
+const getAgentReportsSingleTimeSlotWiseNew = require("./controllers/getAgentReportsSingleTimeSlotWiseNew");
+
+
 
 //const tempSendEmailController=require("./controllers/tempSendEmailController")
 
@@ -59,7 +62,7 @@ router.post("/deleteUser",deleteUserController.deleteUser);
 router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassword);
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgentReportsSingleRow);
-router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWise.getAgentReportsSingleRow);
+router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWiseNew.getAgentReportsSingleRow);
 router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 //router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
