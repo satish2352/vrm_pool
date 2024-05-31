@@ -52,9 +52,7 @@ const getAgentReportsSingleRow = [
 
                 for (const agent of agentsBatch) {
                     const userId = agent.id;
-                    var fromTimeDate = new Date(fromtime);
-                    fromTimeDate=new Date(fromTimeDate.getTime() - 60 * 60000)
-                    const slots = await splitTimeIntoSlots(fromTimeDate, fromTimeDate);
+                    const slots = await splitTimeIntoSlots(new Date(fromtime), new Date(totime));
                     const reportsBatch = [];
 
                     for (const slot of slots) {
@@ -88,13 +86,13 @@ const getAgentReportsSingleRow = [
                         });
 
                         if (reports.length > 0) {
-                            reports[0].DeviceOnPercent = slot;
+                            reports[0]['DeviceOnPercent'] = slot;
                             reportsBatch.push(reports[0]);
                         }
                     }
 
                     if (reportsBatch.length > 0) {
-                        allReports.push(...reportsBatch);
+                        allReports.push(reportsBatch);
                     }
                 }
 
@@ -103,6 +101,7 @@ const getAgentReportsSingleRow = [
 
             const totalItems = allReports.length;
             const totalPages = Math.ceil(totalItems / pageSize);
+
             const paginatedReports = allReports.slice(offset, offset + limit);
 
             const resData = {
