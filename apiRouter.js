@@ -30,6 +30,7 @@ const getAgentCallDetailsInsertController = require("./controllers/getAgentCallD
 
 
 const getAgentReportsSingleTimeSlotWiseNew = require("./controllers/getAgentReportsSingleTimeSlotWiseNew");
+const getActiveAllUsersListWithoutPaginationController = require("./controllers/getActiveAllUsersListWithoutPaginationController");
 
 
 
@@ -70,6 +71,10 @@ router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
 
 router.get("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
 router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.getAgentNotInsertCallDetails);
+
+router.post("/getActiveUserListWithoutPagination",getActiveAllUsersListWithoutPaginationController.getActiveUserListWithoutPagination);
+
+
 
 
 
