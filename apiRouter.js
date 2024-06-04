@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const express = require("express");
+const multer = require('multer');
+const upload = multer();
+
 const usersController = require("./controllers/usersController");
 const loginController = require("./controllers/loginController");
 const getUserController = require("./controllers/getUserController");
@@ -64,7 +67,7 @@ router.post("/resetUserPassword",adminUserPasswordResetController.resetUserPassw
 router.post("/updateUser",updateUserController.updateUser);
 router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgentReportsSingleRow);
 router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWiseNew.getAgentReportsSingleRow);
-router.post("/getagentcalldetails",agentDataDownloadController.getAgentCallDetails);
+router.post("/getagentcalldetails", upload.none(),agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
 //router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);

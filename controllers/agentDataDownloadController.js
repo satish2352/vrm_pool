@@ -15,7 +15,7 @@ const getAgentCallDetails = [
     try {
       const authHeader = req.headers['authorization'];
 
-      if (!authHeader && (req.body.output_parameters.report_link == '' || req.body.output_parameters.report_link == null)) {
+      if (!authHeader && (req.body.UploadLocation == '' || req.body.UploadLocation == null)) {
         return res.status(400).json({
           'result': false,
           'message': 'Bad Request '
@@ -51,14 +51,14 @@ const getAgentCallDetails = [
       }
 
 
-      if (req.body.output_parameters.report_link == '' || req.body.output_parameters.report_link == null) {
+      if (req.body.UploadLocation == '' || req.body.UploadLocation == null) {
         // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
         return res.status(500).json({
           'status': 204,
           'message': 'Mandatory parameter missing'
         });
       } else {
-        await downloadAndReadCSV(req.body.output_parameters.report_link);
+        await downloadAndReadCSV(req.body.UploadLocation);
         return res.status(200).json({
           'status': 200,
           'message': 'Data received successfully'
