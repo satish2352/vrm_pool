@@ -153,7 +153,7 @@ const uploadAgents = [
               mobile: user.mobile,
               email: user.email,
               password: '12345678',
-              user_type: 2,
+              user_type: 3,
               is_inserted: 0,
               reason: errorMessage,
               fileId: fileId,
