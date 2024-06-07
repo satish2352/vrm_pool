@@ -129,6 +129,6 @@ app.listen(PORT,'0.0.0.0', () => {
 });
 
 // API routes
-app.use("/api/", apiRouter);
+app.all("/api/", apiRouter);
 
 module.exports = app;
