@@ -15,7 +15,14 @@ const getAgentCallDetails = [
     try {
       const authHeader = req.headers['authorization'];
 
-      if (!authHeader && (req.body.UploadLocation == '' || req.body.UploadLocation == null)) {
+      // if (!authHeader && (req.body.UploadLocation == '' || req.body.UploadLocation == null)) {
+      //   return res.status(400).json({
+      //     'result': false,
+      //     'message': 'Bad Request '
+      //   });
+      // }
+
+      if (req.body.UploadLocation == '' || req.body.UploadLocation == null) {
         return res.status(400).json({
           'result': false,
           'message': 'Bad Request '
@@ -23,32 +30,32 @@ const getAgentCallDetails = [
       }
 
 
-      if (!authHeader) {
-        return res.status(401).json({
-          'result': false,
-          'message': 'Invalid authentication details'
-        });
-      }
+      // if (!authHeader) {
+      //   return res.status(401).json({
+      //     'result': false,
+      //     'message': 'Invalid authentication details'
+      //   });
+      // }
 
-      const authData = authHeader.split(' ');
-      if (authData.length !== 2 || authData[0].toLowerCase() !== 'basic') {
-        return res.status(401).json({
-          'result': false,
-          'message': 'Invalid authentication details'
-        });
-      }
+      // const authData = authHeader.split(' ');
+      // if (authData.length !== 2 || authData[0].toLowerCase() !== 'basic') {
+      //   return res.status(401).json({
+      //     'result': false,
+      //     'message': 'Invalid authentication details'
+      //   });
+      // }
 
       const credentials = Buffer.from(authData[1], 'base64').toString().split(':');
       const username = credentials[0];
       const password = credentials[1];
 
       // Check if username and password match expected values
-      if (username !== 'vrm_pool' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR==') {
-        return res.status(401).json({
-          'result': false,
-          'message': 'Invalid authentication details'
-        });
-      }
+      // if (username !== 'vrm_pool' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR==') {
+      //   return res.status(401).json({
+      //     'result': false,
+      //     'message': 'Invalid authentication details'
+      //   });
+      // }
 
 
       if (req.body.UploadLocation == '' || req.body.UploadLocation == null) {
