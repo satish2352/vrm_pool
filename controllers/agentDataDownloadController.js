@@ -45,9 +45,9 @@ const getAgentCallDetails = [
       //   });
       // }
 
-      const credentials = Buffer.from(authData[1], 'base64').toString().split(':');
-      const username = credentials[0];
-      const password = credentials[1];
+      // const credentials = Buffer.from(authData[1], 'base64').toString().split(':');
+      // const username = credentials[0];
+      // const password = credentials[1];
 
       // Check if username and password match expected values
       // if (username !== 'vrm_pool' || password !== 'ZX#HqZvs1@Zuvl9jvAhj&CTAxg2YhR==') {
