@@ -52,7 +52,6 @@ const getUserInsertDetails = [
         });
 
       }else{
-        console.log('else')
          results = await UsersCopy.findAll({
           where: userFilter,
           order: [['id', 'DESC']],

@@ -46,7 +46,6 @@ const deleteUser = [
                                     await user.save()
                                         .then(updatedUser => {
                                             // Handle successful update
-                                            //console.log('User status updated successfully:', updatedUser);
                                             return res.status(200).json({ result: true, message: "User deleted successfully" });
                                         })
                                         .catch(error => {
@@ -65,7 +64,6 @@ const deleteUser = [
                                 await user.save()
                                     .then(updatedUser => {
                                         // Handle successful update
-                                        //console.log('User status updated successfully:', updatedUser);
                                         return res.status(200).json({ result: true, message: "User deleted updated successfully" });
                                     })
                                     .catch(error => {
@@ -86,7 +84,6 @@ const deleteUser = [
                 }
             }
         } catch (err) {
-            console.log(err);
             res.status(500).send({ result: false, err });
         }
     },

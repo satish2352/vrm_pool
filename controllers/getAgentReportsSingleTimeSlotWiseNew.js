@@ -35,10 +35,7 @@ const getAgentReportsSingleRow = [
             let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
             toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
 
-            console.log('---------------------------------')
-            console.log(currentTime1HrBack)
-            console.log('---------------------------------')
-            console.log(toTime1Hrback)
+            
 
             while (true) {
                 const reportFilter = {

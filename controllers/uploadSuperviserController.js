@@ -125,25 +125,7 @@ const uploadSupervisers = [
                   added_by: adminId,
                   textpassword: textpassword
                 };              
-                  // try {
-                  //     await transporter.sendMail({
-                  //         from: 'vishvambhargore@sumagoinfotech.in',
-                  //         to: user.email,
-                  //         subject: 'Welcome to VRM Pool Monitoring Dashboard',
-                  //         text: `Dear Supervisor,\nYou have been added successfully to the VRM Pool Monitoring Dashboard.\n Please find below your login credentials. \n              
-                  //         \n username :${createdUser.mobile} \n
-                  //         \n password :${createdUser.randomPassword} \n               
-                  //         Note: Please change your password post login. \n`,
-                  //     });
-                  //     console.log(`Email sent to ${createdUser.email}`);
-                  //     console.log(`Password  ${createdUser.textpassword}`);
-                  // } catch (error) {
-                  //     console.error(`Error sending email to ${user.createdUser}:`, error);
-                  // }
-
-
-
-
+                 
                   try {
 
                     AWS.config.update({ region: 'us-east-1' });
@@ -194,7 +176,6 @@ const uploadSupervisers = [
                             //return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK =>  ${err}`);
                   
                           } else {
-                            console.log('Email sent successfully:', data);
                             //return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
                         }
                         });

@@ -24,8 +24,6 @@ const getActiveUserList = [
         pageSize =customPageSize
       }
 
-      console.log('-----------------------------------')
-      console.log(customPageSize)
     
     try {
 
@@ -33,7 +31,6 @@ const getActiveUserList = [
       // Step 1: Filter users based on user_type if provided
       // Initialize an empty filter object      
       if (user_type) {
-        console.log('-----------')
         userFilter = {
           user_type: user_type,
           is_deleted: 0,

@@ -44,7 +44,6 @@ const addusers = [
       }).then((user) => {
         if (user == null) {
         } else {
-          console.log(user);
           return Promise.reject("Enter id already exists");
         }
       });

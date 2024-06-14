@@ -112,8 +112,7 @@ const sendOTP = [
                         const ses = new AWS.SES(assumedRoleConfig);
                       
                         var toEmail=user.email
-                        console.log('---------------')
-                        console.log(user.email)
+                        
                         // Construct the SES email parameters
                         const params = {
                           Destination: {
@@ -135,7 +134,6 @@ const sendOTP = [
                             return apiResponse.ErrorResponse(res, `Error sending email via AWS SDK =>  ${err}`);
                   
                           } else {
-                            console.log('Email sent successfully:', data);
                             return res.status(200).send({ result: true, message: "Temporary password successfully sent to registered email" });
                         }
                         });
@@ -146,7 +144,6 @@ const sendOTP = [
                 }
             }
         } catch (err) {
-            console.log(err);
             res.status(500).send({ result: false, err });
         }
     },

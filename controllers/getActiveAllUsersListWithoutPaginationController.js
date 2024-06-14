@@ -17,7 +17,6 @@ const getActiveUserListWithoutPagination = [
       let userFilter ={};
         
       if (user_type) {
-        console.log('-----------')
         userFilter = {
           user_type: user_type,
           is_deleted: 0,

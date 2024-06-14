@@ -90,7 +90,6 @@ const resetUserPassword = [
                                         return res.status(500).send({ result: false, message: "Errror occured while resetting password" });
 
                                     } else {
-                                        console.log('Email sent successfully:', data);
                                         return res.status(200).send({ result: true, message: "User password reset successfully and sent via email" });
                                     }
                                 });
@@ -109,7 +108,6 @@ const resetUserPassword = [
                 }
             }
         } catch (err) {
-            console.log(err);
             res.status(500).send({ result: false, message: "Error Ocurred During API Call", err });
         }
     },

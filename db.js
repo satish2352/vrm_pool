@@ -43,7 +43,6 @@ module.exports = dbObj
 // // Export dbObj after it has been properly initialized
 // dbObj.authenticate()
 //   .then(() => {
-//     console.log('Connection has been established successfully.');
 //     module.exports = dbObj;
 //   })
 //   .catch(err => {

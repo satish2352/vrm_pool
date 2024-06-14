@@ -44,7 +44,7 @@ const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
-    winston.format.json()
+    winston.format.simple()
   ),
   transports: [
     new DailyRotateFile({
@@ -71,9 +71,7 @@ const logger = winston.createLogger({
 const accessLogger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
-    winston.format.printf(({ timestamp, level, message }) => {
-      return `${timestamp} ${level}: ${message}`;
-    })
+    winston.format.simple()
   ),
   transports: [
     new DailyRotateFile({
@@ -87,7 +85,7 @@ const accessLogger = winston.createLogger({
 });
 
 app.use((req, res, next) => {
-  accessLogger.info(`${req.method} ${req.url} ${res.statusCode}`);
+  accessLogger.info(`${req.method} ${req.url} ${res.statusCode} ${JSON.stringify(req.body)}${JSON.stringify(req.headers)}${JSON.stringify(req.query)}`);
   next();
 });
 
@@ -125,7 +123,7 @@ app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,'0.0.0.0', () => {
-  console.log(`Server is running on port ${PORT}`);
+//  console.log(`Server is running on port ${PORT}`);
 });
 
 // API routes

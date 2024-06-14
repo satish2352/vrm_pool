@@ -37,7 +37,6 @@ const changeUserStatus = [
                         if (user) {
                             var conditionCount;
                             if(user.user_type === '3') {
-                                console.log('in if log 3');
                                 conditionCount = await User.count({
                                     where: {
                                         id: user.added_by,                                
@@ -47,14 +46,12 @@ const changeUserStatus = [
                                 if (conditionCount == 0) {
                                     return res.status(400).json({ result: false, message: `User status can not be changed as supervisor mapped to this user is deleated`});
                                 } else  {
-                                    console.log('else')
                                     // Update the name attribute
                                     user.is_active = status;
                                     // Save the changes to the database
                                     await user.save()
                                     .then(updatedUser => {
                                         // Handle successful update
-                                        //console.log('User status updated successfully:', updatedUser);
                                         return res.status(200).json({ result: true, message: "User status updated successfully" });
                                     })
                                     .catch(error => {
@@ -81,7 +78,6 @@ const changeUserStatus = [
                                         await user.save()
                                         .then(updatedUser => {
                                             // Handle successful update
-                                            //console.log('User status updated successfully:', updatedUser);
                                             return res.status(200).json({ result: true, message: "User status updated successfully" });
                                         })
                                         .catch(error => {
@@ -105,7 +101,6 @@ const changeUserStatus = [
             }
         }
         } catch (err) {
-            console.log(err);
             res.status(500).send({ result: false, err });
         }
     },

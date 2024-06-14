@@ -8,7 +8,6 @@ const job = cron.schedule('59 23 1 * *', () => {
     if (error) {
       console.error(`Error executing the script: ${error}`);
     }
-    console.log(`Script output: ${stdout}`);
     console.error(`Script errors: ${stderr}`);
   });
 }, {

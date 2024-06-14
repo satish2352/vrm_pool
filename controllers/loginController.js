@@ -93,8 +93,7 @@ const loginUser = [
                     if(passwordCompare && user.is_password_reset==1)
                     {
                         var isLessThan5Minutes=isTimeDifferenceGreaterThan5Minutes(new Date(user.updatedAt))
-                        console.log(isLessThan5Minutes)
-                        console.log(user.updatedAt)
+                    
                         if(isLessThan5Minutes){
                             const userId = user.id;
                             const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
@@ -154,7 +153,6 @@ const loginUser = [
                     
                 }
             } catch (err) {
-                console.log(err);
                 res.status(500).send(err);        
             }
         }
