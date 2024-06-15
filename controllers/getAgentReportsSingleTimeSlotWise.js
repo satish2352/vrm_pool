@@ -14,6 +14,13 @@ const getAgentReportsSingleRow = [
     async (req, res) => {
         try {
             const { user_type, supervisor_id, agent_id, fromtime, totime } = req.body;
+
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log(agent_id)
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -36,7 +43,12 @@ const getAgentReportsSingleRow = [
                     [Op.in]: agent_id
                 };
             }
-
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log('---------------------------')
+            console.log(agent_id)
             console.log('User Filter:', userFilter); // Debugging line
 
             const all_agents = await User.findAll({
