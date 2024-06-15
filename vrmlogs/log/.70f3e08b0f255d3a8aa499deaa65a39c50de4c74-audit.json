@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "vrmlogs\\log\\.70f3e08b0f255d3a8aa499deaa65a39c50de4c74-audit.json",
+    "files": [
+        {
+            "date": 1718435468390,
+            "name": "vrmlogs\\log\\error-2024-06-15.log",
+            "hash": "96d3bfff8975aebc723a8f88bd9eb7a5ee35709d92bdc1650b95e84bd9794c3d"
+        }
+    ],
+    "hashType": "sha256"
+}

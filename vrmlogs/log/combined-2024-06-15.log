@@ -1,0 +1,800 @@
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getagentcalldetails',
+  headers: {
+    authorization: 'Basic dnJtX3Bvb2w6WlgjSHFadnMxQFp1dmw5anZBaGomQ1RBeGcyWWhSPT0=',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '0fda9d5a-32d3-4306-b0fe-3ac073843b18',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'multipart/form-data; boundary=--------------------------047826737271019035869953',
+    'content-length': '525'
+  },
+  requestBody: [Object: null prototype] {
+    UploadLocation: 'https://s3-ap-south-1.amazonaws.com/exotelreports-mum1/icicibank100m/43ed747f5f69c3a11d8ae72360ea7822.csv',
+    Status: 'Success',
+    ReportId: '1558f7e185c555de51522ce5806d993d'
+  },
+  responseBody: '{"status":200,"message":"Data received successfully"}',
+  statusCode: 200,
+  responseTime: '388ms',
+  level: 'info',
+  timestamp: '2024-06-15 12:41:14'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/login',
+  headers: {
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'ec6b8156-c8aa-4f02-8c75-5c6e183151d7',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '35'
+  },
+  requestBody: { mobile: '9096760307', password: '12345678' },
+  responseBody: '{"result":true,"message":"User login successful","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI","data":{"id":132,"name":"Vishva","email":"vish111@gmail.com","mobile":"9096760307","user_type":"1"}}',
+  statusCode: 200,
+  responseTime: '161ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:03:26'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '95a1481a-d7ed-4902-917c-2687f17c0cd5',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-length': '0'
+  },
+  requestBody: {},
+  responseBody: '{"result":true,"data":[],"totalItems":0,"totalPages":0,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '19ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:04:19'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '8c6e7618-e76e-43ce-9cac-be0269094846',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '19'
+  },
+  requestBody: { agent_id: [ '487' ] },
+  responseBody: '{"result":true,"data":[],"totalItems":0,"totalPages":0,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '16ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:04:38'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '2a923e68-a237-48cd-aa73-f0dea55442ec',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"id":53,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":55,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":49,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":51,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":45,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":47,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":41,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":43,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":37,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15'... 21311 more characters,
+  statusCode: 200,
+  responseTime: '29ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:07:02'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'c520ee81-2b6e-4174-a6a2-7b4c8bb971ee',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":1,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '18ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:07:26'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'd025da54-4611-4a36-b3a8-1b1f8b47806d',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":1,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '38ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:07:56'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '0d3e6904-f3e3-42eb-8e98-58faaebbe38a',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":1,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '36ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:29:44'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'a379a430-a933-452f-b24c-70d03dd918c0',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":1,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '19ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:29:45'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'c2c66d9b-107a-42c3-9aa5-f0d710f75c21',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":53,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":55,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":49,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":51,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":45,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":47,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":41,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":43,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":37,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15'... 21311 more characters,
+  statusCode: 200,
+  responseTime: '40ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:31:53'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '111a1ac9-d7e2-4e6a-a630-2529300178e9',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '22ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:32:07'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '9a8da765-31be-4f58-b24b-e25ea8f23b57',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '44ms',
+  level: 'info',
+  timestamp: '2024-06-15 13:33:22'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'bad499f7-d0c5-44ab-95a5-3ba8c115a340',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '62ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:39:51'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'ef32f8b1-7833-4f83-b060-3a6827bf3bbd',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '41624' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":53,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":55,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":49,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":51,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":45,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":47,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":41,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":43,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":37,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15'... 21311 more characters,
+  statusCode: 200,
+  responseTime: '36ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:40:10'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '0396119c-b1c3-468d-a7da-13cec1a03b2c',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '20ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:40:34'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '8cc66c2c-9ef2-480e-b73b-9d192bca6b4b',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '34ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:41:14'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'd0e10af4-3d97-4a59-bc8a-92ab783fabce',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '41624' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":53,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":55,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":49,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":51,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":45,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":47,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":41,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":43,"AgentName":"Shaik Khasim","AgentEmail":"shaik.khasim2@icicibank.com","GroupName":"NewPool","IncomingCalls":0,"MissedCalls":92,"NoAnswer":0,"Busy":22,"Failed":70,"OutgoingCalls":0,"TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.00","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639041","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":60948,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":37,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15'... 21311 more characters,
+  statusCode: 200,
+  responseTime: '33ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:41:37'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'ac7f1687-a378-4b53-89de-cf9324e24343',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '41624' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":34,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":30,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":26,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":22,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":18,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":14,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":10,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":6,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":2,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '39ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:45:13'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'd3e167f2-66f7-486d-af19-c9c991cc9500',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '41624' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":54,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":50,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":46,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":42,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":38,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":34,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":30,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":26,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":22,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":18,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":14,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":10,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":6,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null},{"id":2,"AgentName":"Naveen Padala","AgentEmail":"naveen.padala@icicibank.com","GroupName":"NewPool","IncomingCalls":7,"MissedCalls":14,"NoAnswer":14,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"14.65","AverageHandlingTimeInMinutes":"2.09","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639012","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":41624,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '23ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:45:28'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '4b337af1-4efa-4b0b-8b52-30c20c9cefca',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '24ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:45:51'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'f235736a-299e-4ed5-bf83-7bac5c3d1e96',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '83'
+  },
+  requestBody: {
+    agent_id: [ '515' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":53,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":49,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":45,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":41,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":37,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":33,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":29,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":25,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":21,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":17,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":13,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":9,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":5,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"id":1,"AgentName":"KotagirI Nikitha","AgentEmail":"kotagiri.nikitha@icicibank.com","GroupName":"NewPool","IncomingCalls":6,"MissedCalls":15,"NoAnswer":15,"Busy":0,"Failed":0,"OutgoingCalls":0,"TotalCallDurationInMinutes":"13.47","AverageHandlingTimeInMinutes":"2.24","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8655639043","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":515,"user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '24ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:46:10'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'af79ca66-e71f-4572-896f-0690062569df',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":null},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '16ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:46:17'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '473d2869-93a8-4ff1-b0e0-2185d5668882',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '17ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:46:28'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '27b4c505-003c-40b7-8a75-871f80c35352',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '82'
+  },
+  requestBody: {
+    agent_id: [ '56' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[],"totalItems":0,"totalPages":0,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '13ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:46:41'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '510d529d-c467-4cd5-bfff-bbfa462df728',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '18ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:46:47'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'cce386ab-e9b5-4f55-9db9-00f9fe38f67f',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '53ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:55:16'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'e371d00d-7b13-436d-b606-5b82e81b5260',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":null}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '48ms',
+  level: 'info',
+  timestamp: '2024-06-15 14:55:52'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '0b2dd573-2964-4e02-9f5b-f6ef92c134a0',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[],"totalItems":0,"totalPages":0,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '40ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:03:03'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'e4ae8276-0cc8-4e5b-bae6-1cbe0934119a',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":1,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '19ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:03:08'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '03463a97-ac1b-44ea-8c49-10a6aa1757b6',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":60948,"mobile":"8655639041","name":"Shaik Khasim","email":"shaik.khasim2@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":41624,"mobile":"8655639012","name":"Naveen Padala","email":"naveen.padala@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '23ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:04:08'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'a2eea8f1-5095-43ee-bf39-a6e23c0bc35a',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '26ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:04:22'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': '29411806-8f8d-43ec-a107-01857c5acaa5',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '85'
+  },
+  requestBody: {
+    agent_id: [ '76351' ],
+    fromtime: '2024-06-15T08:41:14',
+    totime: '2024-06-15T12:41:14'
+  },
+  responseBody: '{"result":true,"data":[{"id":56,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:11:14.000Z","updatedAt":"2024-06-15T07:11:14.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":52,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T07:04:19.000Z","updatedAt":"2024-06-15T07:04:19.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":48,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:44:24.000Z","updatedAt":"2024-06-15T06:44:24.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":44,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:27:25.000Z","updatedAt":"2024-06-15T06:27:25.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":40,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:23:32.000Z","updatedAt":"2024-06-15T06:23:32.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":36,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:42.000Z","updatedAt":"2024-06-15T06:21:42.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":32,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:21:15.000Z","updatedAt":"2024-06-15T06:21:15.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":28,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:20:13.000Z","updatedAt":"2024-06-15T06:20:13.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":24,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:17:34.000Z","updatedAt":"2024-06-15T06:17:34.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":20,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:15:48.000Z","updatedAt":"2024-06-15T06:15:48.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":16,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:14:33.000Z","updatedAt":"2024-06-15T06:14:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":12,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:13:49.000Z","updatedAt":"2024-06-15T06:13:49.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":8,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:11:39.000Z","updatedAt":"2024-06-15T06:11:39.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"id":4,"AgentName":"Buddhaboina Priyanka","AgentEmail":"buddhaboina.priyanka@icicibank.com","GroupName":"NewPool","IncomingCalls":4,"MissedCalls":10,"NoAnswer":0,"Busy":3,"Failed":7,"OutgoingCalls":0,"TotalCallDurationInMinutes":"27.87","AverageHandlingTimeInMinutes":"6.97","DeviceOnPercent":100,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","AgentPhoneNumber":"8976826637","createdAt":"2024-06-15T06:08:33.000Z","updatedAt":"2024-06-15T06:08:33.000Z","DeviceOnHumanReadableInSeconds":3600,"user_id":76351,"user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":14,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '46ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:05:51'
+}
+{
+  message: 'HTTP Request and Response',
+  method: 'POST',
+  url: '/getAgentReportsSingleTimeSlotWise',
+  headers: {
+    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzMiwiaWF0IjoxNzE4NDM2ODA2LCJleHAiOjE3MTg0NDc2MDZ9.xDdHHjqOyM4re5UvxBDvRb3K0-LG--QfpS2okpe59XI',
+    'user-agent': 'PostmanRuntime/7.37.3',
+    accept: '*/*',
+    'postman-token': 'a78b8fdd-3e61-4b96-aa66-1226498d1c12',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-type': 'application/x-www-form-urlencoded',
+    'content-length': '63'
+  },
+  requestBody: { fromtime: '2024-06-15T08:41:14', totime: '2024-06-15T12:41:14' },
+  responseBody: '{"result":true,"data":[{"user_id":515,"IncomingCalls":"84","MissedCalls":"210","NoAnswer":"210","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"188.58","AverageHandlingTimeInMinutes":"2.240000","DeviceOnPercent":"100.0000","DeviceOnHumanReadableInSeconds":"50400","TotalRowsCount":14,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":515,"mobile":"8655639043","name":"KotagirI Nikitha","email":"kotagiri.nikitha@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":76351,"IncomingCalls":"56","MissedCalls":"140","NoAnswer":"0","Busy":"42","Failed":"98","OutgoingCalls":"0","TotalCallDurationInMinutes":"390.18","AverageHandlingTimeInMinutes":"6.970000","DeviceOnPercent":"100.0000","DeviceOnHumanReadableInSeconds":"50400","TotalRowsCount":14,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":76351,"mobile":"8976826637","name":"Buddhaboina Priyanka","email":"buddhaboina.priyanka@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":60948,"IncomingCalls":"0","MissedCalls":"1288","NoAnswer":"0","Busy":"308","Failed":"980","OutgoingCalls":"0","TotalCallDurationInMinutes":"0.00","AverageHandlingTimeInMinutes":"0.000000","DeviceOnPercent":"100.0000","DeviceOnHumanReadableInSeconds":"50400","TotalRowsCount":14,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":60948,"mobile":"8655639041","name":"Shaik Khasim","email":"shaik.khasim2@icicibank.com","user_type":"3","is_active":"1"}},{"user_id":41624,"IncomingCalls":"98","MissedCalls":"196","NoAnswer":"196","Busy":"0","Failed":"0","OutgoingCalls":"0","TotalCallDurationInMinutes":"205.10","AverageHandlingTimeInMinutes":"2.090000","DeviceOnPercent":"100.0000","DeviceOnHumanReadableInSeconds":"50400","TotalRowsCount":14,"DeviceOnHumanReadable":"1 Hours, 0 Minutes and 0 Seconds","user":{"id":41624,"mobile":"8655639012","name":"Naveen Padala","email":"naveen.padala@icicibank.com","user_type":"3","is_active":"1"}}],"totalItems":4,"totalPages":1,"currentPage":1,"pageSize":200}',
+  statusCode: 200,
+  responseTime: '21ms',
+  level: 'info',
+  timestamp: '2024-06-15 15:05:58'
+}

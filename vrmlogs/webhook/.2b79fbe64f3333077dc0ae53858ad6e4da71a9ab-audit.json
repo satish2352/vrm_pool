@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\nodejs\\vrm_pool\\vrmlogs\\webhook\\.2b79fbe64f3333077dc0ae53858ad6e4da71a9ab-audit.json",
+    "files": [
+        {
+            "date": 1718435468359,
+            "name": "D:\\nodejs\\vrm_pool\\vrmlogs\\webhook\\agent-call-record-logs-2024-06-15.log",
+            "hash": "25b0e7be54a2c4b07965cca48ee799cb8dd07b0824db6fb643cf945784859e61"
+        }
+    ],
+    "hashType": "sha256"
+}

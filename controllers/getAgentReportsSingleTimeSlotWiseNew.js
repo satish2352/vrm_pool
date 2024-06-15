@@ -1,7 +1,6 @@
 const verifyToken = require("../middleware/verifyToken");
 const AgentData = require("../models/AgentData");
 const User = require("../models/Users");
-const { validationResult } = require("express-validator");
 const { Op, fn, col } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 require('dotenv').config();
@@ -15,7 +14,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { fromtime, totime } = req.body;
+            const { fromtime, totime, agent_id } = req.body;
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -25,75 +24,120 @@ const getAgentReportsSingleRow = [
 
             let processedCount = 0;
             const allReports = [];
-            // let currentTime1HrBack = new Date(fromtime).getTime() - 60 * 60000; // Subtract 60 minutes from fromTime
-            // let toTime1Hrback = new Date(currentTime1HrBack).getTime() + 60 * 60000; // Subtract 60 
 
-           
-            var xfromTime=new Date(fromtime)
+            const reportFilter = {
+                updatedAt: {
+                    [Op.between]: [new Date(fromtime), new Date(totime)]
+                }
+            };
 
-
-            let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-            toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
-
-            
-
-            while (true) {
-                const reportFilter = {
-                    updatedAt: {
-                        [Op.between]: [new Date(toTime1Hrback), new Date(currentTime1HrBack)]
-                    }
+            if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
+                reportFilter.user_id = {
+                    [Op.in]: agent_id
                 };
 
-                const agentDataBatch = await AgentData.findAll({
-                    attributes: [
-                        'user_id',
-                        [fn('SUM', col('IncomingCalls')), 'IncomingCalls'],
-                        [fn('SUM', col('MissedCalls')), 'MissedCalls'],
-                        [fn('SUM', col('NoAnswer')), 'NoAnswer'],
-                        [fn('SUM', col('Busy')), 'Busy'],
-                        [fn('SUM', col('Failed')), 'Failed'],
-                        [fn('SUM', col('OutgoingCalls')), 'OutgoingCalls'],
-                        [fn('SUM', col('TotalCallDurationInMinutes')), 'TotalCallDurationInMinutes'],
-                        [fn('AVG', col('AverageHandlingTimeInMinutes')), 'AverageHandlingTimeInMinutes'],
-                        [fn('AVG', col('DeviceOnPercent')), 'DeviceOnPercent'],
-                        'DeviceOnHumanReadable',
-                    ],
-                    where: reportFilter,
-                    group: ['user_id'],
-                    order: [['createdAt', 'DESC']],
-                    limit: BATCH_SIZE,
-                    offset: processedCount,
-                });
+                console.log('Report Filter:', reportFilter); // Debugging line
+                while (true) {
+                    const agentDataBatch = await AgentData.findAll({
+                        where: reportFilter,
+                        order: [['createdAt', 'DESC']],
+                        limit: BATCH_SIZE,
+                        offset: processedCount,
+                    });
+                
+                    if (agentDataBatch.length === 0) break;
+                    const userIds = agentDataBatch.map(report => report.user_id);
+                    console.log(userIds);
+                    const agents = await User.findAll({
+                        where: {
+                            id: userIds,
+                            is_active: 1,
+                            is_deleted: 0
+                        },
+                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
+                    });
 
-                if (agentDataBatch.length === 0) break;
+                    
+                    console.log(agents);
 
-                const userIds = agentDataBatch.map(report => report.user_id);
+                    const agentDetailsMap = agents.reduce((acc, agent) => {
+                        acc[agent.id] = agent;
+                        return acc;
+                    }, {});
 
-                const agents = await User.findAll({
-                    where: {
-                        id: userIds,
-                        is_active: 1,
-                        is_deleted: 0
-                    },
-                    attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
-                });
+                    const combinedReports = agentDataBatch.map(report => {
+                        const agent = agentDetailsMap[report.user_id];
+                        return {
+                            ...report.get(),
+                            user: agent ? agent.get() : null
+                        };
+                    }).filter(report => report.user !== null);
 
-                const agentDetailsMap = agents.reduce((acc, agent) => {
-                    acc[agent.id] = agent;
-                    return acc;
-                }, {});
+                    allReports.push(...combinedReports);
 
-                const combinedReports = agentDataBatch.map(report => {
-                    const agent = agentDetailsMap[report.user_id];
-                    return {
-                        ...report.get(),
-                        user: agent ? agent.get() : null
-                    };
-                });
+                    processedCount += BATCH_SIZE;
+                }
+            } else {
+                console.log('Report Filter:', reportFilter); // Debugging line
 
-                allReports.push(...combinedReports);
+                while (true) {
+                    const agentDataBatch = await AgentData.findAll({
+                        attributes: [
+                            'user_id',
+                            [fn('SUM', col('IncomingCalls')), 'IncomingCalls'],
+                            [fn('SUM', col('MissedCalls')), 'MissedCalls'],
+                            [fn('SUM', col('NoAnswer')), 'NoAnswer'],
+                            [fn('SUM', col('Busy')), 'Busy'],
+                            [fn('SUM', col('Failed')), 'Failed'],
+                            [fn('SUM', col('OutgoingCalls')), 'OutgoingCalls'],
+                            [fn('SUM', col('TotalCallDurationInMinutes')), 'TotalCallDurationInMinutes'],
+                            [fn('AVG', col('AverageHandlingTimeInMinutes')), 'AverageHandlingTimeInMinutes'],
+                            [fn('AVG', col('DeviceOnPercent')), 'DeviceOnPercent'],
+                            [
+                                fn('SUM', col('DeviceOnHumanReadableInSeconds')),
+                                'DeviceOnHumanReadableInSeconds'
+                            ],
+                            [
+                                fn('COUNT', col('DeviceOnPercent')),
+                                'TotalRowsCount'
+                            ],
+                            'DeviceOnHumanReadable',
+                        ],
+                        where: reportFilter,
+                        group: ['user_id'],
+                        order: [['createdAt', 'DESC']],
+                        limit: BATCH_SIZE,
+                        offset: processedCount,
+                    });
 
-                processedCount += BATCH_SIZE;
+                    if (agentDataBatch.length === 0) break;
+
+                    const userIds = agentDataBatch.map(report => report.user_id);
+
+                    const agents = await User.findAll({
+                        where: {
+                            id: userIds,
+                            is_active: 1,
+                            is_deleted: 0
+                        },
+                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
+                    });
+
+                    const agentDetailsMap = agents.reduce((acc, agent) => {
+                        acc[agent.id] = agent;
+                        return acc;
+                    }, {});
+
+                    const combinedReports = agentDataBatch.map(report => {
+                        const agent = agentDetailsMap[report.user_id];
+                        return {
+                            ...report.get(),
+                            user: agent ? agent.get() : null
+                        };
+                    }).filter(report => report.user !== null);
+                    allReports.push(...combinedReports);
+                    processedCount += BATCH_SIZE;
+                }
             }
 
             const totalItems = allReports.length;
@@ -116,24 +160,6 @@ const getAgentReportsSingleRow = [
         }
     },
 ];
-
-async function splitTimeIntoSlots(fromTime, toTime) {
-    const records = [];
-    let currentTime = new Date(fromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-    toTime = new Date(toTime.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
-
-    while (currentTime <= toTime) {
-        const slotStartTime = new Date(currentTime);
-        const slotEndTime = new Date(currentTime.getTime() + 60 * 60000); // Add 60 minutes
-
-        records.push({ start_time: slotStartTime, end_time: slotEndTime });
-
-        // Move to the next 60-minute slot
-        currentTime = slotEndTime;
-    }
-
-    return records;
-}
 
 module.exports = {
     getAgentReportsSingleRow,

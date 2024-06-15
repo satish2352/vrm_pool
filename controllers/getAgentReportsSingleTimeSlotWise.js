@@ -33,8 +33,10 @@ const getAgentReportsSingleRow = [
                     return apiResponse.successResponse(res, 'Empty agent list');
                 } else {
                     userFilter.id = agent_id;
+                    console.log(agent_id);
                 }
             }
+
 
             const all_agents = await User.findAll({
                 where: userFilter

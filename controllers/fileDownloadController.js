@@ -5,74 +5,77 @@ const { Op } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 const UsersCopy = require("../models/UsersCopy");
 const path = require('path');
-const excelJS = require("exceljs");
+const excelJS = require("exceljs")
 
-// Flag to simulate first attempt failure
-let firstAttempt = true;
 
 const downloadFile = [
+
   async (req, res) => {
-    const retryDownload = async (attempt = 1) => {
-      try {
-        const { fileId } = req.query;
-
-        // Fetch reports from the database
-        let reports;
-        var selectedColumns;
-
-        if (fileId) {
-          selectedColumns = ['name', 'email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
-          const workbook = new excelJS.Workbook();
-          const reports = await UsersCopy.findAll({
-            where: {
-              fileId: fileId
-            }
-          });
-
-          const columns = selectedColumns.map(columnName => ({
-            header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
-            key: columnName
-          }));
-
-          let worksheet = workbook.addWorksheet();
-          worksheet.columns = columns;
-          if (!reports.length) {
-            return apiResponse.successResponse(res, "No reports found", []);
+    try {
+      const { fileId } = req.query;
+      
+  
+      // Fetch reports from the database
+      let reports;
+      var selectedColumns;
+  
+      if (fileId) {
+        selectedColumns = ['name','email', 'mobile', 'is_inserted', 'reason', 'updatedAt'];
+        const workbook = new excelJS.Workbook();
+        const reports = await UsersCopy.findAll({
+          where: {
+            fileId: fileId
           }
-
-          reports.forEach(report => {
-            const rowData = selectedColumns.map(columnName => {
-              // Conditionally pass "yes" or "no" based on the value of `is_inserted`
-              if (columnName === 'is_inserted') {
-                // Ensure that `is_inserted` is accessed correctly
-                return report.dataValues[columnName] === '1' ? 'yes' : 'no';
-              }
-              return report.dataValues[columnName];
-            });
-            worksheet.addRow(rowData);
+        });
+       
+  
+        const columns = selectedColumns.map(columnName => ({
+          header: columnName.replace(/\s+/g, ''), // Remove spaces from column name
+          key: columnName
+        }));
+  
+        let worksheet;
+      
+          worksheet = workbook.addWorksheet();
+          worksheet.columns = columns;        
+          worksheet = workbook.getWorksheet(1); // Get the first worksheet
+        
+  
+        if (!reports.length) {
+          console.log("No reports found");
+          return apiResponse.successResponse(res, "No reports found", []);
+        }  
+        reports.forEach(report => {
+          const rowData = selectedColumns.map(columnName => {
+            // Conditionally pass "yes" or "no" based on the value of `is_inserted`
+            if (columnName === 'is_inserted') {
+              // Ensure that `is_inserted` is accessed correctly
+              return report.dataValues[columnName] === '1' ? 'yes' : 'no';
+            }
+            return report.dataValues[columnName];
           });
+          worksheet.addRow(rowData);
+        });
 
-          // Write the workbook to the response object
-          res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-          res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
-          await workbook.xlsx.write(res);
-          res.end(); // Send response after writing is completed
-        } else {
-          return res.status(400).send({ result: false, message: "Enter valid report type" });
-        }
-      } catch (error) {
-        console.error(`Attempt ${attempt}: Error downloading file:`, error);
-        if (attempt === 1) {
-          return retryDownload(attempt + 1);
-        } else {
-          return apiResponse.ErrorResponse(res, "Error downloading file");
-        }
+  
+        // Write the workbook to the response object
+        res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        res.setHeader("Content-Disposition", `attachment; filename=${fileId}.xlsx`);
+        await workbook.xlsx.write(res);
+        res.end(); // Send response after writing is completed
+      } else {
+        return res.status(400).send({ result: false, message: "Enter valid report type" });
       }
-    };
-
-    retryDownload();
+  
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      return apiResponse.ErrorResponse(res, "Error downloading file");
+    }
   },
 ];
+
+
+
 
 module.exports = {
   downloadFile,
