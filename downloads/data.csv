@@ -1,79 +1,94 @@
 AgentName,AgentEmail,GroupName,IncomingCalls,MissedCalls,NoAnswer,Busy,Failed,OutgoingCalls,TotalCallDurationInMinutes,AverageHandlingTimeInMinutes,DeviceOnPercent,DeviceOnHumanReadable,AgentPhoneNumber
-"A  Umapathi A  Umapathi",a.umapathi@icicibank.com,NewPool,378,597,572,2,23,0,1396.9,3.7,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639045
-"Amisha Padhy",amisha.padhy@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Anisha Parida",anisha.parida@icicibank.com,NewPool,443,678,669,0,9,0,1609.02,3.63,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826651
-"Anshul Khare",anshul.khare@icicibank.com,NewPool,294,1193,746,60,387,0,997.4,3.39,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Anushree Priya",anushree.priya@icicibank.com,NewPool,379,722,698,3,21,0,1505.63,3.97,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373363
-"Sasmita Behera",behera.sasmita@icicibank.com,NewPool,395,328,277,8,43,0,2409.38,6.1,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"M BHANU PRIYA",bhanu.m@icicibank.com,NewPool,391,738,729,2,7,0,1956.1,5,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639021
-"Budagatla Suresh Rao",budagatla.sureshrao@icicibank.com,NewPool,379,690,669,0,21,0,964.38,2.54,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639034
-"SRAVYA CH SRI",ch.sri@icicibank.com,NewPool,413,912,855,6,51,0,1404.73,3.4,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826646
-"Danish Parvez",danish.parvez@icicibank.com,NewPool,385,1796,545,121,1130,0,1582.87,4.11,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373359
-"DIVYA RATHOD",divya.rathod@icicibank.com,NewPool,381,471,412,7,52,0,2268.22,5.95,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"SHIVANI GELLI",g.sh@icicibank.com,NewPool,257,769,718,11,40,0,871.52,3.39,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826645
-"G SRIKANTH KUMAR",g.srikanthkumar@icicibank.com,NewPool,296,426,416,1,9,0,1027.15,3.47,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639019
-"Geethamdhuri Mantri",geethamadhuri.mantri@icicibank.com,NewPool,195,726,571,32,123,0,486.85,2.5,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826628
-"Gogulamudi Mahidhar Reddy",gogulamudi.reddy@icicibank.com,NewPool,352,742,681,6,55,0,1373.08,3.9,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373357
-"Golajana Ravi",golajana.ravi@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Mohammad Haneef banu",haneefa.banu@icicibank.com,NewPool,283,444,431,2,11,0,1073.37,3.79,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Indrakshitha P ICICIBANK",indrakshitha.p@icicibank.com,NewPool,299,946,934,4,8,0,656.72,2.2,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Jyoti Samal",JYOTI.SAMAL@icicibank.com,NewPool,356,577,508,11,58,0,1627.03,4.57,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"KAIPU NAGA LAKSHMI",kaipu.nagalakshmi@icicibank.com,NewPool,413,266,247,5,14,0,2269.17,5.49,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639018
-"Deepak jyoti kar",kar.jyoti@icicibank.com,NewPool,398,256,238,1,17,0,1845.7,4.64,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"KOLIPAKA TARUN KUMAR",kolipaka.kumar@icicibank.com,NewPool,399,829,805,5,19,0,1570.75,3.94,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"KotagirI Nikitha",kotagiri.nikitha@icicibank.com,NewPool,355,1116,797,68,251,0,1319.02,3.72,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639043
-"Kotthapelly Srividya",kotthapelly.srividya@icicibank.com,NewPool,330,802,781,1,20,0,1469.05,4.45,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373358
-"bidlaan kumar",kumar.bidlaan@icicibank.com,NewPool,430,836,805,8,23,0,1617.43,3.76,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373392
-"Dhiren Kumar Pradhan",kumar.dhiren@icicibank.com,NewPool,387,988,916,4,68,0,1464.3,3.78,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373382
-"Leelaprasad 8976826650",leelaprasad.c@icicibank.com,NewPool,277,448,433,1,14,0,963.2,3.48,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826650
-"anusha maganti",maganti.anusha@icicibank.com,NewPool,304,858,802,10,46,0,1093.27,3.6,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373386
-"Marla Durga Teja",marla.teja@icicibank.com,NewPool,300,1038,372,73,593,0,1025.93,3.42,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639033
-"Maroju sai manoj",maroju.manoj@icicibank.com,NewPool,398,775,754,2,19,0,1764.92,4.43,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Mohd Rashed Uddin",mo.uddin@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639039
-"Subhasmita Mohanty",mohanty.subhasmita@icicibank.com,NewPool,386,584,535,5,44,0,1759.82,4.56,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639032
-"Monalisa Panigrahi",monalisa.panigrahi@icicibank.com,NewPool,406,773,733,5,35,0,1447.27,3.56,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Nadvinkeri Sowmya",n.sowmya@icicibank.com,NewPool,285,610,597,2,11,0,1101.85,3.87,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Naveen Padala",naveen.padala@icicibank.com,NewPool,470,785,769,0,16,0,1203.23,2.56,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Pasupuleti Reddy Sekhar",pasupuleti.sekhar@icicibank.com,NewPool,400,890,810,8,72,0,1516.52,3.79,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373356
-"Gaurav Premraj Raut",premraj.raut@icicibank.com,NewPool,402,1008,561,42,405,0,1441.03,3.58,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373362
-"Puspa Kumari Saha",puspa.saha@icicibank.com,NewPool,398,499,486,0,13,0,1778.43,4.47,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373387
-"Racherla Shivani",racherla.shivani@icicibank.com,NewPool,361,696,676,3,17,0,1041.22,2.88,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"RAJANALA KOTESHWAR",rajanala.koteshwar@icicibank.com,NewPool,326,913,864,3,46,0,919.25,2.82,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826648
-"Chandra rekha",rekha.sajja@icicibank.com,NewPool,278,691,680,4,7,0,535.82,1.93,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639042
-"Rinarani Sethi",rinarani.sethi@icicibank.com,NewPool,353,1018,502,83,433,0,1299.2,3.68,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373388
-"Rohit Singh",rohit.singh32@icicibank.com,NewPool,340,806,739,14,53,0,1188.77,3.5,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"SABANA KHATUN",sabana.k@icicibank.com,NewPool,422,370,326,9,35,0,1456.65,3.45,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Sadana Goud",sadana.goud@icicibank.com,NewPool,458,372,310,11,51,0,1998.48,4.36,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373380
-"Shaik icicibank",saddam.1@icicibank.com,NewPool,435,446,341,17,88,0,1209.2,2.78,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Saikrishna Nagaraju",saikrishna.nagaraju@icicibank.com,NewPool,151,252,248,2,2,0,652.27,4.32,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Saipreethi Kondapaka",saipreethi.kondapaka@icicibank.com,NewPool,367,814,746,11,57,0,1050.1,2.86,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"SARITA DAS",sarita.das@icicibank.com,NewPool,370,969,913,4,52,0,964.82,2.61,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826638
-"Shaik Khasim",shaik.khasim2@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Shubrojyoti Chowdhury",shubrojyoti.chowdhury@icicibank.com,NewPool,304,445,417,3,25,0,1174.98,3.87,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639044
-"Sridhar chaitankar",sridhar.chaitankar@icicibank.com,NewPool,287,358,332,4,22,0,1116.8,3.89,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"SUNANDADEVI K DEVI",sunandadevi.k@icicibank.com,NewPool,329,673,575,15,83,0,1319.4,4.01,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"G Suresh Chary",suresh.chary@icicibank.com,NewPool,355,420,401,1,18,0,2087.78,5.88,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373361
-"Satya Ranjan Swain",swain.satya@icicibank.com,NewPool,101,283,279,0,4,0,336.72,3.33,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373389
-"Swayamsnigdha Behera",swayamsnigdha.behera@icicibank.com,NewPool,505,957,928,7,22,0,1676.83,3.32,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639029
-"SYAM PRASAD ALLAM",syam.allam@icicibank.com,NewPool,308,602,582,4,16,0,1215.9,3.95,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Triveni Triveni",triveni.triveni@icicibank.com,NewPool,419,763,713,4,46,0,1575.77,3.76,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373365
-"Varalakshmi VARA LAKSHMI",varalakshmi.nadakuditi@icicibank.com,NewPool,364,842,813,3,26,0,1403.23,3.86,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655639031
-"vinod deshmukh","vinod.deshmukh@icicibank.com ",NewPool,247,539,535,0,4,0,895.25,3.62,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Vijayalakshmi Chigurla",vijayalakshmi.chigurla@icicibank.com,NewPool,407,436,422,7,7,0,1462.03,3.59,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826619
-"Soumya Ranjan",ranjan.so@icicibank.com,NewPool,245,564,545,3,16,0,887.57,3.62,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Shaik Sharif",sharif.shaik@icicibank.com,NewPool,233,373,361,3,9,0,840.07,3.61,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826621
-"Kalakotla Bindhusri",kalakotla.bindhusri@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"M Navya Yadav",m.navya@icicibank.com,NewPool,258,667,584,18,65,0,631.75,2.45,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826627
-"Silan Satapathy",silan.satapathy@icicibank.com,NewPool,348,186,174,0,12,0,1264.83,3.63,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"MOLGARA NAVEEN",molgara.naveen@icicibank.com,NewPool,195,520,457,16,47,0,972.03,4.98,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Doddabasava Patil",doddabasava.patil@icicibank.com,NewPool,396,866,824,1,41,0,1353.45,3.42,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Buddhaboina Priyanka",buddhaboina.priyanka@icicibank.com,NewPool,380,812,543,37,232,0,1280.8,3.37,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Burra Rakesh",burra.rakesh@icicibank.com,NewPool,347,625,605,5,15,0,1200.02,3.46,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826642
-"Boya Rahul",boya.rahul@icicibank.com,NewPool,361,736,714,4,18,0,996.47,2.76,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"M d Rahman",md.rahman1@icicibank.com,NewPool,208,1274,576,87,611,0,753.03,3.62,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826649
-"Keshav Rao",g.rao@icicibank.com,NewPool,357,1359,677,94,588,0,1346.53,3.77,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826634
-"Farheen  Naaz",farheen.naaz@icicibank.com,NewPool,239,271,254,2,15,0,1349.97,5.65,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08976826625
-"Abhilipsa Nayak",abhilipsa.nayak@icicibank.com,NewPool,402,906,867,10,29,0,1157.07,2.88,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"Shalini Dash",shalini.dash@icicibank.com,NewPool,190,220,216,0,4,0,883.38,4.65,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",08655373379
-"Shalini Gicicibank",shalini.g2@icicibank.com,NewPool,215,367,346,4,17,0,779.53,3.63,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
-"N PRASAD PRASAD",n.pr@icicibank.com,NewPool,271,312,306,0,6,0,1169.05,4.31,100,"12 Days, 10 Hours, 43 Minutes and 1 Seconds",
+"A  Umapathi A  Umapathi",a.umapathi@icicibank.com,NewPool,6,17,17,0,0,0,22.63,3.77,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Amisha Padhy",amisha.padhy@icicibank.com,NewPool,4,7,7,0,0,0,42.62,10.65,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Anisha Parida",anisha.parida@icicibank.com,NewPool,2,12,12,0,0,0,29.45,14.73,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Anshul Khare",anshul.khare@icicibank.com,NewPool,0,24,21,0,3,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Anushree Priya",anushree.priya@icicibank.com,NewPool,3,6,5,1,0,0,6.8,2.27,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Sasmita Behera",behera.sasmita@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"M BHANU PRIYA",bhanu.m@icicibank.com,NewPool,4,19,19,0,0,0,33.97,8.49,100,"1 Hours, 0 Minutes and 0 Seconds",08655639021
+"Budagatla Suresh Rao",budagatla.sureshrao@icicibank.com,NewPool,3,6,6,0,0,0,6.12,2.04,100,"1 Hours, 0 Minutes and 0 Seconds",
+"SRAVYA CH SRI",ch.sri@icicibank.com,NewPool,7,9,9,0,0,0,18.13,2.59,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Danish Parvez",danish.parvez@icicibank.com,NewPool,0,86,0,18,68,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",08655373359
+"DIVYA RATHOD",divya.rathod@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"SHIVANI GELLI",g.sh@icicibank.com,NewPool,6,4,4,0,0,0,49.3,8.22,100,"1 Hours, 0 Minutes and 0 Seconds",08976826645
+"G SRIKANTH KUMAR",g.srikanthkumar@icicibank.com,NewPool,7,5,5,0,0,0,22.75,3.25,100,"1 Hours, 0 Minutes and 0 Seconds",08655639019
+"Geethamdhuri Mantri",geethamadhuri.mantri@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Gogulamudi Mahidhar Reddy",gogulamudi.reddy@icicibank.com,NewPool,5,1,1,0,0,0,50.23,10.05,100,"1 Hours, 0 Minutes and 0 Seconds",08655373357
+"bandela Sasikumar",golajana.ravi@icicibank.com,NewPool,5,8,8,0,0,0,30.83,6.17,100,"1 Hours, 0 Minutes and 0 Seconds",08976826622
+"Mohammad Haneef banu",haneefa.banu@icicibank.com,NewPool,5,20,20,0,0,0,5.3,1.06,100,"1 Hours, 0 Minutes and 0 Seconds",08976826631
+"Indrakshitha P ICICIBANK",indrakshitha.p@icicibank.com,NewPool,6,6,6,0,0,0,24.83,4.14,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Jyoti Samal",JYOTI.SAMAL@icicibank.com,NewPool,5,6,6,0,0,0,18.7,3.74,100,"1 Hours, 0 Minutes and 0 Seconds",08976826652
+"KAIPU NAGA LAKSHMI",kaipu.nagalakshmi@icicibank.com,NewPool,7,2,2,0,0,0,48.65,6.95,100,"1 Hours, 0 Minutes and 0 Seconds",08655639018
+"Deepak jyoti kar",kar.jyoti@icicibank.com,NewPool,6,9,9,0,0,0,32.32,5.39,100,"1 Hours, 0 Minutes and 0 Seconds",
+"KOLIPAKA TARUN KUMAR",kolipaka.kumar@icicibank.com,NewPool,5,34,18,2,14,0,12.13,2.43,100,"1 Hours, 0 Minutes and 0 Seconds",08655639037
+"KotagirI Nikitha",kotagiri.nikitha@icicibank.com,NewPool,6,15,15,0,0,0,13.47,2.24,100,"1 Hours, 0 Minutes and 0 Seconds",08655639043
+"Kotthapelly Srividya",kotthapelly.srividya@icicibank.com,NewPool,2,22,5,2,15,0,7.57,3.78,100,"1 Hours, 0 Minutes and 0 Seconds",
+"bidlaan kumar",kumar.bidlaan@icicibank.com,NewPool,9,6,5,0,1,0,26.53,2.95,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Dhiren Kumar Pradhan",kumar.dhiren@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Leelaprasad 8976826650",leelaprasad.c@icicibank.com,NewPool,4,10,10,0,0,0,7.27,1.82,100,"1 Hours, 0 Minutes and 0 Seconds",08976826650
+"anusha maganti",maganti.anusha@icicibank.com,NewPool,5,18,18,0,0,0,9.02,1.8,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Marla Durga Teja",marla.teja@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Maroju sai manoj",maroju.manoj@icicibank.com,NewPool,3,22,6,1,15,0,21.27,7.09,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Mohd Rashed Uddin",mo.uddin@icicibank.com,NewPool,6,12,11,0,1,0,11.92,1.99,100,"1 Hours, 0 Minutes and 0 Seconds",08655639039
+"Subhasmita Mohanty",mohanty.subhasmita@icicibank.com,NewPool,6,17,10,1,6,0,21.2,3.53,100,"1 Hours, 0 Minutes and 0 Seconds",08655639032
+"Monalisa Panigrahi",monalisa.panigrahi@icicibank.com,NewPool,6,16,13,0,3,0,8.3,1.38,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Nadvinkeri Sowmya",n.sowmya@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Naveen Padala",naveen.padala@icicibank.com,NewPool,7,14,14,0,0,0,14.65,2.09,100,"1 Hours, 0 Minutes and 0 Seconds",08655639012
+"Pasupuleti Reddy Sekhar",pasupuleti.sekhar@icicibank.com,NewPool,4,16,16,0,0,0,15.5,3.88,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Gaurav Premraj Raut",premraj.raut@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Puspa Kumari Saha",puspa.saha@icicibank.com,NewPool,7,5,5,0,0,0,13.87,1.98,100,"1 Hours, 0 Minutes and 0 Seconds",08655373387
+"Racherla Shivani",racherla.shivani@icicibank.com,NewPool,3,18,18,0,0,0,11.28,3.76,100,"1 Hours, 0 Minutes and 0 Seconds",
+"RAJANALA KOTESHWAR",rajanala.koteshwar@icicibank.com,NewPool,7,7,6,1,0,0,28.2,4.03,100,"1 Hours, 0 Minutes and 0 Seconds",08976826648
+"Chandra rekha",rekha.sajja@icicibank.com,NewPool,0,4,4,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Rinarani Sethi",rinarani.sethi@icicibank.com,NewPool,4,6,6,0,0,0,3.72,0.93,100,"1 Hours, 0 Minutes and 0 Seconds",08655373388
+"Rohit Singh",rohit.singh32@icicibank.com,NewPool,12,16,14,0,2,0,20.23,1.69,100,"1 Hours, 0 Minutes and 0 Seconds",
+"SABANA KHATUN",sabana.k@icicibank.com,NewPool,1,4,4,0,0,0,2.1,2.1,100,"1 Hours, 0 Minutes and 0 Seconds",08976826636
+"Sadana Goud",sadana.goud@icicibank.com,NewPool,5,2,2,0,0,0,17.9,3.58,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shaik icicibank",saddam.1@icicibank.com,NewPool,5,5,1,0,4,0,15.65,3.13,100,"1 Hours, 0 Minutes and 0 Seconds",08655639015
+"Saikrishna Nagaraju",saikrishna.nagaraju@icicibank.com,NewPool,7,8,8,0,0,0,27.07,3.87,100,"1 Hours, 0 Minutes and 0 Seconds",08655639016
+"Saipreethi Kondapaka",saipreethi.kondapaka@icicibank.com,NewPool,8,18,18,0,0,0,12.6,1.58,100,"1 Hours, 0 Minutes and 0 Seconds",
+"SARITA DAS",sarita.das@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shaik Khasim",shaik.khasim2@icicibank.com,NewPool,0,92,0,22,70,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",08655639041
+"Shubrojyoti Chowdhury",shubrojyoti.chowdhury@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Sridhar chaitankar",sridhar.chaitankar@icicibank.com,NewPool,9,12,11,0,1,0,34.7,3.86,100,"1 Hours, 0 Minutes and 0 Seconds",08655639035
+"SUNANDADEVI K DEVI",sunandadevi.k@icicibank.com,NewPool,7,27,19,1,7,0,12.17,1.74,100,"1 Hours, 0 Minutes and 0 Seconds",
+"G Suresh Chary",suresh.chary@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Satya Ranjan Swain",swain.satya@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Swayamsnigdha Behera",swayamsnigdha.behera@icicibank.com,NewPool,5,14,13,0,1,0,16.45,3.29,100,"1 Hours, 0 Minutes and 0 Seconds",
+"SYAM PRASAD ALLAM",syam.allam@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Triveni Triveni",triveni.triveni@icicibank.com,NewPool,7,11,11,0,0,0,16.32,2.33,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Varalakshmi VARA LAKSHMI",varalakshmi.nadakuditi@icicibank.com,NewPool,6,13,13,0,0,0,31.63,5.27,100,"1 Hours, 0 Minutes and 0 Seconds",08655639031
+"vinod deshmukh","vinod.deshmukh@icicibank.com ",NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Vijayalakshmi Chigurla",vijayalakshmi.chigurla@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Soumya Ranjan",ranjan.so@icicibank.com,NewPool,5,11,11,0,0,0,7.93,1.59,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shaik Sharif",sharif.shaik@icicibank.com,NewPool,10,10,10,0,0,0,32.28,3.23,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Kalakotla Bindhusri",kalakotla.bindhusri@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"M Navya Yadav",m.navya@icicibank.com,NewPool,8,5,3,0,2,0,30.93,3.87,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Silan Satapathy",silan.satapathy@icicibank.com,NewPool,8,4,4,0,0,0,29.55,3.69,100,"1 Hours, 0 Minutes and 0 Seconds",08976826629
+"MOLGARA NAVEEN",molgara.naveen@icicibank.com,NewPool,4,16,13,0,3,0,23.5,5.88,100,"1 Hours, 0 Minutes and 0 Seconds",08976826632
+"Doddabasava Patil",doddabasava.patil@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Buddhaboina Priyanka",buddhaboina.priyanka@icicibank.com,NewPool,4,10,0,3,7,0,27.87,6.97,100,"1 Hours, 0 Minutes and 0 Seconds",08976826637
+"Burra Rakesh",burra.rakesh@icicibank.com,NewPool,0,47,14,8,25,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",08976826642
+"Boya Rahul",boya.rahul@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"M d Rahman",md.rahman1@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Keshav Rao",g.rao@icicibank.com,NewPool,2,39,11,5,23,0,10.95,5.48,100,"1 Hours, 0 Minutes and 0 Seconds",08976826634
+"Farheen  Naaz",farheen.naaz@icicibank.com,NewPool,1,0,0,0,0,0,2.37,2.37,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Abhilipsa Nayak",abhilipsa.nayak@icicibank.com,NewPool,0,8,0,1,7,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shalini Dash",shalini.dash@icicibank.com,NewPool,5,8,8,0,0,0,18.73,3.75,100,"1 Hours, 0 Minutes and 0 Seconds",08655373379
+"Shalini Gicicibank",shalini.g2@icicibank.com,NewPool,7,21,15,2,4,0,23.53,3.36,100,"1 Hours, 0 Minutes and 0 Seconds",08976826630
+"N PRASAD PRASAD",n.pr@icicibank.com,NewPool,9,8,7,0,1,0,23.65,2.63,100,"1 Hours, 0 Minutes and 0 Seconds",08976826644
+"Sri Kalyan Singh Roy",sri.singh@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Abhijeet Ram",abhijeet.ram@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Ajjarapu Sandeep",ajjarapu.sandeep@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Amartya Mishra",amartya.mishra@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Amit Roushan",amit.roushan@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Ankit Kumar Choudhary",ankitkumar.choudhary@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Deepraj Sinha",deepraj.sinha@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Jonnalagadda Divya",jonnalagadda.divya@icicibank.com,NewPool,1,8,8,0,0,0,7.33,7.33,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Kallakunta Jayanth",kallakunta.jayanth@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Pallela Sirisha",pallela.sirisha@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Masalchi Saicharan",sai.charan2@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Santhivardhan Bondru",santhivardhan.bondru@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shivam Raj",shivam.raj1@icicibank.com,NewPool,1,58,14,9,35,0,7.7,7.7,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Shubham Sharma",shubham.sharma40@icicibank.com,NewPool,2,3,3,0,0,0,8.43,4.22,100,"1 Hours, 0 Minutes and 0 Seconds",
+"Sameera Shaik",sameera.shaik@icicibank.com,NewPool,0,0,0,0,0,0,0,0,100,"1 Hours, 0 Minutes and 0 Seconds",

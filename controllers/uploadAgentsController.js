@@ -67,11 +67,8 @@ const uploadAgents = [
           jsonData = xlsx.utils.sheet_to_json(worksheet);
           jsonData.forEach(data => data.sheetName = sheetName);
           if (jsonData.length < 1) {
-  
-        
             return res.status(400).json({ result: false, message: 'Excel file is empty or contains only a single row.' });
           }else{
-           // console.log(jsonData)
           }
         }
 

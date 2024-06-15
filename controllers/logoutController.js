@@ -28,7 +28,6 @@ const logOut = [
                         message: 'User logout successful'
                     });
                 } catch (err) {
-                    console.log(err);
                     return res.status(500).send(err);
                 }
     }

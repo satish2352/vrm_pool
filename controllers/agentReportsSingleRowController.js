@@ -93,17 +93,20 @@ const getAgentReportsSingleRow = [
                         fn('SUM', col('OutgoingCalls')),
                         'OutgoingCalls'
                     ],
+                    [fn('AVG', col('DeviceOnPercent')), 
+                        'DeviceOnPercent'
+                    ],
                     [
                         fn('SUM', col('TotalCallDurationInMinutes')),
                         'TotalCallDurationInMinutes'
                     ],
                     [
-                        fn('AVG', col('AverageHandlingTimeInMinutes')),
-                        'AverageHandlingTimeInMinutes'
+                        fn('SUM', col('DeviceOnHumanReadableInSeconds')),
+                        'DeviceOnHumanReadableInSeconds'
                     ],
                     [
-                        fn('AVG', col('DeviceOnPercent')),
-                        'DeviceOnPercent'
+                        fn('COUNT', col('DeviceOnPercent')),
+                        'TotalRowsCount'
                     ],
                     'DeviceOnHumanReadable',
                 ],

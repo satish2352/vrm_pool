@@ -8,11 +8,13 @@ const fs = require('fs');
 const https = require('https');
 const csv = require('csv-parser');
 const { body, query, validationResult } = require("express-validator");
+const logger = require('./logger'); // Import logger
 
 const getAgentCallDetails = [
 
   async (req, res) => {
     try {
+      logger.info('Request received for getAgentCallDetails'); // Example log
       const authHeader = req.headers['authorization'];
 
       // if (!authHeader && (req.body.UploadLocation == '' || req.body.UploadLocation == null)) {
@@ -23,6 +25,7 @@ const getAgentCallDetails = [
       // }
 
       if (req.body.UploadLocation == '' || req.body.UploadLocation == null) {
+        logger.info('Bad Request',req); // Example log
         return res.status(400).json({
           'result': false,
           'message': 'Bad Request '
@@ -60,11 +63,13 @@ const getAgentCallDetails = [
 
       if (req.body.UploadLocation == '' || req.body.UploadLocation == null) {
         // apiResponse.ErrorResponse(res, 'Please provide CSV file location url');
+        logger.info('Mandatory parameter missing'); // Example log
         return res.status(500).json({
           'status': 204,
           'message': 'Mandatory parameter missing'
         });
       } else {
+        logger.info(`File Download Started. => ${req.body.UploadLocation}`); // Example log
         await downloadAndReadCSV(req.body.UploadLocation);
         return res.status(200).json({
           'status': 200,
@@ -72,6 +77,7 @@ const getAgentCallDetails = [
         });
       }
     } catch (error) {
+      logger.error('Error in getAgentCallDetails:', error); //
       console.error('Error fetching reports:', error);
       // apiResponse.ErrorResponse(res, "Error occurred during CSV processing ");
       return res.status(500).json({
@@ -81,23 +87,48 @@ const getAgentCallDetails = [
     }
   },
 ];
+const retryDownloadFile = async (url, destination, retries = 2) => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+          await downloadFile(url, destination);
+          return; // If successful, exit the function
+      } catch (error) {
+          if (attempt < retries) {
+              logger.warn(`Attempt ${attempt} failed. Retrying...`);
+          } else {
+              logger.error('All download attempts failed');
+              throw error; // Throw the error if all attempts fail
+          }
+      }
+  }
+};
 const downloadFile = (url, destination) => {
   return new Promise((resolve, reject) => {
     try {
       const file = fs.createWriteStream(destination);
 
       https.get(url, response => {
+        if (response.statusCode !== 200) {
+          // Handle non-200 errors by rejecting the promise to trigger retry
+          const error = new Error(`Request Failed. Status Code: ${response.statusCode}`);
+          logger.error(`Error downloading file: ${error.message}`); // Example log
+          logger.error(`Error downloading file: ${url}`); // Example log
+          fs.unlink(destination, () => reject(error.message));
+          return;
+       }
         response.pipe(file);
-
         file.on('finish', () => {
           file.close(resolve(destination));
+          logger.info(`File Download Completed. => ${url}`);
         });
       }).on('error', error => {
+        logger.error(`Error downloading file =>  ${url}`); // Example log
         fs.unlink(destination, () => {
           reject(error.message);
         });
       });
     } catch (error) {
+      logger.error(`Error downloading file =>  ${url}`); // Example log
       reject(error);
     }
   });
@@ -109,10 +140,11 @@ const readCSVFile = (filePath, url) => {
     const matchedResults = [];
     const notMatchedResults = [];
     const promises = []; // Array to store promises for each findOne call
-
+    logger.info('File reading started '); // Example log
     fs.createReadStream(filePath)
       .pipe(csv())
       .on('data', (data) => {
+       
         if (data && data.AgentPhoneNumber){
           var promise;
           promise = Users.findOne({
@@ -122,6 +154,8 @@ const readCSVFile = (filePath, url) => {
             if (user) {
               data.user_id = user.id.toString();
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
+              data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);
+              console.log(convertTimeToSeconds(data.DeviceOnHumanReadable));
               matchedResults.push(data);
             } 
             else 
@@ -131,6 +165,7 @@ const readCSVFile = (filePath, url) => {
               notMatchedResults.push(data)
             }
           }).catch(error => {
+            logger.info('Error finding user',error); // Example log          
             console.error('Error finding user:', error);
             data.fileUrl = url;
             data.message = "Error";
@@ -138,9 +173,10 @@ const readCSVFile = (filePath, url) => {
             notMatchedResults.push(data)
           });
         }else if(!data.AgentPhoneNumber) {
+          
           data.fileUrl = url;
           data.message = "Number Not Found";
-          data.error = '';
+          data.error = '';      
           notMatchedResults.push(data)
         }
         promises.push(promise);
@@ -148,13 +184,20 @@ const readCSVFile = (filePath, url) => {
       .on('end', () => {
         // Wait for all promises to resolve before resolving the main promise
         Promise.all(promises).then(() => {
+          
+          logger.info("Relationship Manager Matched Records =>", { data: matchedResults }); // Example log
+          logger.error("Relationship Manager Not Matched Records =>", { data: notMatchedResults }); // Example log
+
           resolve([matchedResults, notMatchedResults]);
         }).catch(error => {
           console.error('Error:', error);
+          logger.error("Error resolving all promises =>", { data: error }); // Example log
+
           reject(error);
         });
       })
       .on('error', (error) => {
+        logger.error("Error reading CSV file =>", { data: error }); // Example log
         console.error('Error reading CSV file:', error);
         reject(error);
       });
@@ -163,7 +206,8 @@ const readCSVFile = (filePath, url) => {
 const downloadAndReadCSV = async (url) => {
   const destination = './downloads/data.csv'; // Destination path to save the downloaded CSV file
   try {
-    await downloadFile(url, destination);
+    //await downloadFile(url, destination);
+    await retryDownloadFile(url, destination, 1);
     const [data, notMatchedData] = await readCSVFile(destination, url);
     //await insertDataToAgentData(data);
     await insertDataToAgentDataInChunks(data, 1000);
@@ -230,6 +274,32 @@ const insertNotMatchedDataInChunks = async (data, chunkSize = 1000) => {
     }
   }
 };
+
+function convertTimeToSeconds(timeString) {
+  // Example timeString: "1 Hours, 5 Minutes and 10 Seconds"
+  
+  // Split the timeString into parts
+  const parts = timeString.split(/[^\d]+/).filter(Boolean); // Split by non-digit characters and filter out empty strings
+  
+  // Initialize variables to store hours, minutes, and seconds
+  let hours = 0, minutes = 0, seconds = 0;
+  
+  // Parse hours, minutes, and seconds
+  if (parts.length >= 1) {
+      hours = parseInt(parts[0]);
+  }
+  if (parts.length >= 2) {
+      minutes = parseInt(parts[1]);
+  }
+  if (parts.length >= 3) {
+      seconds = parseInt(parts[2]);
+  }
+  
+  // Calculate total seconds
+  const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  
+  return totalSeconds;
+}
 
 module.exports = {
   getAgentCallDetails,

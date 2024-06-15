@@ -90,7 +90,6 @@ router.post('/cronejob', (req, res) => {
         console.error(`Error executing the script: ${error}`);
         return res.status(500).send('Error executing the script');
       }
-      console.log(`Script output: ${stdout}`);
       console.error(`Script errors: ${stderr}`);
       res.send('Script executed successfully');
     });

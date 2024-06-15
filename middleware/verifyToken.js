@@ -5,7 +5,6 @@ const JWT_SECRET = "realEstateApp$ecret$493458395789";
 const verifyToken=async (req,res,next)=>{
     const token=req.header('auth-token');
     if(!token){
-        console.log("No token received");
       res.status(401).send({result:false,message:'Invalid token'});
     }
     try{

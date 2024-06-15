@@ -76,7 +76,6 @@ const resetPassword = [
                         }                                                                
                                                            
             } catch (err) {
-                console.log(err);
                 res.status(500).send({result:false,err});        
             }       
     },
