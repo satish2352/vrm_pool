@@ -15,7 +15,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { fromtime, totime, agent_id } = req.body;
+            const { fromtime, totime, agent_id, supervisor_id } = req.body;
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -30,6 +30,7 @@ const getAgentReportsSingleRow = [
             let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
             let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
 
+            // Create the filter for the agent data query
             const reportFilter = {
                 updatedAt: {
                     [Op.between]: [new Date(toTime1Hrback), new Date(currentTime1HrBack)]
@@ -70,12 +71,20 @@ const getAgentReportsSingleRow = [
 
                 const userIds = agentDataBatch.map(report => report.user_id);
 
+                const userFilter = {
+                    id: userIds,
+                    is_active: 1,
+                    is_deleted: 0
+                };
+
+                if (supervisor_id) {
+                    userFilter.added_by = supervisor_id;
+                }
+
+                console.log('User Filter:', userFilter); // Debugging line
+
                 const agents = await User.findAll({
-                    where: {
-                        id: userIds,
-                        is_active: 1,
-                        is_deleted: 0
-                    },
+                    where: userFilter,
                     attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                 });
 
