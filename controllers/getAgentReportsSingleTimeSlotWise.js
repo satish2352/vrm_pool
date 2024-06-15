@@ -32,7 +32,9 @@ const getAgentReportsSingleRow = [
                 if (agent_id.length === 0) {
                     return apiResponse.successResponse(res, 'Empty agent list');
                 } else {
-                    userFilter.id = agent_id;
+                   userFilter.id = {
+                    [Op.in]: agent_id
+                };
                 }
             }
 
