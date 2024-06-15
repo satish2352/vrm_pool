@@ -15,7 +15,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { fromtime, totime } = req.body;
+            const { fromtime, totime, agent_id } = req.body;
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -25,28 +25,26 @@ const getAgentReportsSingleRow = [
 
             let processedCount = 0;
             const allReports = [];
-            // let currentTime1HrBack = new Date(fromtime).getTime() - 60 * 60000; // Subtract 60 minutes from fromTime
-            // let toTime1Hrback = new Date(currentTime1HrBack).getTime() + 60 * 60000; // Subtract 60 
 
-           
-            var xfromTime=new Date(fromtime)
-
-
+            const xfromTime = new Date(fromtime);
             let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-            toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
+            let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
 
-            console.log('---------------------------------')
-            console.log(currentTime1HrBack)
-            console.log('---------------------------------')
-            console.log(toTime1Hrback)
+            const reportFilter = {
+                updatedAt: {
+                    [Op.between]: [new Date(toTime1Hrback), new Date(currentTime1HrBack)]
+                }
+            };
+
+            if (Array.isArray(agent_id) && agent_id.length > 0) {
+                reportFilter.user_id = {
+                    [Op.in]: agent_id
+                };
+            }
+
+            console.log('Report Filter:', reportFilter); // Debugging line
 
             while (true) {
-                const reportFilter = {
-                    updatedAt: {
-                        [Op.between]: [new Date(toTime1Hrback), new Date(currentTime1HrBack)]
-                    }
-                };
-
                 const agentDataBatch = await AgentData.findAll({
                     attributes: [
                         'user_id',
@@ -119,24 +117,6 @@ const getAgentReportsSingleRow = [
         }
     },
 ];
-
-async function splitTimeIntoSlots(fromTime, toTime) {
-    const records = [];
-    let currentTime = new Date(fromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-    toTime = new Date(toTime.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
-
-    while (currentTime <= toTime) {
-        const slotStartTime = new Date(currentTime);
-        const slotEndTime = new Date(currentTime.getTime() + 60 * 60000); // Add 60 minutes
-
-        records.push({ start_time: slotStartTime, end_time: slotEndTime });
-
-        // Move to the next 60-minute slot
-        currentTime = slotEndTime;
-    }
-
-    return records;
-}
 
 module.exports = {
     getAgentReportsSingleRow,
