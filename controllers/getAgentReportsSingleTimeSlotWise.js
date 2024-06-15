@@ -17,30 +17,37 @@ const getAgentReportsSingleRow = [
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
-            
+
             let userFilter = {
                 is_active: 1,
                 is_deleted: 0
             };
+
             if (user_type) {
                 userFilter.user_type = user_type;
             }
+
             if (supervisor_id) {
                 userFilter.added_by = supervisor_id;
             }
-            if (Array.isArray(agent_id)) {
-                if (agent_id.length === 0) {
-                    return apiResponse.successResponse(res, 'Empty agent list');
-                } else {
-                   userFilter.id = {
+
+            if (Array.isArray(agent_id) && agent_id.length > 0) {
+                userFilter.id = {
                     [Op.in]: agent_id
                 };
-                }
             }
+
+            console.log('User Filter:', userFilter); // Debugging line
 
             const all_agents = await User.findAll({
                 where: userFilter
             });
+
+            console.log('All Agents:', all_agents); // Debugging line
+
+            if (all_agents.length === 0) {
+                return apiResponse.successResponse(res, 'No agents found');
+            }
 
             const total_agents = all_agents.length;
             const offset = (page - 1) * pageSize;
