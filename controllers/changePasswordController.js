@@ -38,6 +38,8 @@ const changePassword = [
                 let user_type = req.user.user_type;
                 let idTobeUpdated = req.body.id;
             
+
+                    
                         let user = await User.findByPk(idTobeUpdated);
                         if (!user) {
                             return res.status(404).json({ result: false, message: "User not found" });
@@ -46,6 +48,10 @@ const changePassword = [
                         if (!passwordCompare) {
                             return res.status(400).json({ result: false, message: 'Please enter valid old password' });
                         } else {
+                            if(req.body.old_password==req.body.password)
+                                {
+                                    return res.status(400).json({ result: false, message: 'New password should be different than old password' });
+                                }
                             if (req.body.id == req.user.id) {
                                 const salt = await bcrypt.genSalt(10);
                                 const encryptedPassword = await bcrypt.hash(req.body.password, salt)
