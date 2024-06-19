@@ -57,13 +57,19 @@ const getAgentReportsSingleRow = [
                 
                     if (rows.length === 0) break;
                     const userIds = rows.map(report => report.user_id);
-                    console.log(userIds);
+                    //console.log(userIds);
+                    const userWhereClause = {
+                        id: userIds,
+                        is_active: 1,
+                        is_deleted: 0
+                    };
+
+                    if (supervisor_id) {
+                        userWhereClause.supervisor_id = supervisor_id;
+                    }
+
                     const agents = await User.findAll({
-                        where: {
-                            id: userIds,
-                            is_active: 1,
-                            is_deleted: 0
-                        },
+                        where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
                     const agentDetailsMap = agents.reduce((acc, agent) => {
