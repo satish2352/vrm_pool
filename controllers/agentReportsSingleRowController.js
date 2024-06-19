@@ -34,9 +34,9 @@ const getAgentReportsSingleRow = [
             if (user_type) {
                 userFilter.user_type = user_type;
             }
-            if (supervisor_id) {
-                userFilter.added_by = supervisor_id;
-            }
+            // if (supervisor_id) {
+            //     userFilter.added_by = supervisor_id;
+            // }
 
             if (Array.isArray(agent_id)) {
                 if (agent_id.length > 0) {
