@@ -72,7 +72,7 @@ const getAgentReportsSingleRow = [
                         where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
-                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                
                     console.log(supervisor_id)
                     const agentDetailsMap = agents.reduce((acc, agent) => {
                         acc[agent.id] = agent;
@@ -130,12 +130,18 @@ const getAgentReportsSingleRow = [
 
                     const userIds = agentDataBatch.map(report => report.user_id);
 
+                    const userWhereClause = {
+                        id: userIds,
+                        is_active: 1,
+                        is_deleted: 0
+                    };
+
+                    if (supervisor_id) {
+                        userWhereClause.supervisor_id = supervisor_id;
+                    }
+
                     const agents = await User.findAll({
-                        where: {
-                            id: userIds,
-                            is_active: 1,
-                            is_deleted: 0
-                        },
+                        where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
 
