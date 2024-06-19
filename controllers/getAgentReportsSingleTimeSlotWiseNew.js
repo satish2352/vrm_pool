@@ -140,6 +140,8 @@ const getAgentReportsSingleRow = [
                         userWhereClause.added_by = supervisor_id;
                     }
 
+                    console.log('================>');
+
                     const agents = await User.findAll({
                         where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
