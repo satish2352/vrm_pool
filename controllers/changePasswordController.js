@@ -7,6 +7,10 @@ const changePassword = [
         min: 8,
         max: 100,
     }),
+    body("old_password", "Enter valid password min 8 digits").isLength({
+        min: 8,
+        max: 100,
+    }),
     body("confirm_password", "Enter valid password min 8 digits").isLength({
         min: 8,
         max: 100,
@@ -38,16 +42,22 @@ const changePassword = [
                         if (!user) {
                             return res.status(404).json({ result: false, message: "User not found" });
                         }
-                        if (req.body.id == req.user.id) {
-                            const salt = await bcrypt.genSalt(10);
-                            const encryptedPassword = await bcrypt.hash(req.body.password, salt)
-                            req.user.set('password', encryptedPassword); // Admin Self password change
-                            req.user.set('is_password_reset', 0); // Change it 0 when password reset
-                            await req.user.save();
-                            return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
-                        }else{
-                            return res.status(400).send({ result: false, message: "You are not authorized to change password of this user" });
+                        const passwordCompare = await bcrypt.compare(req.body.old_password, user.password);
+                        if (!passwordCompare) {
+                            return res.status(400).json({ result: false, message: 'Please enter valid old password' });
+                        } else {
+                            if (req.body.id == req.user.id) {
+                                const salt = await bcrypt.genSalt(10);
+                                const encryptedPassword = await bcrypt.hash(req.body.password, salt)
+                                req.user.set('password', encryptedPassword); // Admin Self password change
+                                req.user.set('is_password_reset', 0); // Change it 0 when password reset
+                                await req.user.save();
+                                return res.status(200).send({ result: true, message: "Your password Changed Successfully" });
+                            }else{
+                                return res.status(400).send({ result: false, message: "You are not authorized to change password of this user" });
+                            }
                         }
+                        
             }
         } catch (err) {
             res.status(500).send({ result: false, err });
