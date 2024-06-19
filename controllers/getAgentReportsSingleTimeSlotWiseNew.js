@@ -65,7 +65,7 @@ const getAgentReportsSingleRow = [
                     };
 
                     if (supervisor_id) {
-                        userWhereClause.supervisor_id = supervisor_id;
+                        userWhereClause.added_by = supervisor_id;
                     }
 
                     const agents = await User.findAll({
@@ -137,7 +137,7 @@ const getAgentReportsSingleRow = [
                     };
 
                     if (supervisor_id) {
-                        userWhereClause.supervisor_id = supervisor_id;
+                        userWhereClause.added_by = supervisor_id;
                     }
 
                     const agents = await User.findAll({
