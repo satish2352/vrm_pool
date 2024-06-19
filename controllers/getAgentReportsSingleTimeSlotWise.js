@@ -43,14 +43,7 @@ const getAgentReportsSingleRow = [
                     [Op.in]: agent_id
                 };
             }
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log(agent_id)
-            console.log('User Filter:', userFilter); // Debugging line
-
+        
 
             const all_agents = await User.findAll({
                 where: userFilter

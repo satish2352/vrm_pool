@@ -14,7 +14,7 @@ const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { fromtime, totime, agent_id } = req.body;
+            const { fromtime, totime, agent_id,supervisor_id } = req.body;
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -31,11 +31,15 @@ const getAgentReportsSingleRow = [
             let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
             let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
 
-            const reportFilter = {
+            var reportFilter = {
                 updatedAt: {
                     [Op.between]: [new Date(fromtime), new Date(totime)]
                 }
             };
+
+            if (supervisor_id) {
+                reportFilter.added_by = supervisor_id;
+            }
 
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
                 reportFilter.user_id = {
