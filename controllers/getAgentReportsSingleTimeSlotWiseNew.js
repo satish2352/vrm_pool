@@ -60,7 +60,13 @@ const getAgentReportsSingleRow = [
                             is_active: 1,
                             is_deleted: 0
                         },
-                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
+                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active',
+                            [
+                                fn('COUNT', col('mobile')),
+                                'TotalRowsCount'
+                            ],
+
+                        ],
                     });
 
 
