@@ -72,6 +72,8 @@ const getAgentReportsSingleRow = [
                         where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
+                    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                    console.log(supervisor_id)
                     const agentDetailsMap = agents.reduce((acc, agent) => {
                         acc[agent.id] = agent;
                         return acc;
