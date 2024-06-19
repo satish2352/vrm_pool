@@ -45,6 +45,23 @@ const getAgentReportsSingleRow = [
                 console.log('Report Filter:', reportFilter); // Debugging line
                 while (true) {
                     const agentDataBatch = await AgentData.findAll({
+                        attributes: [
+                            'user_id',
+                            'IncomingCalls',
+                            'MissedCalls',
+                            'NoAnswer',
+                            'Busy',
+                            'Failed',
+                            'OutgoingCalls',
+                            'TotalCallDurationInMinutes',
+                            'AverageHandlingTimeInMinutes',
+                            'DeviceOnPercent',
+                            'DeviceOnHumanReadableInSeconds',                        
+                            [
+                                fn('COUNT', col('DeviceOnPercent')),
+                                'TotalRowsCount'
+                            ]
+                        ],
                         where: reportFilter,
                         order: [['createdAt', 'DESC']],
                         limit: BATCH_SIZE,
@@ -60,13 +77,7 @@ const getAgentReportsSingleRow = [
                             is_active: 1,
                             is_deleted: 0
                         },
-                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active',
-                            [
-                                fn('COUNT', col('mobile')),
-                                'TotalRowsCount'
-                            ],
-
-                        ],
+                        attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
 
 
