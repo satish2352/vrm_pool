@@ -149,7 +149,10 @@ const readCSVFile = (filePath, url) => {
           var promise;
           promise = Users.findOne({
             attributes: ['id'],
-            where: { mobile: data.AgentPhoneNumber.slice(-10) },
+            where: { 
+              mobile: data.AgentPhoneNumber.slice(-10),
+              user_type:3,
+             },
           }).then(user => {
             if (user) {
               data.user_id = user.id.toString();
