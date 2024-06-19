@@ -37,9 +37,9 @@ const getAgentReportsSingleRow = [
                 }
             };
 
-            if (supervisor_id) {
-                reportFilter.added_by = supervisor_id;
-            }
+            // if (supervisor_id) {
+            //     reportFilter.added_by = supervisor_id;
+            // }
 
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
                 reportFilter.user_id = {
