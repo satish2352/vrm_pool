@@ -44,32 +44,15 @@ const getAgentReportsSingleRow = [
 
                 console.log('Report Filter:', reportFilter); // Debugging line
                 while (true) {
-                    const agentDataBatch = await AgentData.findAll({
-                        attributes: [
-                            'user_id',
-                            'IncomingCalls',
-                            'MissedCalls',
-                            'NoAnswer',
-                            'Busy',
-                            'Failed',
-                            'OutgoingCalls',
-                            'TotalCallDurationInMinutes',
-                            'AverageHandlingTimeInMinutes',
-                            'DeviceOnPercent',
-                            'DeviceOnHumanReadableInSeconds',                        
-                            [
-                                fn('COUNT', col('DeviceOnPercent')),
-                                'TotalRowsCount'
-                            ]
-                        ],
+                    const { count, rows } = await AgentData.findAndCountAll({
                         where: reportFilter,
                         order: [['createdAt', 'DESC']],
                         limit: BATCH_SIZE,
                         offset: processedCount,
                     });
                 
-                    if (agentDataBatch.length === 0) break;
-                    const userIds = agentDataBatch.map(report => report.user_id);
+                    if (rows.length === 0) break;
+                    const userIds = rows.map(report => report.user_id);
                     console.log(userIds);
                     const agents = await User.findAll({
                         where: {
@@ -79,11 +62,6 @@ const getAgentReportsSingleRow = [
                         },
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
-
-
-                    
-                    console.log(agents);
-
                     const agentDetailsMap = agents.reduce((acc, agent) => {
                         acc[agent.id] = agent;
                         return acc;
@@ -97,6 +75,7 @@ const getAgentReportsSingleRow = [
                         };
                     }).filter(report => report.user !== null);
 
+                    combinedReports.TotalRowsCount=count,
                     allReports.push(...combinedReports);
 
                     processedCount += BATCH_SIZE;
