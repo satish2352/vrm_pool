@@ -71,11 +71,12 @@ const getAgentReportsSingleRow = [
                         const agent = agentDetailsMap[report.user_id];
                         return {
                             ...report.get(),
-                            user: agent ? agent.get() : null
+                            user: agent ? agent.get() : null,
+                            TotalRowsCount: count  // Include the total count here
+
                         };
                     }).filter(report => report.user !== null);
 
-                    combinedReports.TotalRowsCount=count,
                     allReports.push(...combinedReports);
 
                     processedCount += BATCH_SIZE;
