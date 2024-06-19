@@ -67,7 +67,7 @@ const getAgentReportsSingleRow = [
                         return acc;
                     }, {});
 
-                    const combinedReports = agentDataBatch.map(report => {
+                    const combinedReports = rows.map(report => {
                         const agent = agentDetailsMap[report.user_id];
                         return {
                             ...report.get(),
