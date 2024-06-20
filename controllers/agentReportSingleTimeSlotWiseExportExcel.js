@@ -4,13 +4,14 @@ const User = require("../models/Users");
 const { Op, fn, col } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 require('dotenv').config();
+const ExcelJS = require('exceljs');
 
 User.hasMany(AgentData, { foreignKey: 'user_id' });
 AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const BATCH_SIZE = 1000;
 
-const getAgentReportsSingleRow = [
+const exportExcelTimeSlotWise = [
     verifyToken,
     async (req, res) => {
         try {
@@ -18,14 +19,8 @@ const getAgentReportsSingleRow = [
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
-
-            const offset = (page - 1) * pageSize;
-            const limit = pageSize;
-
             let processedCount = 0;
             const allReports = [];
-
-            
 
             const xfromTime = new Date(fromtime);
             let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
@@ -37,16 +32,14 @@ const getAgentReportsSingleRow = [
                 }
             };
 
-            // if (supervisor_id) {
-            //     reportFilter.added_by = supervisor_id;
-            // }
+         
 
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
                 reportFilter.user_id = {
                     [Op.in]: agent_id
                 };
 
-                while (true) {
+               
                     const { count, rows } = await AgentData.findAndCountAll({
                         where: reportFilter,
                         order: [['createdAt', 'DESC']],
@@ -54,7 +47,6 @@ const getAgentReportsSingleRow = [
                         offset: processedCount,
                     });
                 
-                    if (rows.length === 0) break;
                     const userIds = rows.map(report => report.user_id);
                     const userWhereClause = {
                         id: userIds,
@@ -85,14 +77,8 @@ const getAgentReportsSingleRow = [
 
                         };
                     }).filter(report => report.user !== null);
-
-                    allReports.push(...combinedReports);
-
-                    processedCount += BATCH_SIZE;
-                }
+                    allReports.push(...combinedReports);                
             } else {
-
-                while (true) {
                     const agentDataBatch = await AgentData.findAll({
                         attributes: [
                             'user_id',
@@ -117,15 +103,9 @@ const getAgentReportsSingleRow = [
                         ],
                         where: reportFilter,
                         group: ['user_id'],
-                        order: [['createdAt', 'DESC']],
-                        limit: BATCH_SIZE,
-                        offset: processedCount,
+                        order: [['createdAt', 'DESC']],                      
                     });
-
-                    if (agentDataBatch.length === 0) break;
-
                     const userIds = agentDataBatch.map(report => report.user_id);
-
                     const userWhereClause = {
                         id: userIds,
                         is_active: 1,
@@ -135,8 +115,6 @@ const getAgentReportsSingleRow = [
                     if (supervisor_id) {
                         userWhereClause.added_by = supervisor_id;
                     }
-
-
                     const agents = await User.findAll({
                         where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
@@ -155,24 +133,60 @@ const getAgentReportsSingleRow = [
                         };
                     }).filter(report => report.user !== null);
                     allReports.push(...combinedReports);
-                    processedCount += BATCH_SIZE;
-                }
+                   
+                
             }
 
-            const totalItems = allReports.length;
-            const totalPages = Math.ceil(totalItems / pageSize);
-            const paginatedReports = allReports.slice(offset, offset + limit);
+            console.log(allReports);
 
-            const resData = {
-                result: true,
-                data: paginatedReports,
-                totalItems: totalItems,
-                totalPages: totalPages,
-                currentPage: page,
-                pageSize: pageSize,
-            };
+            const workbook = new ExcelJS.Workbook();
+                const worksheet = workbook.addWorksheet('Agent Reports');
 
-            return res.status(200).json(resData);
+                // Add columns
+                worksheet.columns = [
+                   
+                    { header: 'RM Name', key: 'name', width: 20 },
+                    { header: 'RM Mobile Number', key: 'mobile', width: 15 },
+                    { header: 'RM Email', key: 'email', width: 30 },                
+                    { header: 'Incoming Calls', key: 'IncomingCalls', width: 15 },
+                    { header: 'Missed Calls', key: 'MissedCalls', width: 15 },
+                    { header: 'No Answer', key: 'NoAnswer', width: 10 },
+                    { header: 'Busy', key: 'Busy', width: 10 },
+                    { header: 'Failed', key: 'Failed', width: 10 },
+                    { header: 'Outgoing Calls', key: 'OutgoingCalls', width: 15 },
+                    { header: 'Total Call Duration (Minutes)', key: 'TotalCallDurationInMinutes', width: 25 },
+                    { header: 'Average Handling Time (Minutes)', key: 'AverageHandlingTimeInMinutes', width: 25 },
+                    { header: 'Device On Percent', key: 'DeviceOnPercent', width: 15 },
+                    { header: 'Device On Human Readable (Seconds)', key: 'DeviceOnHumanReadableInSeconds', width: 30 },
+                   
+                ];
+                
+                allReports.forEach(report => {
+                    worksheet.addRow({
+                        mobile: report.user.mobile,
+                        name: report.user.name,
+                        email: report.user.email,
+                        user_type: report.user.user_type,
+                        is_active: report.user.is_active,
+                        IncomingCalls: report.IncomingCalls,
+                        MissedCalls: report.MissedCalls,
+                        NoAnswer: report.NoAnswer,
+                        Busy: report.Busy,
+                        Failed: report.Failed,
+                        OutgoingCalls: report.OutgoingCalls,
+                        TotalCallDurationInMinutes: report.TotalCallDurationInMinutes,
+                        AverageHandlingTimeInMinutes: report.AverageHandlingTimeInMinutes,
+                        DeviceOnPercent: report.DeviceOnPercent,
+                        DeviceOnHumanReadableInSeconds: report.DeviceOnHumanReadableInSeconds                    
+                    });
+                });
+                // Write to buffer
+                const buffer = await workbook.xlsx.writeBuffer();
+                // Send the buffer as an Excel file
+                res.setHeader('Content-Disposition', 'attachment; filename="AgentReports.xlsx"');
+                res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                return res.send(buffer);
+        
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
@@ -181,5 +195,5 @@ const getAgentReportsSingleRow = [
 ];
 
 module.exports = {
-    getAgentReportsSingleRow,
+    exportExcelTimeSlotWise,
 };

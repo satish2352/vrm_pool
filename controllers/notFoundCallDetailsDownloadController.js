@@ -20,7 +20,6 @@ const downloadNotInsertedDetailsFile = [
         });
     } 
       const { fileUrl } = req.query;
-      console.log(fileUrl)
       // Get all columns from the UsersCopy model
       const attributes = Object.keys(NotFoundAgentCallDetails.rawAttributes);
 
@@ -40,7 +39,6 @@ const downloadNotInsertedDetailsFile = [
       });
 
       if (!reports.length) {
-        console.log("No reports found");
         return res.status(200).json({
           result: false,
           message: "No records found",

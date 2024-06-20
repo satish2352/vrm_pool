@@ -33,6 +33,8 @@ const getAgentCallDetailsInsertController = require("./controllers/getAgentCallD
 
 
 const getAgentReportsSingleTimeSlotWiseNew = require("./controllers/getAgentReportsSingleTimeSlotWiseNew");
+const getAgentReportsSingleRowExportExcel = require("./controllers/agentReportSingleRowExportExcel");
+const getAgentReportsSingleTimeSlotWiseExportExcel = require("./controllers/agentReportSingleTimeSlotWiseExportExcel");
 const getActiveAllUsersListWithoutPaginationController = require("./controllers/getActiveAllUsersListWithoutPaginationController");
 
 
@@ -76,6 +78,10 @@ router.get("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadControll
 router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.getAgentNotInsertCallDetails);
 
 router.post("/getActiveUserListWithoutPagination",getActiveAllUsersListWithoutPaginationController.getActiveUserListWithoutPagination);
+router.post("/getSingleRowExportExcel",getAgentReportsSingleRowExportExcel.getSingleRowExportExcel);
+router.post("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExportExcel.exportExcelTimeSlotWise);
+
+
 
 
 

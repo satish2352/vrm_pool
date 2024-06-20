@@ -42,7 +42,6 @@ const downloadFile = [
         
   
         if (!reports.length) {
-          console.log("No reports found");
           return apiResponse.successResponse(res, "No reports found", []);
         }  
         reports.forEach(report => {

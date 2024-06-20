@@ -14,13 +14,6 @@ const getAgentReportsSingleRow = [
     async (req, res) => {
         try {
             const { user_type, supervisor_id, agent_id, fromtime, totime } = req.body;
-
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log('---------------------------')
-            console.log(agent_id)
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
@@ -49,7 +42,6 @@ const getAgentReportsSingleRow = [
                 where: userFilter
             });
 
-            console.log('All Agents:', all_agents); // Debugging line
 
             if (all_agents.length === 0) {
                 return apiResponse.successResponse(res, 'No agents found');
