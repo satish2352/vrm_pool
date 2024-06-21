@@ -86,6 +86,9 @@ const getAgentReportsSingleRow = [
             } else {
 
                 while (true) {
+                    reportFilter.user_id = {
+                        [Op.in]: agent_id
+                    };
                     const agentDataBatch = await AgentData.findAll({
                         attributes: [
                             'user_id',
