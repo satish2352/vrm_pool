@@ -125,7 +125,6 @@ const getSingleRowExportExcel = [
 
             worksheet.columns = [
 
-                { header: 'Sr No', key: 'sr_no', width: 5 },
                 { header: 'RM Name', key: 'name', width: 20 },
                 { header: 'RM Email', key: 'email', width: 30 },
                 { header: 'RM Mobile Number', key: 'mobile', width: 15 },
@@ -141,7 +140,6 @@ const getSingleRowExportExcel = [
             reports.forEach(report => {
                 let avilable_time_value = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
                 worksheet.addRow({
-                    sr_no: '1',
                     name: report.user.name,
                     email: report.user.email,
                     mobile: report.user.mobile,
