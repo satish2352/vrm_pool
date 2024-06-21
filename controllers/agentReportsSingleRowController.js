@@ -43,7 +43,6 @@ const getAgentReportsSingleRow = [
                     userFilter.id = agent_id;
                 }
             }
-
             // Fetch user data based on filters
             const users = await User.findAll({
                 where: userFilter,
@@ -124,18 +123,25 @@ const getAgentReportsSingleRow = [
             // Calculate total pages
             const totalPages = Math.ceil(count.length / pageSize);
 
-            // Response with pagination metadata
-            // const response = {
-            //     totalItems: count.length,
-            //     totalPages: totalPages,
-            //     currentPage: page,
-            //     pageSize: pageSize,
-            //     reports: reports
-            // };
+         
+            let dataFinal =[];
+            reports.forEach(report => {
+                var obj = {};
+                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
+                obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+                obj["on_call_timer"] =report.TotalCallDurationInMinutes
+                obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
+                obj["missed_call_timer"] = report.MissedCalls
+                obj["outgoing_call_timer"] = report.OutgoingCalls
+                obj["user"] = report.user;
+
+                dataFinal.push(obj);
+            });
 
             var resData = {
                 result: true,               
-                data: reports,
+                // data: reports,
+                data: dataFinal,
                 totalItems: count.length,
                 totalPages: totalPages,
                 currentPage: page,
@@ -150,6 +156,84 @@ const getAgentReportsSingleRow = [
         }
     },
 ];
+
+
+
+// Common Code
+
+
+function customTime(dateTimeString) {
+    const date = new Date(dateTimeString);
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+
+function calculateAbsoluteDifference(incomingCalls, missedCalls) {
+    return Math.abs(incomingCalls - missedCalls);
+}
+
+
+function secondsToDhms(seconds) {
+    seconds = Number(seconds);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+
+    var dDisplay = d > 0 ? d : "00";
+    var hDisplay = h > 0 ? h : "00";
+    var mDisplay = m > 0 ? m : "00";
+    var sDisplay = s > 0 ? s : "00";
+    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
+}
+
+function secondsToDhmsForAvailableTimer(stringData) {
+
+    var seconds = convertStringToSeconds(stringData);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+
+    var dDisplay = d > 0 ? d : "00";
+    var hDisplay = h > 0 ? h : "00";
+    var mDisplay = m > 0 ? m : "00";
+    var sDisplay = s > 0 ? s : "00";
+    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
+}
+
+function convertStringToSeconds(timeString) {
+    const timeUnits = {
+        'days': 0,
+        'hours': 0,
+        'minutes': 0,
+        'seconds': 0
+    };
+
+    const regex = /(\d+)\s*(days?|hours?|minutes?|seconds?)/gi;
+    let match;
+    while ((match = regex.exec(timeString)) !== null) {
+        const value = parseInt(match[1], 10);
+        const unit = match[2].toLowerCase();
+        if (unit.startsWith('day')) {
+            timeUnits['days'] = value;
+        } else if (unit.startsWith('hour')) {
+            timeUnits['hours'] = value;
+        } else if (unit.startsWith('minute')) {
+            timeUnits['minutes'] = value;
+        } else if (unit.startsWith('second')) {
+            timeUnits['seconds'] = value;
+        }
+    }
+
+    const daysToSeconds = timeUnits['days'] * 24 * 60 * 60;
+    const hoursToSeconds = timeUnits['hours'] * 60 * 60;
+    const minutesToSeconds = timeUnits['minutes'] * 60;
+    const seconds = timeUnits['seconds'];
+
+    return daysToSeconds + hoursToSeconds + minutesToSeconds + seconds;
+}
+
 
 module.exports = {
     getAgentReportsSingleRow,

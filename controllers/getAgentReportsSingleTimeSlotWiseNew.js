@@ -25,22 +25,15 @@ const getAgentReportsSingleRow = [
             let processedCount = 0;
             const allReports = [];
 
-            
-
-            const xfromTime = new Date(fromtime);
-            let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-            let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
+            //const xfromTime = new Date(fromtime);
+            //let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
+            //let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
 
             var reportFilter = {
                 updatedAt: {
                     [Op.between]: [new Date(fromtime), new Date(totime)]
                 }
             };
-
-            // if (supervisor_id) {
-            //     reportFilter.added_by = supervisor_id;
-            // }
-
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
                 reportFilter.user_id = {
                     [Op.in]: agent_id
@@ -157,15 +150,34 @@ const getAgentReportsSingleRow = [
                     allReports.push(...combinedReports);
                     processedCount += BATCH_SIZE;
                 }
+
+               
+
             }
 
             const totalItems = allReports.length;
             const totalPages = Math.ceil(totalItems / pageSize);
             const paginatedReports = allReports.slice(offset, offset + limit);
 
+            let dataFinal =[];
+            paginatedReports.forEach(report => {
+                var obj = {};
+                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
+                obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+                obj["on_call_timer"] =report.TotalCallDurationInMinutes;
+                obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls);
+                obj["missed_call_timer"] = report.MissedCalls;
+                obj["outgoing_call_timer"] = report.OutgoingCalls;
+                obj["createdAt"] = report.createdAt;
+                obj["updatedAt"] = report.updatedAt;
+                obj["user"] = report.user;
+                dataFinal.push(obj);
+
+            });
+
             const resData = {
                 result: true,
-                data: paginatedReports,
+                data: dataFinal,
                 totalItems: totalItems,
                 totalPages: totalPages,
                 currentPage: page,
@@ -179,6 +191,83 @@ const getAgentReportsSingleRow = [
         }
     },
 ];
+
+
+// Common Code
+
+
+function customTime(dateTimeString) {
+    const date = new Date(dateTimeString);
+    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
+
+function calculateAbsoluteDifference(incomingCalls, missedCalls) {
+    return Math.abs(incomingCalls - missedCalls);
+}
+
+
+function secondsToDhms(seconds) {
+    seconds = Number(seconds);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+
+    var dDisplay = d > 0 ? d : "00";
+    var hDisplay = h > 0 ? h : "00";
+    var mDisplay = m > 0 ? m : "00";
+    var sDisplay = s > 0 ? s : "00";
+    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
+}
+
+function secondsToDhmsForAvailableTimer(stringData) {
+
+    var seconds = convertStringToSeconds(stringData);
+    var d = Math.floor(seconds / (3600 * 24));
+    var h = Math.floor(seconds % (3600 * 24) / 3600);
+    var m = Math.floor(seconds % 3600 / 60);
+    var s = Math.floor(seconds % 60);
+
+    var dDisplay = d > 0 ? d : "00";
+    var hDisplay = h > 0 ? h : "00";
+    var mDisplay = m > 0 ? m : "00";
+    var sDisplay = s > 0 ? s : "00";
+    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
+}
+
+function convertStringToSeconds(timeString) {
+    const timeUnits = {
+        'days': 0,
+        'hours': 0,
+        'minutes': 0,
+        'seconds': 0
+    };
+
+    const regex = /(\d+)\s*(days?|hours?|minutes?|seconds?)/gi;
+    let match;
+    while ((match = regex.exec(timeString)) !== null) {
+        const value = parseInt(match[1], 10);
+        const unit = match[2].toLowerCase();
+        if (unit.startsWith('day')) {
+            timeUnits['days'] = value;
+        } else if (unit.startsWith('hour')) {
+            timeUnits['hours'] = value;
+        } else if (unit.startsWith('minute')) {
+            timeUnits['minutes'] = value;
+        } else if (unit.startsWith('second')) {
+            timeUnits['seconds'] = value;
+        }
+    }
+
+    const daysToSeconds = timeUnits['days'] * 24 * 60 * 60;
+    const hoursToSeconds = timeUnits['hours'] * 60 * 60;
+    const minutesToSeconds = timeUnits['minutes'] * 60;
+    const seconds = timeUnits['seconds'];
+
+    return daysToSeconds + hoursToSeconds + minutesToSeconds + seconds;
+}
+
 
 module.exports = {
     getAgentReportsSingleRow,
