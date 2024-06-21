@@ -79,6 +79,11 @@ const exportExcelTimeSlotWise = [
                 }).filter(report => report.user !== null);
                 allReports.push(...combinedReports);
             } else {
+                if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length>1) {
+                    reportFilter.user_id = {
+                        [Op.in]: agent_id
+                    };
+                }
                 const agentDataBatch = await AgentData.findAll({
                     attributes: [
                         'user_id',
