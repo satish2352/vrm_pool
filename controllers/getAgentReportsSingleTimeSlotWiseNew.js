@@ -86,6 +86,12 @@ const getAgentReportsSingleRow = [
             } else {
 
                 while (true) {
+                    if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length>1) {
+                        reportFilter.user_id = {
+                            [Op.in]: agent_id
+                        };
+                    }
+                   
                     const agentDataBatch = await AgentData.findAll({
                         attributes: [
                             'user_id',
@@ -128,6 +134,7 @@ const getAgentReportsSingleRow = [
                     if (supervisor_id) {
                         userWhereClause.added_by = supervisor_id;
                     }
+                    
 
 
                     const agents = await User.findAll({
