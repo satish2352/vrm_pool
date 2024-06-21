@@ -86,6 +86,11 @@ const getAgentReportsSingleRow = [
             } else {
 
                 while (true) {
+                    var reportFilter = {
+                        updatedAt: {
+                            [Op.between]: [new Date(fromtime), new Date(totime)]
+                        }
+                    };
                     reportFilter.user_id = {
                         [Op.in]: agent_id
                     };
