@@ -188,7 +188,6 @@ const exportExcelTimeSlotWise = [
 
             worksheet.columns = [
 
-                { header: 'Sr No', key: 'sr_no', width: 5 },
                 { header: 'RM Name', key: 'name', width: 20 },
                 { header: 'RM Email', key: 'email', width: 30 },
                 { header: 'RM Mobile Number', key: 'mobile', width: 15 },
