@@ -222,7 +222,9 @@ const exportExcelTimeSlotWise = [
             // Send the buffer as an Excel file
             res.setHeader('Content-Disposition', 'attachment; filename="AgentReports.xlsx"');
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            return res.send(buffer);
+            //return res.send(buffer);
+            await workbook.xlsx.write(res);
+            res.end();
 
         } catch (error) {
             console.error('Error fetching reports:', error);
