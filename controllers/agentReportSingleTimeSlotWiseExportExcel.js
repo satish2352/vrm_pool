@@ -204,7 +204,6 @@ const exportExcelTimeSlotWise = [
             allReports.forEach(report => {
                 let avilable_time_value = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
                 worksheet.addRow({
-                    sr_no: '1',
                     name: report.user.name,
                     email: report.user.email,
                     mobile: report.user.mobile,
