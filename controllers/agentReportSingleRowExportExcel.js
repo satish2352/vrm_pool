@@ -155,11 +155,10 @@ const getSingleRowExportExcel = [
             // Write to buffer
             const buffer = await workbook.xlsx.writeBuffer();
             // Send the buffer as an Excel file
-            res.setHeader('Content-Disposition', `attachment; filename="AgentReports_${generateTimestamp()}.xlsx"`);
+            res.setHeader('Content-Disposition', 'attachment; filename="AgentReports.xlsx"');
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            //return res.send(buffer);
-            await workbook.xlsx.write(res);
-            res.end();
+            return res.send(buffer);
+
 
         } catch (error) {
             console.error('Error fetching reports:', error);
@@ -167,10 +166,7 @@ const getSingleRowExportExcel = [
         }
     },
 ];
-function generateTimestamp() {
-    const now = new Date();
-    return now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14);
-}
+
 
 function customTime(dateTimeString) {
     const date = new Date(dateTimeString);
