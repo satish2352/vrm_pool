@@ -220,7 +220,7 @@ const exportExcelTimeSlotWise = [
             // Write to buffer
             const buffer = await workbook.xlsx.writeBuffer();
             // Send the buffer as an Excel file
-            res.setHeader('Content-Disposition', 'attachment; filename="AgentReports.xlsx"');
+            res.setHeader('Content-Disposition', `attachment; filename="AgentReports_${generateTimestampIST()}.xlsx"`);
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             //return res.send(buffer);
             await workbook.xlsx.write(res);
@@ -233,6 +233,22 @@ const exportExcelTimeSlotWise = [
     },
 ];
 
+function generateTimestampIST() {
+    const now = new Date();
+    
+    // Convert to IST by adding 5 hours and 30 minutes
+    const istOffset = 5 * 60 * 60 * 1000 + 30 * 60 * 1000;
+    const istTime = new Date(now.getTime() + istOffset);
+    
+    const year = istTime.getUTCFullYear();
+    const month = String(istTime.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(istTime.getUTCDate()).padStart(2, '0');
+    const hours = String(istTime.getUTCHours()).padStart(2, '0');
+    const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(istTime.getUTCSeconds()).padStart(2, '0');
+    
+    return `${year}${month}${day}${hours}${minutes}${seconds}`;
+}
 
 function customTime(dateTimeString) {
     const date = new Date(dateTimeString);
