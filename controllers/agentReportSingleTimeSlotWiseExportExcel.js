@@ -12,7 +12,7 @@ AgentData.belongsTo(User, { foreignKey: 'user_id' });
 const BATCH_SIZE = 1000;
 
 const exportExcelTimeSlotWise = [
-    verifyToken,
+    // verifyToken,
     async (req, res) => {
         try {
             const { fromtime, totime, agent_id, supervisor_id } = req.body;

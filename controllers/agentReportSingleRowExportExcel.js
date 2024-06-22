@@ -11,7 +11,7 @@ User.hasMany(AgentData, { foreignKey: 'user_id' });
 AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const getSingleRowExportExcel = [
-    verifyToken,
+    // verifyToken,
     async (req, res) => {
         try {
             const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1, } = req.body;
