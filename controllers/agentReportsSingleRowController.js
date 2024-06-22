@@ -168,71 +168,7 @@ function customTime(dateTimeString) {
 }
 
 
-function calculateAbsoluteDifference(incomingCalls, missedCalls) {
-    return Math.abs(incomingCalls - missedCalls);
-}
-
-
-function secondsToDhms(seconds) {
-    seconds = Number(seconds);
-    var d = Math.floor(seconds / (3600 * 24));
-    var h = Math.floor(seconds % (3600 * 24) / 3600);
-    var m = Math.floor(seconds % 3600 / 60);
-    var s = Math.floor(seconds % 60);
-
-    var dDisplay = d > 0 ? d : "00";
-    var hDisplay = h > 0 ? h : "00";
-    var mDisplay = m > 0 ? m : "00";
-    var sDisplay = s > 0 ? s : "00";
-    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
-}
-
-function secondsToDhmsForAvailableTimer(stringData) {
-
-    var seconds = convertStringToSeconds(stringData);
-    var d = Math.floor(seconds / (3600 * 24));
-    var h = Math.floor(seconds % (3600 * 24) / 3600);
-    var m = Math.floor(seconds % 3600 / 60);
-    var s = Math.floor(seconds % 60);
-
-    var dDisplay = d > 0 ? d : "00";
-    var hDisplay = h > 0 ? h : "00";
-    var mDisplay = m > 0 ? m : "00";
-    var sDisplay = s > 0 ? s : "00";
-    return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
-}
-
-function convertStringToSeconds(timeString) {
-    const timeUnits = {
-        'days': 0,
-        'hours': 0,
-        'minutes': 0,
-        'seconds': 0
-    };
-
-    const regex = /(\d+)\s*(days?|hours?|minutes?|seconds?)/gi;
-    let match;
-    while ((match = regex.exec(timeString)) !== null) {
-        const value = parseInt(match[1], 10);
-        const unit = match[2].toLowerCase();
-        if (unit.startsWith('day')) {
-            timeUnits['days'] = value;
-        } else if (unit.startsWith('hour')) {
-            timeUnits['hours'] = value;
-        } else if (unit.startsWith('minute')) {
-            timeUnits['minutes'] = value;
-        } else if (unit.startsWith('second')) {
-            timeUnits['seconds'] = value;
-        }
-    }
-
-    const daysToSeconds = timeUnits['days'] * 24 * 60 * 60;
-    const hoursToSeconds = timeUnits['hours'] * 60 * 60;
-    const minutesToSeconds = timeUnits['minutes'] * 60;
-    const seconds = timeUnits['seconds'];
-
-    return daysToSeconds + hoursToSeconds + minutesToSeconds + seconds;
-}
+ 
 
 
 module.exports = {
