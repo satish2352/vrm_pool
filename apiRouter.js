@@ -79,7 +79,7 @@ router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.
 
 router.post("/getActiveUserListWithoutPagination",getActiveAllUsersListWithoutPaginationController.getActiveUserListWithoutPagination);
 router.get("/getSingleRowExportExcel",getAgentReportsSingleRowExportExcel.getSingleRowExportExcel);
-router.post("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExportExcel.exportExcelTimeSlotWise);
+router.get("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExportExcel.exportExcelTimeSlotWise);
 
 
 
