@@ -14,7 +14,6 @@ const getSingleRowExportExcel = [
     verifyToken,
     async (req, res) => {
         try {
-            console.log("hi");
             const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1, } = req.body;
 
             if (!page) {

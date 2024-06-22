@@ -142,7 +142,6 @@ const exportExcelTimeSlotWise = [
 
             }
 
-            console.log(allReports);
 
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Agent Reports');
