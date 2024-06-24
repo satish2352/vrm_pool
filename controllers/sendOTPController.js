@@ -112,7 +112,12 @@ const sendOTP = [
                         const ses = new AWS.SES(assumedRoleConfig);
                       
                         var toEmail=user.email
-                        
+                        var userTitle="";
+                        if(user.user_type==1){
+                            userTitle="Admin";
+                        }else{
+                            userTitle="Supervisor";
+                        }
                         // Construct the SES email parameters
                         const params = {
                           Destination: {
@@ -120,7 +125,7 @@ const sendOTP = [
                           },
                           Message: {
                             Body: {
-                              Text: { Data: ` Dear User your temporary password to reset your password is  ${otp}  and it is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
+                              Text: { Data: ` Dear User \n\n\nyour temporary password to reset your password is  ${otp}  \n\nit is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
                             },
                             Subject: { Data: `Temporary Password - VRM Pool Monitoring Dashboard` },
                           },
