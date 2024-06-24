@@ -125,7 +125,7 @@ const sendOTP = [
                           },
                           Message: {
                             Body: {
-                              Text: { Data: ` Dear User \n\n\nyour temporary password to reset your password is  ${otp}  \n\nit is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
+                              Text: { Data: ` Dear ${userTitle} \n\n\nyour temporary password to reset your password is  ${otp}  \n\nit is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
                             },
                             Subject: { Data: `Temporary Password - VRM Pool Monitoring Dashboard` },
                           },
