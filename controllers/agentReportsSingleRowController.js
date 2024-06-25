@@ -100,7 +100,7 @@ const getAgentReportsSingleRow = [
                         'TotalCallDurationInMinutes'
                     ],
                     [
-                        fn('SUM', col('DeviceOnHumanReadableInSeconds')),
+                        fn('SUM', col('')),
                         'DeviceOnHumanReadableInSeconds'
                     ],
                     [
@@ -127,7 +127,7 @@ const getAgentReportsSingleRow = [
             let dataFinal =[];
             reports.forEach(report => {
                 var obj = {};
-                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
+                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
                 obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
                 obj["on_call_timer"] =report.TotalCallDurationInMinutes
                 obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
@@ -185,9 +185,9 @@ function secondsToDhms(seconds) {
     return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
 }
 
-function secondsToDhmsForAvailableTimer(stringData) {
+function secondsToDhmsForAvailableTimer(seconds) {
 
-    var seconds = convertStringToSeconds(stringData);
+    //var seconds = convertStringToSeconds(stringData);
     var d = Math.floor(seconds / (3600 * 24));
     var h = Math.floor(seconds % (3600 * 24) / 3600);
     var m = Math.floor(seconds % 3600 / 60);

@@ -278,29 +278,29 @@ const insertNotMatchedDataInChunks = async (data, chunkSize = 1000) => {
 };
 
 function convertTimeToSeconds(timeString) {
-  // Example timeString: "1 Hours, 5 Minutes and 10 Seconds"
-  
-  // Split the timeString into parts
-  const parts = timeString.split(/[^\d]+/).filter(Boolean); // Split by non-digit characters and filter out empty strings
-  
-  // Initialize variables to store hours, minutes, and seconds
   let hours = 0, minutes = 0, seconds = 0;
   
-  // Parse hours, minutes, and seconds
-  if (parts.length >= 1) {
-      hours = parseInt(parts[0]);
+  // Use regular expressions to find hours, minutes, and seconds
+  const hoursMatch = timeString.match(/(\d+)\s*Hours?/i);
+  const minutesMatch = timeString.match(/(\d+)\s*Minutes?/i);
+  const secondsMatch = timeString.match(/(\d+)\s*Seconds?/i);
+  
+  // Parse hours, minutes, and seconds if matches are found
+  if (hoursMatch) {
+      hours = parseInt(hoursMatch[1]);
   }
-  if (parts.length >= 2) {
-      minutes = parseInt(parts[1]);
+  if (minutesMatch) {
+      minutes = parseInt(minutesMatch[1]);
   }
-  if (parts.length >= 3) {
-      seconds = parseInt(parts[2]);
+  if (secondsMatch) {
+      seconds = parseInt(secondsMatch[1]);
   }
   
   // Calculate total seconds
   const totalSeconds = hours * 3600 + minutes * 60 + seconds;
   
   return totalSeconds;
+  
 }
 
 module.exports = {
