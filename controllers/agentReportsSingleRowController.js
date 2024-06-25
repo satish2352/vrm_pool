@@ -120,12 +120,15 @@ const getAgentReportsSingleRow = [
             // Calculate total pages
             const totalPages = Math.ceil(count.length / pageSize);
 
-            console.log("====================================");
-            console.log(reports);
-            console.log("====================================");
+            
             let dataFinal =[];
             reports.forEach(report => {
                 var obj = {};
+                console.log("====================================");
+                console.log(report);           
+                console.log(report.TotalRowsCount);           
+                 console.log("====================================");
+                
                 obj["TotalRowsCount"] = report.TotalRowsCount;
                 obj["test"] = "test";
                 obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
