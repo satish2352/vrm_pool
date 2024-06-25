@@ -101,7 +101,7 @@ const exportExcelTimeSlotWise = [
                             'DeviceOnHumanReadableInSeconds'
                         ],
                         [
-                            fn('COUNT', col('DeviceOnPercent')),
+                            fn('COUNT', col('DeviceOnHumanReadableInSeconds')),
                             'TotalRowsCount'
                         ],
                         'DeviceOnHumanReadable',
