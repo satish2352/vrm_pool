@@ -126,7 +126,7 @@ const getAgentReportsSingleRow = [
                 var obj = {};
                 console.log("====================================");
                 console.log(report);           
-                console.log(report.TotalRowsCount);           
+                console.log(report.dataValues.TotalRowsCount);           
                  console.log("====================================");
                 
                 obj["TotalRowsCount"] = report.TotalRowsCount;
