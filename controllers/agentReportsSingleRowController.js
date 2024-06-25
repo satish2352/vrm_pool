@@ -100,7 +100,7 @@ const getAgentReportsSingleRow = [
                         'TotalCallDurationInMinutes'
                     ],
                     [
-                        fn('SUM', col('')),
+                        fn('SUM', col('DeviceOnHumanReadableInSeconds')),
                         'DeviceOnHumanReadableInSeconds'
                     ],
                     [
