@@ -76,7 +76,7 @@ const resetUserPassword = [
                                     },
                                     Message: {
                                         Body: {
-                                            Text: { Data: `Dear Supervisor,\n\n\n Your temporary password to reset your password is   ${randomPassword}  and it is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
+                                            Text: { Data: `Dear Supervisor,\n\nYour temporary password to reset your password is   ${randomPassword}  and it is valid for 5 minutes only.\n\nPlease use this temporary password and add a new password to your account.` },
                                         },
                                         Subject: { Data: 'Forgot Password - VRM Pool Monitoring Dashboard' },
                                     },
