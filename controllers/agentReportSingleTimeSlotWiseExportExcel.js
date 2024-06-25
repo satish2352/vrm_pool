@@ -198,6 +198,8 @@ const exportExcelTimeSlotWise = [
                 { header: 'Outgoing Calls', key: 'outgoing_call_timer', width: 15 },
 
             ];
+
+            console.log(allReports);
             // Add rows
             allReports.forEach(report => {
                 //let avilable_time_value = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
