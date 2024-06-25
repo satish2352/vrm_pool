@@ -134,7 +134,7 @@ const getAgentReportsSingleRow = [
                 obj["missed_call_timer"] = report.MissedCalls
                 obj["outgoing_call_timer"] = report.OutgoingCalls
                 obj["user"] = report.user;
-
+                obj["TotalRowsCount"] = report.TotalRowsCount;
                 dataFinal.push(obj);
             });
 
