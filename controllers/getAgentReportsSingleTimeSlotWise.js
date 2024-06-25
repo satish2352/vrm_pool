@@ -37,16 +37,13 @@ const getAgentReportsSingleRow = [
                 };
             }
         
-
             const all_agents = await User.findAll({
                 where: userFilter
             });
 
-
             if (all_agents.length === 0) {
                 return apiResponse.successResponse(res, 'No agents found');
             }
-
             const total_agents = all_agents.length;
             const offset = (page - 1) * pageSize;
             const limit = pageSize;

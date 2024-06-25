@@ -39,6 +39,8 @@ const getAgentReportsSingleRow = [
                     [Op.in]: agent_id
                 };
 
+                console.log("----------------------------------------------")
+
                 while (true) {
                     const { count, rows } = await AgentData.findAndCountAll({
                         where: reportFilter,
@@ -158,8 +160,7 @@ const getAgentReportsSingleRow = [
                     processedCount += BATCH_SIZE;
                 }
 
-               
-
+            
             }
 
             const totalItems = allReports.length;
@@ -176,7 +177,7 @@ const getAgentReportsSingleRow = [
                 obj["missed_call_timer"] = report.MissedCalls;
                 obj["outgoing_call_timer"] = report.OutgoingCalls;
                 obj["user"] = report.user;
-                
+        
                 dataFinal.push(obj);
             });
 
