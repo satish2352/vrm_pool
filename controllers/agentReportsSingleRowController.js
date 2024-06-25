@@ -103,10 +103,7 @@ const getAgentReportsSingleRow = [
                         fn('SUM', col('DeviceOnHumanReadableInSeconds')),
                         'DeviceOnHumanReadableInSeconds'
                     ],
-                    [
-                        fn('COUNT', col('DeviceOnHumanReadableInSeconds')),
-                        'TotalRowsCount'
-                    ],
+                    [fn('COUNT', col('DeviceOnHumanReadableInSeconds')), 'TotalRowsCount'],
                     'DeviceOnHumanReadable',
                 ],
                 where: reportFilter,
@@ -123,7 +120,9 @@ const getAgentReportsSingleRow = [
             // Calculate total pages
             const totalPages = Math.ceil(count.length / pageSize);
 
-         
+            console.log("====================================");
+            console.log(reports);
+            console.log("====================================");
             let dataFinal =[];
             reports.forEach(report => {
                 var obj = {};
