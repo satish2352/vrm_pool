@@ -124,13 +124,6 @@ const getAgentReportsSingleRow = [
             let dataFinal =[];
             reports.forEach(report => {
                 var obj = {};
-                console.log("====================================");
-                console.log(report);           
-                console.log(report.dataValues.TotalRowsCount);           
-                 console.log("====================================");
-                
-                obj["TotalRowsCount"] = report.TotalRowsCount;
-                obj["test"] = "test";
                 obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
                 obj["non_avilable_time"] =secondsToDhms((((report.dataValues.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
                 obj["on_call_timer"] =secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60);

@@ -143,12 +143,11 @@ const getSingleRowExportExcel = [
                     email: report.user.email,
                     mobile: report.user.mobile,
                     avilable_time: avilable_time_value,
-                    non_avilable_time: secondsToDhms((((report.TotalRowsCount * 60) * 60) - report.DeviceOnHumanReadableInSeconds)),
-                    on_call_timer: report.TotalCallDurationInMinutes,
+                    non_avilable_time: secondsToDhms((((report.dataValues.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds)),
+                    on_call_timer: secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60),
                     received_call_timer: calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
-
                 });
             });
             // Write to buffer
@@ -208,9 +207,9 @@ function secondsToDhms(seconds) {
     return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
 }
 
-function secondsToDhmsForAvailableTimer(stringData) {
+function secondsToDhmsForAvailableTimer(seconds) {
 
-    var seconds = convertStringToSeconds(stringData);
+   // var seconds = convertStringToSeconds(stringData);
     var d = Math.floor(seconds / (3600 * 24));
     var h = Math.floor(seconds % (3600 * 24) / 3600);
     var m = Math.floor(seconds % 3600 / 60);

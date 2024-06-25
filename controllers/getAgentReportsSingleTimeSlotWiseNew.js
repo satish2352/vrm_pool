@@ -169,17 +169,15 @@ const getAgentReportsSingleRow = [
             let dataFinal =[];
             paginatedReports.forEach(report => {
                 var obj = {};
-                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
-                obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
-                obj["on_call_timer"] =report.TotalCallDurationInMinutes;
+                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
+                obj["non_avilable_time"] =secondsToDhms((((report.dataValues.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+                obj["on_call_timer"] =secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60);
                 obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls);
                 obj["missed_call_timer"] = report.MissedCalls;
                 obj["outgoing_call_timer"] = report.OutgoingCalls;
-                obj["createdAt"] = report.createdAt;
-                obj["updatedAt"] = report.updatedAt;
                 obj["user"] = report.user;
+                
                 dataFinal.push(obj);
-
             });
 
             const resData = {
@@ -228,9 +226,9 @@ function secondsToDhms(seconds) {
     return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
 }
 
-function secondsToDhmsForAvailableTimer(stringData) {
+function secondsToDhmsForAvailableTimer(seconds) {
 
-    var seconds = convertStringToSeconds(stringData);
+    //var seconds = convertStringToSeconds(stringData);
     var d = Math.floor(seconds / (3600 * 24));
     var h = Math.floor(seconds % (3600 * 24) / 3600);
     var m = Math.floor(seconds % 3600 / 60);
