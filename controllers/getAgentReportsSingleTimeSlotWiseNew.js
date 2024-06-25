@@ -169,6 +169,9 @@ const getAgentReportsSingleRow = [
 
             let dataFinal =[];
             paginatedReports.forEach(report => {
+
+                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<----------------------------------")
+                console.log(report)
                 var obj = {};
                 obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
                 obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
