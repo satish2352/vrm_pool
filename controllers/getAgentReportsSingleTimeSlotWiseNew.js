@@ -177,6 +177,8 @@ const getAgentReportsSingleRow = [
                 obj["missed_call_timer"] = report.MissedCalls;
                 obj["outgoing_call_timer"] = report.OutgoingCalls;
                 obj["user"] = report.user;
+                obj["createdAt"] = report.createdAt;
+                obj["updatedAt"] = report.updatedAt;
         
                 dataFinal.push(obj);
             });
