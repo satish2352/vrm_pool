@@ -127,6 +127,7 @@ const getAgentReportsSingleRow = [
             reports.forEach(report => {
                 var obj = {};
                 obj["TotalRowsCount"] = report.TotalRowsCount;
+                obj["test"] = "test";
                 obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
                 obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
                 obj["on_call_timer"] =secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60);
