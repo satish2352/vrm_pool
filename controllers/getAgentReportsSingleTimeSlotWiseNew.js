@@ -170,19 +170,25 @@ const getAgentReportsSingleRow = [
             let dataFinal =[];
             paginatedReports.forEach(report => {
 
-                console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<----------------------------------")
                 console.log(report)
                 var obj = {};
+                
+                if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) 
+                    {
+                        obj["non_avilable_time"] =secondsToDhms((((1*60)*60)  - report.DeviceOnHumanReadableInSeconds ));  
+                    }else{
+                        obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+                    }
+
                 obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
-                obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+              //  obj["non_avilable_time"] =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
                 obj["on_call_timer"] =secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60);
                 obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls);
                 obj["missed_call_timer"] = report.MissedCalls;
                 obj["outgoing_call_timer"] = report.OutgoingCalls;
                 obj["user"] = report.user;
                 obj["createdAt"] = report.createdAt;
-                obj["updatedAt"] = report.updatedAt;
-        
+                obj["updatedAt"] = report.updatedAt;        
                 dataFinal.push(obj);
             });
 
