@@ -203,13 +203,20 @@ const exportExcelTimeSlotWise = [
             // Add rows
             allReports.forEach(report => {
 
+                var non_avilable_time="";
                 //let avilable_time_value = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadable);
+                if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) 
+                    {
+                        non_avilable_time =secondsToDhms((((1*60)*60)  - report.DeviceOnHumanReadableInSeconds ));  
+                    }else{
+                        non_avilable_time =secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
+                    }
                 worksheet.addRow({
                     name: report.user.name,
                     email: report.user.email,
                     mobile: report.user.mobile,
                     avilable_time: secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds),
-                    non_avilable_time: secondsToDhms((((report.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds)),
+                    non_avilable_time: non_avilable_time,
                     on_call_timer: secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60),
                     received_call_timer: calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
                     missed_call_timer: report.MissedCalls,
