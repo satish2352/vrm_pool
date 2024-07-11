@@ -80,7 +80,6 @@ const uploadAgents = [
           .then(() => {
             const match = /^(?:\+91|0|91)?(\d{10})$/.exec(user.mobile);
             user.mobile = match[1]
-          user.mobile = match[1]
           return User.findOne({
             where: {
               mobile: user.mobile
@@ -137,7 +136,7 @@ const uploadAgents = [
             if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
               errorMessage='Mobile number cannot be null.';
           } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
-            errorMessage='Name cannot be null.';
+            errorMessage=validationError.message;
               
           } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
             errorMessage='Email cannot be null.';          
