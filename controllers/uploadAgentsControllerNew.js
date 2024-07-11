@@ -102,7 +102,7 @@ async function processBatch(batch, superviserId, usersInserted, usersNotInserted
   const insertionPromises = batch.map(user => {
     return User.build(user).validate()
       .then(() => {
-        const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
+        const match = /^(?:\+91|0|91)?(\d{10})$/.exec(user.mobile);
         if (match) user.mobile = match[1];
         return User.findOne({ where: { mobile: user.mobile } });
       })

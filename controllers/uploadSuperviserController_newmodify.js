@@ -71,7 +71,7 @@ const uploadSupervisers = [
       const insertionPromises = usersToInsert.map(async user => {
         try {
           await User.build(user).validate();
-          const match = /^(?:\+91|0|91)?([6-9]\d{9})$/.exec(user.mobile);
+          const match = /^(?:\+91|0|91)?(\d{10})$/.exec(user.mobile);
           user.mobile = match[1];
           const existingUser = await User.findOne({ where: { mobile: user.mobile } });
           if (existingUser) {

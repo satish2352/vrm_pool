@@ -35,7 +35,7 @@ const User = dbObj.define('user', {
     allowNull: false,
     validate: {
       isValidMobile(value) {
-          if (!/^(?:\+91|0|91)?[6-9]\d{9}$/.test(value)) {
+          if (!/^(?:\+91|0|91)?(\d{10})$/.test(value)) {
               throw new Error('Please enter a valid Indian mobile number');
           }
       }
