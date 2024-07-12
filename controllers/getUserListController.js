@@ -28,7 +28,6 @@ const getUserList = [
 
       if (req.user.user_type == '1') {
         userFilter = {
-          is_deleted: '0',
         };
       } else {
         userFilter = {
