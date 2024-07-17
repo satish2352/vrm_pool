@@ -43,7 +43,7 @@ const getSingleRowExportExcel = [
 
             if (Array.isArray(agent_id)) {
                 if (agent_id.length > 0) {
-                    userFilter.id = agent_id;
+                    userFilter.mobile = agent_id;
                 }
             }
             const users = await User.findAll({
