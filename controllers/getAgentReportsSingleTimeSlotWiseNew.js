@@ -1,12 +1,11 @@
 const verifyToken = require("../middleware/verifyToken");
-const AgentData = require("../models/AgentData");
-const User = require("../models/Users");
+const { AgentData, User } = require('../models');
 const { Op, fn, col } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 require('dotenv').config();
 
-User.hasMany(AgentData, { foreignKey: 'user_id' });
-AgentData.belongsTo(User, { foreignKey: 'user_id' });
+// User.hasMany(AgentData, { foreignKey: 'user_id' });
+// AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const BATCH_SIZE = 1000;
 
@@ -25,9 +24,7 @@ const getAgentReportsSingleRow = [
             let processedCount = 0;
             const allReports = [];
 
-            //const xfromTime = new Date(fromtime);
-            //let currentTime1HrBack = new Date(xfromTime.getTime() - 60 * 60000); // Subtract 60 minutes from fromTime
-            //let toTime1Hrback = new Date(currentTime1HrBack.getTime() - 60 * 60000); // Subtract 60 minutes from toTime
+        
 
             var reportFilter = {
                 updatedAt: {
@@ -35,12 +32,9 @@ const getAgentReportsSingleRow = [
                 }
             };
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) {
-                reportFilter.user_id = {
+                reportFilter.AgentPhoneNumber = {
                     [Op.in]: agent_id
                 };
-
-                console.log("----------------------------------------------")
-
                 while (true) {
                     const { count, rows } = await AgentData.findAndCountAll({
                         where: reportFilter,
@@ -50,13 +44,12 @@ const getAgentReportsSingleRow = [
                     });
                 
                     if (rows.length === 0) break;
-                    const userIds = rows.map(report => report.user_id);
+                    const userMobiles = rows.map(report => report.AgentPhoneNumber);
                     const userWhereClause = {
-                        id: userIds,
+                        mobile: userMobiles,
                         is_active: 1,
                         is_deleted: 0
                     };
-
                     if (supervisor_id) {
                         userWhereClause.added_by = supervisor_id;
                     }
@@ -67,12 +60,12 @@ const getAgentReportsSingleRow = [
                     });
                 
                     const agentDetailsMap = agents.reduce((acc, agent) => {
-                        acc[agent.id] = agent;
+                        acc[agent.mobile] = agent;
                         return acc;
                     }, {});
 
                     const combinedReports = rows.map(report => {
-                        const agent = agentDetailsMap[report.user_id];
+                        const agent = agentDetailsMap[report.AgentPhoneNumber];
                         return {
                             ...report.get(),
                             user: agent ? agent.get() : null,
@@ -86,14 +79,12 @@ const getAgentReportsSingleRow = [
                     processedCount += BATCH_SIZE;
                 }
             } else {
-
                 while (true) {
                     if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length>1) {
-                        reportFilter.user_id = {
+                        reportFilter.AgentPhoneNumber = {
                             [Op.in]: agent_id
                         };
-                    }
-                   
+                    }                   
                     const agentDataBatch = await AgentData.findAll({
                         attributes: [
                             'user_id',
@@ -115,9 +106,21 @@ const getAgentReportsSingleRow = [
                                 'TotalRowsCount'
                             ],
                             'DeviceOnHumanReadable',
+                            'AgentPhoneNumber',
+                        
                         ],
                         where: reportFilter,
-                        group: ['user_id'],
+                        group: ['AgentPhoneNumber'],
+                include: [{
+                    model: User,
+                    attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
+                    required: false, // Use left outer join
+                    on: {
+                        // Define join condition explicitly
+                        '$agentdata.AgentPhoneNumber$': { [Op.col]: 'user.mobile' }
+                    }
+                    
+                  }],
                         order: [['createdAt', 'DESC']],
                         limit: BATCH_SIZE,
                         offset: processedCount,
@@ -125,32 +128,28 @@ const getAgentReportsSingleRow = [
 
                     if (agentDataBatch.length === 0) break;
 
-                    const userIds = agentDataBatch.map(report => report.user_id);
+                    const userMobiles = agentDataBatch.map(report => report.AgentPhoneNumber);
 
                     const userWhereClause = {
-                        id: userIds,
+                        mobile: userMobiles,
                         is_active: 1,
                         is_deleted: 0
-                    };
+                    };               
 
                     if (supervisor_id) {
                         userWhereClause.added_by = supervisor_id;
-                    }
-                    
-
-
+                    }                
                     const agents = await User.findAll({
                         where: userWhereClause,
                         attributes: ['id', 'mobile', 'name', 'email', 'user_type', 'is_active'],
                     });
-
                     const agentDetailsMap = agents.reduce((acc, agent) => {
-                        acc[agent.id] = agent;
+                        acc[agent.mobile] = agent;
                         return acc;
                     }, {});
 
                     const combinedReports = agentDataBatch.map(report => {
-                        const agent = agentDetailsMap[report.user_id];
+                        const agent = agentDetailsMap[report.AgentPhoneNumber];
                         return {
                             ...report.get(),
                             user: agent ? agent.get() : null
@@ -170,7 +169,6 @@ const getAgentReportsSingleRow = [
             let dataFinal =[];
             paginatedReports.forEach(report => {
 
-                console.log(report)
                 var obj = {};
                 
                 if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length<2) 

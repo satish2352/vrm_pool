@@ -54,7 +54,6 @@ const uploadAgents = [
       });
     } else {
       let superviserId = req.body.superviserId;
-
       const workbook = xlsx.readFile(req.file.path);
       const sheets = workbook.SheetNames; // Get all sheet names    
       let jsonData;
@@ -134,12 +133,12 @@ const uploadAgents = [
             console.error(`Validation error for user ${user.name}:`, validationError.message);
             var errorMessage="";
             if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
-              errorMessage='Mobile number cannot be null.';
+              errorMessage='Mobile number is  not valid';
           } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
             errorMessage=validationError.message;
               
           } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
-            errorMessage='Email cannot be null.';          
+            errorMessage='Email id is not valid';          
           }
           else{
              errorMessage = validationError.message.replaceAll('Validation error:', '').trim();

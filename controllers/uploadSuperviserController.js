@@ -195,12 +195,12 @@ const uploadSupervisers = [
           console.error(`Validation error for user ${user.name}:`, validationError.message);
           var errorMessage="";
           if (validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'mobile')) {            
-            errorMessage='Mobile number cannot be null.';
+            errorMessage='Mobile number is  not valid';
         } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'name')) {
-          errorMessage='Name cannot be null.';
+          errorMessage='Name is not valid';
             
         } else if(validationError.name === 'SequelizeValidationError' && validationError.errors.some(error => error.path === 'email')) {
-          errorMessage='Email cannot be null.';          
+          errorMessage='Email id is not valid';          
         }
         else{
            errorMessage = validationError.message.replaceAll('Validation error:', '').trim();

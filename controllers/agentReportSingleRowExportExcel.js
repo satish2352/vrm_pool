@@ -1,14 +1,18 @@
 const verifyToken = require("../middleware/verifyToken");
-const AgentData = require("../models/AgentData");
-const User = require("../models/Users");
+// const AgentData = require("../models/AgentData");
+// const User = require("../models/Users");
 const { validationResult } = require("express-validator");
 const { Op, fn, col, literal } = require('sequelize'); // Importing Op, fn, and col from sequelize
 const apiResponse = require("../helpers/apiResponse");
 const moment = require('moment-timezone');
 const ExcelJS = require('exceljs');
 
-User.hasMany(AgentData, { foreignKey: 'user_id' });
-AgentData.belongsTo(User, { foreignKey: 'user_id' });
+// User.hasMany(AgentData, { foreignKey: 'user_id' });
+// AgentData.belongsTo(User, { foreignKey: 'user_id' });
+
+const dbObj=require('../db')
+const { AgentData, User } = require('../models');
+
 
 const getSingleRowExportExcel = [
     verifyToken,
@@ -46,11 +50,14 @@ const getSingleRowExportExcel = [
                 where: userFilter,
             });
 
-            const userIds = users.map(user => user.id);
+            // Extract user mobiles for filtering reports
+            const userMobiles = users.map(user => user.mobile);
 
             // Construct filter for Reports
             let reportFilter = {
-                user_id: userIds,
+                AgentPhoneNumber: {
+                    [Op.in]: userMobiles,
+                }
             };
             if (fromtime && totime) {
                 reportFilter.updatedAt = {
@@ -105,13 +112,20 @@ const getSingleRowExportExcel = [
                         'TotalRowsCount'
                     ],
                     'DeviceOnHumanReadable',
+                    'AgentPhoneNumber',
                 ],
                 where: reportFilter,
+                group: ['AgentPhoneNumber'],
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
-                }],
-                group: ['user_id'],
+                    required: false, // Use left outer join
+                    on: {
+                        // Define join condition explicitly
+                        '$agentdata.AgentPhoneNumber$': { [Op.col]: 'user.mobile' }
+                    }
+                    
+                  }],
                 order: [['createdAt', 'DESC']],
             });
 

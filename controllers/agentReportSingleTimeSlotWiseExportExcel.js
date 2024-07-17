@@ -1,14 +1,14 @@
 const verifyToken = require("../middleware/verifyToken");
-const AgentData = require("../models/AgentData");
-const User = require("../models/Users");
+// const AgentData = require("../models/AgentData");
+// const User = require("../models/Users");
 const { Op, fn, col } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 require('dotenv').config();
 const ExcelJS = require('exceljs');
-
-User.hasMany(AgentData, { foreignKey: 'user_id' });
-AgentData.belongsTo(User, { foreignKey: 'user_id' });
-
+// User.hasMany(AgentData, { foreignKey: 'user_id' });
+// AgentData.belongsTo(User, { foreignKey: 'user_id' });
+const { AgentData, User } = require('../models');
+const dbObj=require('../db')
 const BATCH_SIZE = 1000;
 
 const exportExcelTimeSlotWise = [
@@ -35,7 +35,7 @@ const exportExcelTimeSlotWise = [
 
 
             if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length < 2) {
-                reportFilter.user_id = {
+                reportFilter.AgentPhoneNumber = {
                     [Op.in]: agent_id
                 };
 
@@ -47,9 +47,9 @@ const exportExcelTimeSlotWise = [
                     offset: processedCount,
                 });
 
-                const userIds = rows.map(report => report.user_id);
+                const userMobiles = rows.map(report => report.AgentPhoneNumber);
                 const userWhereClause = {
-                    id: userIds,
+                    mobile: userMobiles,
                     is_active: 1,
                     is_deleted: 0
                 };
@@ -64,12 +64,12 @@ const exportExcelTimeSlotWise = [
                 });
 
                 const agentDetailsMap = agents.reduce((acc, agent) => {
-                    acc[agent.id] = agent;
+                    acc[agent.mobile] = agent;
                     return acc;
                 }, {});
 
                 const combinedReports = rows.map(report => {
-                    const agent = agentDetailsMap[report.user_id];
+                    const agent = agentDetailsMap[report.AgentPhoneNumber];
                     return {
                         ...report.get(),
                         user: agent ? agent.get() : null,
@@ -80,7 +80,7 @@ const exportExcelTimeSlotWise = [
                 allReports.push(...combinedReports);
             } else {
                 if (Array.isArray(agent_id) && agent_id.length > 0 && agent_id.length>1) {
-                    reportFilter.user_id = {
+                    reportFilter.AgentPhoneNumber = {
                         [Op.in]: agent_id
                     };
                 }
@@ -105,14 +105,25 @@ const exportExcelTimeSlotWise = [
                             'TotalRowsCount'
                         ],
                         'DeviceOnHumanReadable',
+                        'AgentPhoneNumber',
                     ],
                     where: reportFilter,
-                    group: ['user_id'],
+                    group: ['AgentPhoneNumber'],
+                include: [{
+                    model: User,
+                    attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
+                    required: false, // Use left outer join
+                    on: {
+                        // Define join condition explicitly
+                        '$agentdata.AgentPhoneNumber$': { [Op.col]: 'user.mobile' }
+                    }
+                    
+                  }],
                     order: [['createdAt', 'DESC']],
                 });
-                const userIds = agentDataBatch.map(report => report.user_id);
+                const userMobiles = agentDataBatch.map(report => report.AgentPhoneNumber);
                 const userWhereClause = {
-                    id: userIds,
+                    mobile: userMobiles,
                     is_active: 1,
                     is_deleted: 0
                 };
@@ -126,12 +137,12 @@ const exportExcelTimeSlotWise = [
                 });
 
                 const agentDetailsMap = agents.reduce((acc, agent) => {
-                    acc[agent.id] = agent;
+                    acc[agent.mobile] = agent;
                     return acc;
                 }, {});
 
                 const combinedReports = agentDataBatch.map(report => {
-                    const agent = agentDetailsMap[report.user_id];
+                    const agent = agentDetailsMap[report.AgentPhoneNumber];
                     return {
                         ...report.get(),
                         user: agent ? agent.get() : null
@@ -142,49 +153,8 @@ const exportExcelTimeSlotWise = [
 
             }
 
-
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Agent Reports');
-
-            // Add columns
-            // worksheet.columns = [
-
-            //     { header: 'RM Name', key: 'name', width: 20 },
-            //     { header: 'RM Mobile Number', key: 'mobile', width: 15 },
-            //     { header: 'RM Email', key: 'email', width: 30 },                
-            //     { header: 'Incoming Calls', key: 'IncomingCalls', width: 15 },
-            //     { header: 'Missed Calls', key: 'MissedCalls', width: 15 },
-            //     { header: 'No Answer', key: 'NoAnswer', width: 10 },
-            //     { header: 'Busy', key: 'Busy', width: 10 },
-            //     { header: 'Failed', key: 'Failed', width: 10 },
-            //     { header: 'Outgoing Calls', key: 'OutgoingCalls', width: 15 },
-            //     { header: 'Total Call Duration (Minutes)', key: 'TotalCallDurationInMinutes', width: 25 },
-            //     { header: 'Average Handling Time (Minutes)', key: 'AverageHandlingTimeInMinutes', width: 25 },
-            //     { header: 'Device On Percent', key: 'DeviceOnPercent', width: 15 },
-            //     { header: 'Device On Human Readable (Seconds)', key: 'DeviceOnHumanReadableInSeconds', width: 30 },
-
-            // ];
-
-            // allReports.forEach(report => {
-            //     worksheet.addRow({
-            //         mobile: report.user.mobile,
-            //         name: report.user.name,
-            //         email: report.user.email,
-            //         user_type: report.user.user_type,
-            //         is_active: report.user.is_active,
-            //         IncomingCalls: report.IncomingCalls,
-            //         MissedCalls: report.MissedCalls,
-            //         NoAnswer: report.NoAnswer,
-            //         Busy: report.Busy,
-            //         Failed: report.Failed,
-            //         OutgoingCalls: report.OutgoingCalls,
-            //         TotalCallDurationInMinutes: report.TotalCallDurationInMinutes,
-            //         AverageHandlingTimeInMinutes: report.AverageHandlingTimeInMinutes,
-            //         DeviceOnPercent: report.DeviceOnPercent,
-            //         DeviceOnHumanReadableInSeconds: report.DeviceOnHumanReadableInSeconds                    
-            //     });
-
-
             worksheet.columns = [
 
                 { header: 'RM Name', key: 'name', width: 20 },
@@ -199,7 +169,6 @@ const exportExcelTimeSlotWise = [
 
             ];
 
-            console.log(allReports);
             // Add rows
             allReports.forEach(report => {
 

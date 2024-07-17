@@ -162,9 +162,15 @@ const readCSVFile = (filePath, url) => {
             } 
             else 
             {
-              data.fileUrl = url;
+              data.user_id = 0;
+              data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
+              data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);
               data.message = "Relationship Manager Not Found";
-              notMatchedResults.push(data)
+              matchedResults.push(data);
+              //notMatchedResults.push(data);
+              // data.fileUrl = url;
+              // data.message = "Relationship Manager Not Found";
+              // notMatchedResults.push(data)
             }
           }).catch(error => {
             logger.info('Error finding user',error); // Example log          
@@ -185,11 +191,9 @@ const readCSVFile = (filePath, url) => {
       })
       .on('end', () => {
         // Wait for all promises to resolve before resolving the main promise
-        Promise.all(promises).then(() => {
-          
-          logger.info("Relationship Manager Matched Records =>", { data: matchedResults }); // Example log
-          logger.error("Relationship Manager Not Matched Records =>", { data: notMatchedResults }); // Example log
-
+        Promise.all(promises).then(() => {          
+          logger.info("Call Details Records Received For Relationship Manager  =>", { data: matchedResults }); // Example log
+          logger.error("Call Details Records Received For Relationship Manager without valid AgentPhoneNumber Or Incomplete Data =>", { data: notMatchedResults }); // Example log
           resolve([matchedResults, notMatchedResults]);
         }).catch(error => {
           console.error('Error:', error);

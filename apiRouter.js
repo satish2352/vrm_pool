@@ -24,22 +24,16 @@ const adminUserPasswordResetController = require("./controllers/adminUserPasswor
 const updateUserController = require("./controllers/updateUserController");
 const agentDataDownloadController = require("./controllers/agentDataDownloadController");
 const agentReportsSingleRowController = require("./controllers/agentReportsSingleRowController");
-const getAgentReportsSingleTimeSlotWise = require("./controllers/getAgentReportsSingleTimeSlotWise");
 const getAllReportsController = require("./controllers/getAllReportsController");
-const uploadAgentsControllerNew = require("./controllers/uploadAgentsControllerNew");
 const getActiveUserListController = require("./controllers/getActiveUserListController");
 const notFoundCallDetailsDownloadController = require("./controllers/notFoundCallDetailsDownloadController");
 const getAgentCallDetailsInsertController = require("./controllers/getAgentCallDetailsInsertController");
-
-
 const getAgentReportsSingleTimeSlotWiseNew = require("./controllers/getAgentReportsSingleTimeSlotWiseNew");
 const getAgentReportsSingleRowExportExcel = require("./controllers/agentReportSingleRowExportExcel");
 const getAgentReportsSingleTimeSlotWiseExportExcel = require("./controllers/agentReportSingleTimeSlotWiseExportExcel");
 const getActiveAllUsersListWithoutPaginationController = require("./controllers/getActiveAllUsersListWithoutPaginationController");
+const getAgentSingleRowTestCtrl = require("./controllers/agentReportsSingleRowControllerTest");
 
-
-
-//const tempSendEmailController=require("./controllers/tempSendEmailController")
 
 const { exec } = require('child_process');
 
@@ -71,12 +65,9 @@ router.post("/getAgentReportsSingleRow",agentReportsSingleRowController.getAgent
 router.post("/getAgentReportsSingleTimeSlotWise",getAgentReportsSingleTimeSlotWiseNew.getAgentReportsSingleRow);
 router.post("/getagentcalldetails", upload.none(),agentDataDownloadController.getAgentCallDetails);
 router.post("/getAllReports",getAllReportsController.getAllReports);
-//router.post("/sentTempEmail",tempSendEmailController.sentTempEmail);
 router.post("/getActiveUserList",getActiveUserListController.getActiveUserList);
-
 router.get("/downloadNotInsertedDetailsFile",notFoundCallDetailsDownloadController.downloadNotInsertedDetailsFile);
 router.post("/getAgentNotInsertCallDetails",getAgentCallDetailsInsertController.getAgentNotInsertCallDetails);
-
 router.post("/getActiveUserListWithoutPagination",getActiveAllUsersListWithoutPaginationController.getActiveUserListWithoutPagination);
 router.post("/getSingleRowExportExcel",getAgentReportsSingleRowExportExcel.getSingleRowExportExcel);
 router.post("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExportExcel.exportExcelTimeSlotWise);
@@ -85,10 +76,10 @@ router.post("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExpor
 
 
 
+// test routes for developement purpose
 
 
-
-router.post("/uploadAgentsNew",uploadAgentsControllerNew.uploadAgents);
+router.post("/testSingleRow",getAgentSingleRowTestCtrl.getAgentReportsSingleRow);
 
 router.post('/cronejob', (req, res) => {
     exec('sh dumpdata.sh', (error, stdout, stderr) => {

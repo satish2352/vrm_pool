@@ -1,33 +1,22 @@
 const verifyToken = require("../middleware/verifyToken");
-// const AgentData = require("../models/AgentData");
-// const User = require("../models/Users");
+const { AgentData, User } = require('../models');
 const { validationResult } = require("express-validator");
-const { Op, fn, col, literal } = require('sequelize'); // Importing Op, fn, and col from sequelize
+const { Op, fn, col, literal } = require('sequelize');
 const apiResponse = require("../helpers/apiResponse");
 const moment = require('moment-timezone');
-const { AgentData, User } = require('../models');
-const dbObj=require('../db')
-
-// User.hasMany(AgentData, { foreignKey: 'user_id' });
-// AgentData.belongsTo(User, { foreignKey: 'user_id' });
 
 const getAgentReportsSingleRow = [
     verifyToken,
     async (req, res) => {
         try {
-            const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1,} = req.body;
+            const { user_type, supervisor_id, agent_id, fromtime, totime, page = 1 } = req.body;
 
-            if(!page)
-                {
-                    page=1;
-                }
-            pageSize =process.env.PAGE_LENGTH
-            const  customPageSize = req.body.pageSize;
-            if(customPageSize)
-              {
-                pageSize =customPageSize
-              }
-        
+            let pageSize = parseInt(process.env.PAGE_LENGTH);
+            const customPageSize = req.body.pageSize;
+            if (customPageSize) {
+                pageSize = parseInt(customPageSize);
+            }
+
             // Construct filter for Users
             let userFilter = {
                 is_active: 1,
@@ -39,12 +28,10 @@ const getAgentReportsSingleRow = [
             if (supervisor_id) {
                 userFilter.added_by = supervisor_id;
             }
-
-            if (Array.isArray(agent_id)) {
-                if (agent_id.length > 0) {
-                    userFilter.id = agent_id;
-                }
+            if (Array.isArray(agent_id) && agent_id.length > 0) {
+                userFilter.id = agent_id;
             }
+
             // Fetch user data based on filters
             const users = await User.findAll({
                 where: userFilter,
@@ -72,41 +59,15 @@ const getAgentReportsSingleRow = [
             // Fetch reports based on filters with pagination
             const { count, rows: reports } = await AgentData.findAndCountAll({
                 attributes: [
-                    [
-                        fn('SUM', col('IncomingCalls')),
-                        'IncomingCalls'
-                    ],
-                    [
-                        fn('SUM', col('MissedCalls')),
-                        'MissedCalls'
-                    ],
-                    [
-                        fn('SUM', col('NoAnswer')),
-                        'NoAnswer'
-                    ],
-                    [
-                        fn('SUM', col('Busy')),
-                        'Busy'
-                    ],
-                    [
-                        fn('SUM', col('Failed')),
-                        'Failed'
-                    ],
-                    [
-                        fn('SUM', col('OutgoingCalls')),
-                        'OutgoingCalls'
-                    ],
-                    [fn('AVG', col('DeviceOnPercent')), 
-                        'DeviceOnPercent'
-                    ],
-                    [
-                        fn('SUM', col('TotalCallDurationInMinutes')),
-                        'TotalCallDurationInMinutes'
-                    ],
-                    [
-                        fn('SUM', col('DeviceOnHumanReadableInSeconds')),
-                        'DeviceOnHumanReadableInSeconds'
-                    ],
+                    [fn('SUM', col('IncomingCalls')), 'IncomingCalls'],
+                    [fn('SUM', col('MissedCalls')), 'MissedCalls'],
+                    [fn('SUM', col('NoAnswer')), 'NoAnswer'],
+                    [fn('SUM', col('Busy')), 'Busy'],
+                    [fn('SUM', col('Failed')), 'Failed'],
+                    [fn('SUM', col('OutgoingCalls')), 'OutgoingCalls'],
+                    [fn('AVG', col('DeviceOnPercent')), 'DeviceOnPercent'],
+                    [fn('SUM', col('TotalCallDurationInMinutes')), 'TotalCallDurationInMinutes'],
+                    [fn('SUM', col('DeviceOnHumanReadableInSeconds')), 'DeviceOnHumanReadableInSeconds'],
                     [fn('COUNT', col('DeviceOnHumanReadableInSeconds')), 'TotalRowsCount'],
                     'DeviceOnHumanReadable',
                     'AgentPhoneNumber',
@@ -128,27 +89,28 @@ const getAgentReportsSingleRow = [
                 offset,
             });
 
+            
             // Calculate total pages
             const totalPages = Math.ceil(count.length / pageSize);
 
-            
-            let dataFinal =[];
+            // Process report data
+            let dataFinal = [];
             reports.forEach(report => {
-                var obj = {};
-                obj["avilable_time"] = secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds);
-                obj["non_avilable_time"] =secondsToDhms((((report.dataValues.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds ));
-                obj["on_call_timer"] =secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60);
-                obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls);
-                obj["missed_call_timer"] = report.MissedCalls;
-                obj["outgoing_call_timer"] = report.OutgoingCalls;
-                obj["user"] = report.user;
-                
+                const obj = {
+                    "avilable_time": secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds),
+                    "non_avilable_time": secondsToDhms(((report.dataValues.TotalRowsCount * 60 * 60) - report.DeviceOnHumanReadableInSeconds)),
+                    "on_call_timer": secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes * 60),
+                    "received_call_timer": calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
+                    "missed_call_timer": report.MissedCalls,
+                    "outgoing_call_timer": report.OutgoingCalls,
+                    "AgentPhoneNumber": report.AgentPhoneNumber,
+                    "user": report.user
+                };
                 dataFinal.push(obj);
             });
 
-            var resData = {
-                result: true,               
-                // data: reports,
+            const resData = {
+                result: true,
                 data: dataFinal,
                 totalItems: count.length,
                 totalPages: totalPages,
@@ -157,7 +119,6 @@ const getAgentReportsSingleRow = [
             };
             return res.status(200).json(resData);
 
-            //apiResponse.successResponseWithData(res, 'All details get successfully', response);
         } catch (error) {
             console.error('Error fetching reports:', error);
             apiResponse.ErrorResponse(res, "Error occurred during API call");
@@ -165,19 +126,15 @@ const getAgentReportsSingleRow = [
     },
 ];
 
-
-
 // Common Code
 function customTime(dateTimeString) {
     const date = new Date(dateTimeString);
     return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 }
 
-
 function calculateAbsoluteDifference(incomingCalls, missedCalls) {
     return Math.abs(incomingCalls - missedCalls);
 }
-
 
 function secondsToDhms(seconds) {
     seconds = Number(seconds);
@@ -194,8 +151,6 @@ function secondsToDhms(seconds) {
 }
 
 function secondsToDhmsForAvailableTimer(seconds) {
-
-    //var seconds = convertStringToSeconds(stringData);
     var d = Math.floor(seconds / (3600 * 24));
     var h = Math.floor(seconds % (3600 * 24) / 3600);
     var m = Math.floor(seconds % 3600 / 60);
@@ -207,40 +162,6 @@ function secondsToDhmsForAvailableTimer(seconds) {
     var sDisplay = s > 0 ? s : "00";
     return dDisplay + ":" + hDisplay + ":" + mDisplay + ":" + sDisplay;
 }
-
-function convertStringToSeconds(timeString) {
-    const timeUnits = {
-        'days': 0,
-        'hours': 0,
-        'minutes': 0,
-        'seconds': 0
-    };
-
-    const regex = /(\d+)\s*(days?|hours?|minutes?|seconds?)/gi;
-    let match;
-    while ((match = regex.exec(timeString)) !== null) {
-        const value = parseInt(match[1], 10);
-        const unit = match[2].toLowerCase();
-        if (unit.startsWith('day')) {
-            timeUnits['days'] = value;
-        } else if (unit.startsWith('hour')) {
-            timeUnits['hours'] = value;
-        } else if (unit.startsWith('minute')) {
-            timeUnits['minutes'] = value;
-        } else if (unit.startsWith('second')) {
-            timeUnits['seconds'] = value;
-        }
-    }
-
-    const daysToSeconds = timeUnits['days'] * 24 * 60 * 60;
-    const hoursToSeconds = timeUnits['hours'] * 60 * 60;
-    const minutesToSeconds = timeUnits['minutes'] * 60;
-    const seconds = timeUnits['seconds'];
-
-    return daysToSeconds + hoursToSeconds + minutesToSeconds + seconds;
-}
- 
-
 
 module.exports = {
     getAgentReportsSingleRow,
