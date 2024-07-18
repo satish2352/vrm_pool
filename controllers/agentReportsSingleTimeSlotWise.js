@@ -102,6 +102,7 @@ const getAgentReportsSingleRow = [
                             ],
                             'DeviceOnHumanReadable',
                             'AgentPhoneNumber',
+                            'timeRange',
                         
                         ],
                         where: reportFilter,

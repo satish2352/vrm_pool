@@ -106,6 +106,7 @@ const exportExcelTimeSlotWise = [
                         ],
                         'DeviceOnHumanReadable',
                         'AgentPhoneNumber',
+                        'timeRange',
                     ],
                     where: reportFilter,
                     group: ['AgentPhoneNumber'],

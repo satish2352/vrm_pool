@@ -113,6 +113,7 @@ const getSingleRowExportExcel = [
                     ],
                     'DeviceOnHumanReadable',
                     'AgentPhoneNumber',
+                    'timeRange',
                 ],
                 where: reportFilter,
                 group: ['AgentPhoneNumber'],

@@ -110,6 +110,7 @@ const getAgentReportsSingleRow = [
                     [fn('COUNT', col('DeviceOnHumanReadableInSeconds')), 'TotalRowsCount'],
                     'DeviceOnHumanReadable',
                     'AgentPhoneNumber',
+                    'timeRange',
                 ],
                 where: reportFilter,
                 group: ['AgentPhoneNumber'],
