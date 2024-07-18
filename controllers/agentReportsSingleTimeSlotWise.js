@@ -183,6 +183,7 @@ const getAgentReportsSingleRow = [
                 obj["user"] = report.user;
                 obj["createdAt"] = report.createdAt;
                 obj["updatedAt"] = report.updatedAt;        
+                obj["timeRange"] = report.timeRange;        
                 dataFinal.push(obj);
             });
 

@@ -142,6 +142,7 @@ const getAgentReportsSingleRow = [
                 obj["received_call_timer"] =calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls);
                 obj["missed_call_timer"] = report.MissedCalls;
                 obj["outgoing_call_timer"] = report.OutgoingCalls;
+                obj["timeRange"] = report.timeRange;
                 obj["user"] = report.user;
                 
                 dataFinal.push(obj);
