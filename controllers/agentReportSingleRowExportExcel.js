@@ -148,7 +148,7 @@ const getSingleRowExportExcel = [
                 { header: 'Received Calls', key: 'received_call_timer', width: 15 },
                 { header: 'Missed Calls', key: 'missed_call_timer', width: 15 },
                 { header: 'Outgoing Calls', key: 'outgoing_call_timer', width: 15 },
-                { header: 'Time Slot', key: 'timeslot', width: 15 },
+                // { header: 'Time Slot', key: 'timeslot', width: 15 },
 
             ];
             // Add rows
@@ -164,7 +164,7 @@ const getSingleRowExportExcel = [
                     received_call_timer: calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
-                    timeslot: report.timeRange,
+                    // timeslot: report.timeRange,
                 });
             });
             // Write to buffer
