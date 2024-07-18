@@ -74,7 +74,12 @@ const AgentData = dbObj.define('agentdata', {
   DeviceOnHumanReadableInSeconds: {
     type: DataTypes.INTEGER,
     allowNull: true
-  }
+  },
+  timeRange: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    default:''
+  },
 }, {
   // Other options here
 });

@@ -17,15 +17,10 @@ const getAgentReportsSingleRow = [
             let { page = 1 } = req.body;
             const customPageSize = req.body.pageSize;
             const pageSize = customPageSize || parseInt(process.env.PAGE_LENGTH, 10);
-
             const offset = (page - 1) * pageSize;
             const limit = pageSize;
-
             let processedCount = 0;
             const allReports = [];
-
-        
-
             var reportFilter = {
                 updatedAt: {
                     [Op.between]: [new Date(fromtime), new Date(totime)]

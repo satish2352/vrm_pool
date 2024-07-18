@@ -158,6 +158,7 @@ const readCSVFile = (filePath, url) => {
               data.user_id = user.id.toString();
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);
+              data.timeRange=getTimeRange(new Date());
               matchedResults.push(data);
             } 
             else 
@@ -165,6 +166,7 @@ const readCSVFile = (filePath, url) => {
               data.user_id = 0;
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);
+              data.timeRange=getTimeRange(new Date());
               data.message = "Relationship Manager Not Found";
               matchedResults.push(data);
               //notMatchedResults.push(data);
@@ -305,6 +307,32 @@ function convertTimeToSeconds(timeString) {
   
   return totalSeconds;
   
+}
+function getTimeRange(date) {
+  // Convert the date to GMT+5:30
+  const utcOffset = 5.5 * 60 * 60 * 1000; // Offset in milliseconds
+  const gmtDate = new Date(date.getTime() + utcOffset);
+
+  const hours = gmtDate.getUTCHours();
+  const minutes = gmtDate.getUTCMinutes();
+
+  const formatTime = (hour) => {
+      const period = hour >= 12 ? 'PM' : 'AM';
+      const adjustedHour = hour % 12 === 0 ? 12 : hour % 12;
+      return `${adjustedHour} ${period}`;
+  };
+  let startHour, endHour;
+  // Adjust the time range if data is received within 20 minutes past the hour
+  if (minutes >= 0 && minutes <= 20) {
+      startHour = hours === 0 ? 23 : hours - 1;
+      endHour = hours;
+  } else {
+      startHour = hours;
+      endHour = hours + 1;
+  }
+  const startTime = formatTime(startHour);
+  const endTime = formatTime(endHour);
+  return `${startTime}-${endTime}`;
 }
 
 module.exports = {
