@@ -13,9 +13,10 @@ const User = dbObj.define('user', {
     type:DataTypes.STRING,
     allowNull: false, // This is the default if required is not explicitly set
     validate: {
-      hasAtLeastSpaceAndCharacters(value) {
-        if (!/\s/.test(value) || value.length < 5) {
-          throw new Error('Please Enter Full Name');
+      hasAtLeastTwoAlphaOrSpecial(value) {
+        // Regular expression to check for at least two alphabets
+        if (!/[a-zA-Z]|[^\s\d]{2,}/.test(value) || value.length < 2) {
+          throw new Error('Name must be at least 2 characters long');
         }
       }
     }
