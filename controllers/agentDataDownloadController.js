@@ -155,6 +155,8 @@ const readCSVFile = (filePath, url) => {
              },
           }).then(user => {
             if (user) {
+              console.log(url);
+              data.fileUrl = url;
               data.user_id = user.id.toString();
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);
@@ -163,6 +165,8 @@ const readCSVFile = (filePath, url) => {
             } 
             else 
             {
+              console.log(url);
+              data.fileUrl = url;
               data.user_id = 0;
               data.AgentPhoneNumber = data.AgentPhoneNumber.slice(-10)
               data.DeviceOnHumanReadableInSeconds=convertTimeToSeconds(data.DeviceOnHumanReadable);

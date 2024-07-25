@@ -80,6 +80,10 @@ const AgentData = dbObj.define('agentdata', {
     allowNull: true,
     default:''
   },
+  fileUrl:{
+    type: DataTypes.STRING(2024),
+    allowNull: true,
+  }
 }, {
   // Other options here
 });
