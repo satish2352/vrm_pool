@@ -195,7 +195,7 @@ const exportExcelTimeSlotWise = [
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
                     timeslot: report.timeRange,
-                    date:report.createdAt
+                    date:`${fromtime}`
 
                 });
             });
