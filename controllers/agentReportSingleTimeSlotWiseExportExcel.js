@@ -107,6 +107,7 @@ const exportExcelTimeSlotWise = [
                         'DeviceOnHumanReadable',
                         'AgentPhoneNumber',
                         'timeRange',
+                        'createdAt'
                     ],
                     where: reportFilter,
                     group: ['AgentPhoneNumber'],
@@ -168,6 +169,7 @@ const exportExcelTimeSlotWise = [
                 { header: 'Missed Calls', key: 'missed_call_timer', width: 15 },
                 { header: 'Outgoing Calls', key: 'outgoing_call_timer', width: 15 },
                 { header: 'Time Slot', key: 'timeslot', width: 15 },
+                { header: 'Date', key: 'date', width: 15 },
 
             ];
 
@@ -193,6 +195,7 @@ const exportExcelTimeSlotWise = [
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
                     timeslot: report.timeRange,
+                    date:report.createdAt
 
                 });
             });
