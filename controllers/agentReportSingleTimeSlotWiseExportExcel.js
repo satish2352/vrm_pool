@@ -189,7 +189,7 @@ const exportExcelTimeSlotWise = [
                     avilable_time: secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds),
                     non_avilable_time: non_avilable_time,
                     on_call_timer: secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60),
-                    received_call_timer: calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
+                    received_call_timer: report.IncomingCalls,
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
                     timeslot: report.timeRange,

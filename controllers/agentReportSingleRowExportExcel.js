@@ -161,7 +161,7 @@ const getSingleRowExportExcel = [
                     avilable_time: secondsToDhmsForAvailableTimer(report.DeviceOnHumanReadableInSeconds),
                     non_avilable_time: secondsToDhms((((report.dataValues.TotalRowsCount*60)*60)  - report.DeviceOnHumanReadableInSeconds)),
                     on_call_timer: secondsToDhmsForAvailableTimer(report.TotalCallDurationInMinutes*60),
-                    received_call_timer: calculateAbsoluteDifference(report.IncomingCalls, report.MissedCalls),
+                    received_call_timer: report.IncomingCalls,
                     missed_call_timer: report.MissedCalls,
                     outgoing_call_timer: report.OutgoingCalls,
                     // timeslot: report.timeRange,
