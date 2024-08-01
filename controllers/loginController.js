@@ -96,9 +96,10 @@ const loginUser = [
                     
                         if(isLessThan5Minutes){
                             const userId = user.id;
-                            const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
-                            const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
-                           // const createdTokenx = await Token.create({ userId, token, expiration });
+                            const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '30m' });
+                            const expiration = new Date(Date.now() + 30 * 60 * 1000); // 30-minute expiration
+                            //const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
+                           
                             // Find an existing token for the user or create a new one if it doesn't exist
                             const [createdToken, created] = await Token.findOrCreate({
                                 where: { userId: userId },
@@ -124,9 +125,8 @@ const loginUser = [
                         }
                     }else{
                         const userId = user.id;
-                        const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '3h' });
-                        const expiration = new Date(Date.now() + 3 * 60 * 60 * 1000); // 3 hour expiration                
-                       // const createdTokenx = await Token.create({ userId, token, expiration });
+                        const token = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '30m' });
+                        const expiration = new Date(Date.now() + 30 * 60 * 1000); // 30-minute expiration      
                         // Find an existing token for the user or create a new one if it doesn't exist
                         const [createdToken, created] = await Token.findOrCreate({
                             where: { userId: userId },
