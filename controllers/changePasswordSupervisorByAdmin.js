@@ -37,7 +37,7 @@ const changePasswordForSupervisor = [
                         if (!userTobeUpdated) {
                             return res.status(404).json({ result: false, message: "User not found" });
                         }                    
-                            if (user_type==1) {
+                        if (user_type==1 && userTobeUpdated.user_type==2) {
                         const passwordCompare = await bcrypt.compare(req.body.password, userTobeUpdated.password);
                         if (passwordCompare) {
                             return res.status(400).json({ result: false, message: 'New password should not be same as old password' });
