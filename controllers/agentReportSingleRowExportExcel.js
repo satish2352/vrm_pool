@@ -133,8 +133,7 @@ const getSingleRowExportExcel = [
 
             if(reports.length<1)
             {
-                return res.status(201).json("No records found");
-            }
+                return res.status(200).json({result:false,message:"No records found"});            }
             
             // Generate Excel file
             const workbook = new ExcelJS.Workbook();
