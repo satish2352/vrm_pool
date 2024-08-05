@@ -133,7 +133,7 @@ const getSingleRowExportExcel = [
 
             if(reports.length<1)
             {
-                return apiResponse.ErrorResponse(res,"Da")
+                return res.status(201).json("No records found");
             }
             
             // Generate Excel file
