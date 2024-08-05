@@ -157,7 +157,7 @@ const exportExcelTimeSlotWise = [
 
             if(allReports.length<1)
             {
-                return res.status(200).json({result:false,message:"No records found"});
+                return res.send(200).json({result:false,message:"No records found"});   
             }
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Agent Reports');
