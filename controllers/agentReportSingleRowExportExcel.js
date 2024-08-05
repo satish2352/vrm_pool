@@ -131,9 +131,9 @@ const getSingleRowExportExcel = [
             });
 
 
-            if(!reports)
+            if(reports.length<1)
             {
-                return apiResponse.ErrorResponse(res,"Data not found")
+                return apiResponse.ErrorResponse(res,"Da")
             }
             
             // Generate Excel file

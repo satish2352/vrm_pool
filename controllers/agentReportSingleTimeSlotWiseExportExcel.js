@@ -155,7 +155,7 @@ const exportExcelTimeSlotWise = [
 
             }
 
-            if(!reports)
+            if(allReports.length<1)
             {
                     return apiResponse.ErrorResponse(res,"Data not found")
             }
