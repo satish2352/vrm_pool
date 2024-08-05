@@ -131,6 +131,11 @@ const getSingleRowExportExcel = [
             });
 
 
+            if(!reports)
+            {
+                return apiResponse.ErrorResponse(res,"Data not found")
+            }
+            
             // Generate Excel file
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet('Agent Reports');
@@ -151,6 +156,8 @@ const getSingleRowExportExcel = [
                 // { header: 'Time Slot', key: 'timeslot', width: 15 },
 
             ];
+
+
             // Add rows
             reports.forEach(report => {
                 
