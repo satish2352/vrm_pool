@@ -82,7 +82,7 @@ const getStats = [
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
                     required: true, // Use left outer join
                     on: {
-                        '$agentdata.AgentPhoneNumber$': { [Op.col]: 'User.mobile' }
+                        '$agentdata.AgentPhoneNumber$': { [Op.col]: 'user.mobile' }
                     }
                 }]
             });
