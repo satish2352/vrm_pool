@@ -80,7 +80,7 @@ const getStats = [
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
-                    required: false, // Use left outer join
+                    required: true, // Use left outer join
                     on: {
                         '$agentdata.AgentPhoneNumber$': { [Op.col]: 'User.mobile' }
                     }
