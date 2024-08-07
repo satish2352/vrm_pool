@@ -31,7 +31,7 @@ const getStats = [
                 const usersUnderSuperviser = await User.findAll({
                     where: userFilter,
                 });
-                
+
                 // Ensure userIds contains correct identifiers
                 const userIds = usersUnderSuperviser.map(user => user.mobile);
 
@@ -79,7 +79,7 @@ const getStats = [
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
-                    required: true, // Use left outer join
+                    required: false, // Use left outer join
                     on: {
                         '$AgentData.AgentPhoneNumber$': { [Op.col]: 'User.mobile' }
                     }
