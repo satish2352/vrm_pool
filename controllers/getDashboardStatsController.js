@@ -73,7 +73,7 @@ const getStats = [
                     [fn('SUM', col('TotalCallDurationInMinutes')), 'TotalCallDurationInMinutes'],
                     [fn('AVG', col('AverageHandlingTimeInMinutes')), 'AverageHandlingTimeInMinutes'],
                     [fn('AVG', col('DeviceOnPercent')), 'DeviceOnPercent'],
-                    AgentPhoneNumber,
+                    'AgentPhoneNumber',
                 ],
                 order: [['createdAt', 'DESC']],
                 where: reportFilter,
