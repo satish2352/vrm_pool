@@ -17,7 +17,7 @@ const getStats = [
             let userFilter = {
                 is_deleted: '0',
                 is_active: '1',
-                user_type: 3
+               
             };
 
             let reportFilter = {};
