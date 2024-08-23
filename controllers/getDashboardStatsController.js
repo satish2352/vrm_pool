@@ -41,6 +41,8 @@ const getStats = [
                             [Op.in]: userIds
                         }
                     };
+                }else{
+                    apiResponse.successResponseWithData(res, 'No records found');
                 }
             }
 
@@ -76,11 +78,7 @@ const getStats = [
                     'AgentPhoneNumber',
                 ],
                 order: [['createdAt', 'DESC']],
-                where: {
-                    ...reportFilter,
-                    // Ensure only records with valid associated users are included
-                    '$Users.id$': { [Op.ne]: null },
-                },
+                where: reportFilter,
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
