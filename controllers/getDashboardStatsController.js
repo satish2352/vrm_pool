@@ -76,7 +76,11 @@ const getStats = [
                     'AgentPhoneNumber',
                 ],
                 order: [['createdAt', 'DESC']],
-                where: reportFilter,
+                where: {
+                    ...reportFilter,
+                    // Ensure only records with valid associated users are included
+                    '$Users.id$': { [Op.ne]: null },
+                },
                 include: [{
                     model: User,
                     attributes: ['mobile', 'id', 'name', 'email', 'user_type', 'is_active'],
