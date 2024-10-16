@@ -127,7 +127,7 @@ const toggleDeviceStatus = [
             return res.status(500).json({
               result: false,
               message: "Something went wrong",
-              data: error.response.data,
+              data: error.response,
             });
           }
         }
