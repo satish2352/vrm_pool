@@ -53,7 +53,7 @@ const getUserList = [
 
       // Fetch users with pagination
       const { count, rows: reports } = await Users.findAndCountAll({
-        attributes: ['id', 'name', 'email', 'mobile', 'user_type', 'is_active', 'is_deleted'],
+        attributes: ['id', 'name', 'email', 'mobile', 'user_type', 'is_active', 'is_deleted','DeviceStatus'],
         where: userFilter,
         order: [['id', 'DESC']],
         limit,

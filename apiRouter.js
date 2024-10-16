@@ -34,6 +34,7 @@ const getAgentReportsSingleTimeSlotWiseExportExcel = require("./controllers/agen
 const getActiveAllUsersListWithoutPaginationController = require("./controllers/getActiveAllUsersListWithoutPaginationController");
 const getAgentSingleRowTestCtrl = require("./controllers/agentReportsSingleRowControllerTest");
 const getChangePasswordForSupervisor = require("./controllers/changePasswordSupervisorByAdmin");
+const getDeviceController = require("./controllers/deviceController");
 
 
 const { exec } = require('child_process');
@@ -73,6 +74,8 @@ router.post("/getActiveUserListWithoutPagination",getActiveAllUsersListWithoutPa
 router.post("/getSingleRowExportExcel",getAgentReportsSingleRowExportExcel.getSingleRowExportExcel);
 router.post("/getTimeSlotWiseExportExcel",getAgentReportsSingleTimeSlotWiseExportExcel.exportExcelTimeSlotWise);
 router.post("/changePasswordForSupervisor",getChangePasswordForSupervisor.changePasswordForSupervisor);
+router.post("/toggleDeviceStatus",getDeviceController.toggleDeviceStatus);
+router.post("/changeDeviceStatus",getDeviceController.changeDeviceStatus);
 
 
 
