@@ -107,7 +107,7 @@ const toggleDeviceStatus = [
           // Enhanced error handling
           if (error.response) {
             // Server responded with a status other than 2xx
-            console.error("Error response data:", error.response.data);
+            console.error("Error response data:", error.response);
             return res.status(400).json({
               result: false,
               message: "Error occurred",
