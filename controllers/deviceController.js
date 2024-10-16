@@ -60,7 +60,7 @@ const toggleDeviceStatus = [
             const putResponse = await makePutRequest(userId, deviceId, status);
 
         
-                if (response.response === null) {
+                if (response.data.response === null) {
                     console.log('No data available, response is null.');
                     return res.status(400).json({
                         result: false,
