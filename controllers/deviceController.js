@@ -58,6 +58,18 @@ const toggleDeviceStatus = [
             let userId = response.data.response[0].data.id;
             let deviceId = response.data.response[0].data.devices[0].id;
             const putResponse = await makePutRequest(userId, deviceId, status);
+
+        
+                if (response.response === null) {
+                    console.log('No data available, response is null.');
+                    return res.status(400).json({
+                        result: false,
+                        message: 'Request was successful but no data was found.',
+                        data: apiResponse.response || {}  // Fallback to an empty object if response is null
+                    });
+                }
+            
+
             if (putResponse) {
               if (status === true) {
                 user.DeviceStatus = 1;
@@ -68,7 +80,7 @@ const toggleDeviceStatus = [
               await user.save();
               return res.status(200).json({
                 result: true,
-                message: "PUT request successful",
+                message: "Device Status Updated",
                 data: putResponse.data,
               });
             } else {
