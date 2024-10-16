@@ -1,5 +1,5 @@
 const User = require("../models/Users");
-const { body,validationResult } = require("express-validator");
+const { body, validationResult } = require("express-validator");
 const apiResponse = require("../helpers/apiResponse");
 const axios = require("axios");
 const toggleDeviceStatus = [
@@ -54,24 +54,18 @@ const toggleDeviceStatus = [
           };
 
           const response = await axios.get(getUrl, { headers: getHeaders });
-          console.log('xxxxy',response.data)
+          if (response.data.response === null) {
+            console.log("No data available, response is null.");
+            return res.status(400).json({
+              result: false,
+              message: "No data available, response is null.",
+              data: apiResponse.response || {}, // Fallback to an empty object if response is null
+            });
+          }
           if (response.status === 200) {
             let userId = response.data.response[0].data.id;
             let deviceId = response.data.response[0].data.devices[0].id;
-           
-
-            console.log('xxxx',response.data)
-        
-                if (response.data.response === null) {
-                    console.log('No data available, response is null.');
-                    return res.status(400).json({
-                        result: false,
-                        message: 'Request was successful but no data was found.',
-                        data: apiResponse.response || {}  // Fallback to an empty object if response is null
-                    });
-                }
-                const putResponse = await makePutRequest(userId, deviceId, status);
-
+            const putResponse = await makePutRequest(userId, deviceId, status);
             if (putResponse) {
               if (status === true) {
                 user.DeviceStatus = 1;
