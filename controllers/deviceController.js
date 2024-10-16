@@ -59,6 +59,7 @@ const toggleDeviceStatus = [
             let deviceId = response.data.response[0].data.devices[0].id;
            
 
+            console.log('xxxx',response.data)
         
                 if (response.data.response === null) {
                     console.log('No data available, response is null.');
