@@ -57,7 +57,7 @@ const toggleDeviceStatus = [
           if (response.status === 200) {
             let userId = response.data.response[0].data.id;
             let deviceId = response.data.response[0].data.devices[0].id;
-            const putResponse = await makePutRequest(userId, deviceId, status);
+           
 
         
                 if (response.data.response === null) {
@@ -68,7 +68,7 @@ const toggleDeviceStatus = [
                         data: apiResponse.response || {}  // Fallback to an empty object if response is null
                     });
                 }
-            
+                const putResponse = await makePutRequest(userId, deviceId, status);
 
             if (putResponse) {
               if (status === true) {
