@@ -54,6 +54,7 @@ const toggleDeviceStatus = [
           };
 
           const response = await axios.get(getUrl, { headers: getHeaders });
+          console.log('xxxxy',response.data)
           if (response.status === 200) {
             let userId = response.data.response[0].data.id;
             let deviceId = response.data.response[0].data.devices[0].id;
