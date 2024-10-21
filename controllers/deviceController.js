@@ -59,7 +59,7 @@ const toggleDeviceStatus = [
             return res.status(400).json({
               result: false,
               message: "No data available, response is null.",
-              //data: apiResponse.response || {}, // Fallback to an empty object if response is null
+              data: apiResponse.response || {}, // Fallback to an empty object if response is null
             });
           }
           if (response.status === 200) {
@@ -77,7 +77,7 @@ const toggleDeviceStatus = [
               return res.status(200).json({
                 result: true,
                 message: "Device Status Updated",
-                //data: putResponse.data,
+                data: putResponse.data,
               });
             } else {
               console.error(
@@ -87,7 +87,7 @@ const toggleDeviceStatus = [
               return res.status(400).json({
                 result: false,
                 message: "PUT request failed",
-                //data: putResponse.data,
+                data: putResponse.data,
               });
             }
           } else {
@@ -96,7 +96,7 @@ const toggleDeviceStatus = [
             return res.status(400).json({
               result: false,
               message: "Response failed",
-              //data: response.data,
+              data: response.data,
             });
           }
         } catch (error) {
@@ -107,7 +107,7 @@ const toggleDeviceStatus = [
             return res.status(400).json({
               result: false,
               message: "Error occurred",
-              //data: error.response.data,
+              data: error.response.data,
             });
           } else if (error.request) {
             // The request was made but no response was received
@@ -115,7 +115,7 @@ const toggleDeviceStatus = [
             return res.status(500).json({
               result: false,
               message: "No response received from the server",
-             // data: null,
+              data: null,
             });
           } else {
             // Something happened while setting up the request
@@ -123,7 +123,7 @@ const toggleDeviceStatus = [
             return res.status(500).json({
               result: false,
               message: "Something went wrong",
-              //data: error,
+              data: error,
             });
           }
         }
@@ -155,14 +155,14 @@ async function makePutRequest(userId, deviceId, status) {
       return {
         result: true,
         message: "PUT request successful",
-        //data: putResponse.data,
+        data: putResponse.data,
       };
     } else {
       console.error("PUT request failed with status:", putResponse.status);
       return {
         result: false,
         message: "PUT request failed",
-        //data: putResponse.data,
+        data: putResponse.data,
       };
     }
   } catch (error) {
@@ -171,7 +171,7 @@ async function makePutRequest(userId, deviceId, status) {
     return {
       result: false,
       message: "Error during PUT request",
-      //data: null,
+      data: null,
     };
   }
 }
@@ -183,7 +183,7 @@ function handleError(error, res) {
     return res.status(400).json({
       result: false,
       message: "Error occurred",
-      //data: error.response.data,
+      data: error.response.data,
     });
   } else if (error.request) {
     // The request was made but no response was received
@@ -191,7 +191,7 @@ function handleError(error, res) {
     return res.status(500).json({
       result: false,
       message: "No response received from the server",
-      //data: null,
+      data: null,
     });
   } else {
     // Something happened while setting up the request
@@ -199,7 +199,7 @@ function handleError(error, res) {
     return res.status(500).json({
       result: false,
       message: "Error in request setup",
-      //data: null,
+      data: null,
     });
   }
 }
